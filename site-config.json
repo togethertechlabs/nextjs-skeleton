@@ -1,0 +1,28 @@
+{
+  "siteName": "Test Plumbing",
+  "location": "Manchester",
+  "industry": "Plumbing",
+  "hero": {
+    "headline": "Test Plumbing - Your Reliable Manchester Plumbing Solutions",
+    "subheadline": "We're dedicated to providing top-notch plumbing services in Manchester. From emergency repairs to regular maintenance, we've got you covered.",
+    "primaryCta": "Get a Quote",
+    "secondaryCta": "Call Now"
+  },
+  "services": [
+    {
+      "title": "Emergency Repairs",
+      "description": "Quick and reliable solutions for any plumbing emergencies in your home or business."
+    },
+    {
+      "title": "Regular Maintenance",
+      "description": "Keep your pipes clean and functioning smoothly with our regular maintenance services."
+    },
+    {
+      "title": "Pipe Installation",
+      "description": "Upgrade your plumbing system with new, durable pipes for improved efficiency and safety."
+    }
+  ],
+  "cta": {
+    "text": "Contact us today to schedule an appointment or learn more about how we can help with all your plumbing needs in Manchester!"
+  }
+}
