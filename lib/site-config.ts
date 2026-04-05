@@ -1,4 +1,6 @@
-import config from "@/site-config.json";
-import type { SiteConfig } from "./types";
+import rawConfig from '@/site-config.json';
+import { SiteConfig } from '@/lib/types';
 
-export const siteConfig = config as SiteConfig;
+export async function getSiteConfig(): Promise<SiteConfig> {
+  return rawConfig as SiteConfig;
+}

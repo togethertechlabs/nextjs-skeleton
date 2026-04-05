@@ -1,20 +1,26 @@
-import "./globals.css";
-import type { Metadata } from "next";
-import { siteConfig } from "@/lib/site-config";
+import './globals.css';
+import { getSiteConfig } from '@/lib/site-config';
+import { buildMetadata } from '@/lib/seo';
+import { buildLocalBusinessSchema } from '@/lib/schema';
 
-export const metadata: Metadata = {
-  title: `${siteConfig.siteName} | ${siteConfig.location}`,
-  description: siteConfig.hero.subheadline,
-};
+export async function generateMetadata() {
+  const config = await getSiteConfig();
+  return buildMetadata(config);
+}
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const config = await getSiteConfig();
+  const schema = buildLocalBusinessSchema(config);
+
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

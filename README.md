@@ -1,22 +1,25 @@
-# Next.js Business Template
+# nextjs-skeleton
 
-A reusable Next.js business website template powered by a single `site-config.json` file.
+Premium multi-section Next.js business template for automated site generation.
 
-## Quick start
+## Features
+- top info bar and sticky navbar
+- premium hero with overlay background
+- trust bar
+- services, about, coverage, testimonials, FAQ, CTA, footer
+- config-driven content via `site-config.json`
+- theme support
+- metadata, sitemap, robots, LocalBusiness schema
+
+## Getting started
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Update site content
-
-Edit `site-config.json`.
-
-## Includes
-
-- Next.js App Router
-- TypeScript
-- Tailwind CSS
-- Reusable section components
-- Health endpoint at `/api/health`
+## Automation notes
+This template is designed to work with an external workflow that:
+1. creates a repo from this template
+2. replaces `site-config.json`
+3. deploys to Vercel

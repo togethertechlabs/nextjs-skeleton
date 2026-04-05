@@ -1,28 +1,94 @@
 {
-  "siteName": "Test Plumbing",
-  "location": "Manchester",
-  "industry": "Plumbing",
-  "hero": {
-    "headline": "Test Plumbing - Your Reliable Manchester Plumbing Solutions",
-    "subheadline": "We're dedicated to providing top-notch plumbing services in Manchester. From emergency repairs to regular maintenance, we've got you covered.",
-    "primaryCta": "Get a Quote",
-    "secondaryCta": "Call Now"
+  "brand": {
+    "name": "JG Technical Ltd",
+    "legalName": "JG Technical Ltd",
+    "industry": "HGV Fleet Specialists",
+    "location": "Lancashire & Greater Manchester",
+    "tagline": "We keep it moving.",
+    "phone": "07899947762",
+    "email": "info@example.com",
+    "primaryColor": "#facc15",
+    "secondaryColor": "#020617",
+    "accentColor": "#ffffff",
+    "theme": "industrial-dark",
+    "logoText": "JG Technical"
   },
+  "seo": {
+    "title": "JG Technical Ltd | Lancashire & Manchester HGV Specialists",
+    "description": "Mobile HGV and fleet specialists serving Lancashire and Greater Manchester.",
+    "keywords": ["HGV specialists", "fleet maintenance", "Lancashire", "Manchester"],
+    "canonical": "https://example.com"
+  },
+  "hero": {
+    "eyebrow": "Lancashire & Greater Manchester",
+    "badge": "HGV & Fleet Specialists, Fully Mobile",
+    "headline": "JG Technical Ltd",
+    "highlight": "We keep it moving.",
+    "subheadline": "Fast, reliable, mobile support for HGV and fleet operators.",
+    "primaryCta": "Call Now",
+    "secondaryCta": "Request a Quote",
+    "backgroundImage": "/images/hero/industrial-dark.svg"
+  },
+  "trustBar": [
+    { "label": "First-Time", "subtext": "Diagnosis" },
+    { "label": "Fast", "subtext": "Turnaround" },
+    { "label": "All Makes", "subtext": "& Models" },
+    { "label": "Lancs & MCR", "subtext": "Service Area" }
+  ],
   "services": [
     {
-      "title": "Emergency Repairs",
-      "description": "Quick and reliable solutions for any plumbing emergencies in your home or business."
+      "title": "Fleet Diagnostics",
+      "description": "Fast diagnosis to identify faults and reduce costly downtime."
     },
     {
-      "title": "Regular Maintenance",
-      "description": "Keep your pipes clean and functioning smoothly with our regular maintenance services."
+      "title": "Mobile Repairs",
+      "description": "On-site mechanical support to keep your vehicles moving."
     },
     {
-      "title": "Pipe Installation",
-      "description": "Upgrade your plumbing system with new, durable pipes for improved efficiency and safety."
+      "title": "Preventive Maintenance",
+      "description": "Planned service support to reduce breakdown risk."
+    }
+  ],
+  "about": {
+    "heading": "Built for fleet uptime",
+    "body": "We support operators who need reliable, fast-response service with minimal downtime.",
+    "bullets": [
+      "Mobile support",
+      "Commercial vehicle focus",
+      "Fast callout response"
+    ]
+  },
+  "coverage": {
+    "heading": "Where we work",
+    "areas": ["Lancashire", "Greater Manchester", "North West"]
+  },
+  "testimonials": [
+    {
+      "name": "A. Patel",
+      "quote": "Fast turnaround and proper professional support when we needed it most."
+    },
+    {
+      "name": "M. Holmes",
+      "quote": "Professional, responsive and easy to deal with from first call to fix."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Do you offer mobile callouts?",
+      "answer": "Yes, we provide mobile support across our coverage area."
+    },
+    {
+      "question": "What vehicles do you work on?",
+      "answer": "We support commercial vehicles, HGV fleets and multiple makes and models."
     }
   ],
   "cta": {
-    "text": "Contact us today to schedule an appointment or learn more about how we can help with all your plumbing needs in Manchester!"
+    "heading": "Ready to get started?",
+    "body": "Call now or request a quote and we will get back to you quickly.",
+    "button": "Contact Us"
+  },
+  "footer": {
+    "copyright": "© 2026 JG Technical Ltd.",
+    "serviceText": "Serving Lancashire & Greater Manchester."
   }
 }
