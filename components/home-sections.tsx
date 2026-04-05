@@ -19,6 +19,16 @@ const sections = {
   cta: <CtaBanner />
 } as const;
 
+type SectionKey = keyof typeof sections;
+
 export function HomeSections() {
-  return <>{siteConfig.layout.sectionOrder.map((key) => <div key={key}>{sections[key]}</div>)}</>;
+  return (
+    <>
+      {siteConfig.layout.sectionOrder
+        .filter((key): key is SectionKey => key in sections)
+        .map((key) => (
+          <div key={key}>{sections[key]}</div>
+        ))}
+    </>
+  );
 }
