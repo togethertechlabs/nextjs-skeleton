@@ -1,94 +1,155 @@
 {
   "brand": {
-    "name": "JG Technical Ltd",
-    "legalName": "JG Technical Ltd",
-    "industry": "HGV Fleet Specialists",
-    "location": "Lancashire & Greater Manchester",
-    "tagline": "We keep it moving.",
-    "phone": "07899947762",
-    "email": "info@example.com",
-    "primaryColor": "#facc15",
-    "secondaryColor": "#020617",
-    "accentColor": "#ffffff",
-    "theme": "industrial-dark",
-    "logoText": "JG Technical"
+    "name": "Titan Flow Plumbing",
+    "legalName": "Titan Flow Plumbing Ltd",
+    "industry": "Plumbing",
+    "location": "Manchester",
+    "tagline": "Fast response. Premium finish. Clear communication.",
+    "phone": "0161 555 0123",
+    "email": "hello@titanflow.co.uk",
+    "primaryColor": "#2563EB",
+    "secondaryColor": "#0F172A",
+    "accentColor": "#F59E0B",
+    "theme": "trade-blue"
+  },
+  "layout": {
+    "theme": "trade-blue",
+    "headerVariant": "header-a",
+    "heroVariant": "hero-b",
+    "servicesVariant": "services-c",
+    "aboutVariant": "about-a",
+    "coverageVariant": "coverage-b",
+    "testimonialsVariant": "testimonials-a",
+    "faqVariant": "faq-b",
+    "ctaVariant": "cta-c",
+    "footerVariant": "footer-a",
+    "copyStyle": "family-run-trust",
+    "sectionOrder": [
+      "hero",
+      "trustBar",
+      "services",
+      "about",
+      "coverage",
+      "testimonials",
+      "faq",
+      "cta"
+    ]
   },
   "seo": {
-    "title": "JG Technical Ltd | Lancashire & Manchester HGV Specialists",
-    "description": "Mobile HGV and fleet specialists serving Lancashire and Greater Manchester.",
-    "keywords": ["HGV specialists", "fleet maintenance", "Lancashire", "Manchester"],
+    "title": "Emergency Plumber in Manchester | Titan Flow Plumbing",
+    "description": "Titan Flow Plumbing provides emergency plumbing, boiler repairs, leak detection and premium plumbing services across Manchester, Stockport and Salford.",
+    "keywords": [
+      "emergency plumber Manchester",
+      "boiler repairs Manchester",
+      "plumber Stockport",
+      "plumber Salford"
+    ],
     "canonical": "https://example.com"
   },
+  "images": {
+    "logo": "/images/logos/default-trade-logo.svg",
+    "hero": "/images/hero/plumbing-2.svg",
+    "about": "/images/about/plumbing-team-1.svg",
+    "services": [
+      "/images/services/plumbing-emergency-1.svg",
+      "/images/services/plumbing-boiler-1.svg",
+      "/images/services/plumbing-install-1.svg"
+    ]
+  },
   "hero": {
-    "eyebrow": "Lancashire & Greater Manchester",
-    "badge": "HGV & Fleet Specialists, Fully Mobile",
-    "headline": "JG Technical Ltd",
-    "highlight": "We keep it moving.",
-    "subheadline": "Fast, reliable, mobile support for HGV and fleet operators.",
-    "primaryCta": "Call Now",
-    "secondaryCta": "Request a Quote",
-    "backgroundImage": "/images/hero/industrial-dark.svg"
+    "eyebrow": "Emergency plumbing",
+    "badge": "24/7 service",
+    "headline": "Titan Flow Plumbing - Your trusted emergency plumber in Manchester",
+    "highlight": "Family-run, premium finish, and expert service.",
+    "subheadline": "Get quick, reliable plumbing solutions for your home or business.",
+    "primaryCta": "Book Now: 0161 555 0123",
+    "secondaryCta": "Contact Us",
+    "backgroundImage": "/images/hero/plumbing-2.svg"
   },
   "trustBar": [
-    { "label": "First-Time", "subtext": "Diagnosis" },
-    { "label": "Fast", "subtext": "Turnaround" },
-    { "label": "All Makes", "subtext": "& Models" },
-    { "label": "Lancs & MCR", "subtext": "Service Area" }
+    {
+      "label": "24/7 Emergency Response",
+      "subtext": "Fast attendance when it matters"
+    },
+    {
+      "label": "Family-Run Business",
+      "subtext": "Friendly, accountable local team"
+    },
+    {
+      "label": "Premium Finish",
+      "subtext": "Neat workmanship on every visit"
+    },
+    {
+      "label": "Expert Plumbers",
+      "subtext": "Experienced across repairs and installs"
+    }
   ],
   "services": [
     {
-      "title": "Fleet Diagnostics",
-      "description": "Fast diagnosis to identify faults and reduce costly downtime."
+      "title": "Boiler Repairs",
+      "description": "Efficient and reliable boiler repairs for your home or business.",
+      "slug": "boiler-repairs"
     },
     {
-      "title": "Mobile Repairs",
-      "description": "On-site mechanical support to keep your vehicles moving."
+      "title": "Emergency Plumbing",
+      "description": "Quick response to any plumbing emergencies, day or night.",
+      "slug": "emergency-plumbing"
     },
     {
-      "title": "Preventive Maintenance",
-      "description": "Planned service support to reduce breakdown risk."
+      "title": "Premium Finish",
+      "description": "High-quality materials and finishes to ensure durability and style.",
+      "slug": "premium-finish"
     }
   ],
   "about": {
-    "heading": "Built for fleet uptime",
-    "body": "We support operators who need reliable, fast-response service with minimal downtime.",
+    "heading": "About Titan Flow Plumbing",
+    "body": "Titan Flow Plumbing is a family-run business dedicated to providing premium plumbing services in Manchester. Our team of expert plumbers offers 24/7 emergency response, ensuring your home or business remains safe and functional.",
     "bullets": [
-      "Mobile support",
-      "Commercial vehicle focus",
-      "Fast callout response"
+      "Family-owned and operated",
+      "24/7 emergency service available",
+      "Premium finish on all work"
     ]
   },
   "coverage": {
-    "heading": "Where we work",
-    "areas": ["Lancashire", "Greater Manchester", "North West"]
+    "heading": "Our Service Area",
+    "areas": [
+      "Manchester",
+      "Stockport",
+      "Salford"
+    ]
   },
   "testimonials": [
     {
-      "name": "A. Patel",
-      "quote": "Fast turnaround and proper professional support when we needed it most."
+      "name": "John Doe",
+      "quote": "Titan Flow Plumbing was a lifesaver when my boiler broke down. They responded quickly and fixed it with precision."
     },
     {
-      "name": "M. Holmes",
-      "quote": "Professional, responsive and easy to deal with from first call to fix."
+      "name": "Jane Smith",
+      "quote": "I've used Titan Flow Plumbing for several repairs, and they have always been professional and courteous. Highly recommend!"
     }
   ],
   "faq": [
     {
-      "question": "Do you offer mobile callouts?",
-      "answer": "Yes, we provide mobile support across our coverage area."
+      "question": "What services do you offer?",
+      "answer": "We cover emergency plumbing, boiler repairs, leak detection, maintenance and premium finish installations."
     },
     {
-      "question": "What vehicles do you work on?",
-      "answer": "We support commercial vehicles, HGV fleets and multiple makes and models."
+      "question": "How quickly can you respond to emergencies?",
+      "answer": "We aim to respond as quickly as possible across Manchester and nearby areas, with emergency availability 24/7."
+    },
+    {
+      "question": "What makes your service premium?",
+      "answer": "Clear communication, tidy workmanship, strong aftercare and a focus on long-term reliability."
     }
   ],
   "cta": {
-    "heading": "Ready to get started?",
-    "body": "Call now or request a quote and we will get back to you quickly.",
-    "button": "Contact Us"
+    "heading": "Ready for Reliable Plumbing Solutions?",
+    "body": "Don't let a plumbing issue ruin your day. Book now or contact us today.",
+    "button": "Get Started"
   },
   "footer": {
-    "copyright": "© 2026 JG Technical Ltd.",
-    "serviceText": "Serving Lancashire & Greater Manchester."
+    "copyright": "\u00a9 2026 Titan Flow Plumbing. All rights reserved.",
+    "serviceText": "Emergency plumber Manchester | Premium Service",
+    "address": "Manchester"
   }
 }
