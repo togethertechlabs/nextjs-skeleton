@@ -1,23 +1,24 @@
-import { AboutSection } from '@/components/about-section';
-import { CoverageSection } from '@/components/coverage-section';
-import { CtaBanner } from '@/components/cta-banner';
-import { FaqSection } from '@/components/faq-section';
-import { HeroSection } from '@/components/hero-section';
-import { ServicesSection } from '@/components/services-section';
-import { TestimonialsSection } from '@/components/testimonials-section';
-import { TrustBar } from '@/components/trust-bar';
-import { siteConfig } from '@/lib/site-config';
+import { ReactNode } from "react";
+import { AboutSection } from "@/components/sections/about-section";
+import { CoverageSection } from "@/components/sections/coverage-section";
+import { CtaSection } from "@/components/sections/cta-section";
+import { FaqSection } from "@/components/sections/faq-section";
+import { HeroSection } from "@/components/sections/hero-section";
+import { ServicesSection } from "@/components/sections/services-section";
+import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { TrustBarSection } from "@/components/sections/trust-bar-section";
+import { siteConfig } from "@/lib/site-config";
 
 const sections = {
   hero: <HeroSection />,
-  trustBar: <TrustBar />,
+  trustBar: <TrustBarSection />,
   services: <ServicesSection />,
   about: <AboutSection />,
   coverage: <CoverageSection />,
   testimonials: <TestimonialsSection />,
   faq: <FaqSection />,
-  cta: <CtaBanner />
-} as const;
+  cta: <CtaSection />
+} as const satisfies Record<string, ReactNode>;
 
 type SectionKey = keyof typeof sections;
 

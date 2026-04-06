@@ -1,24 +1,24 @@
-import rawSiteConfig from '@/site-config.json';
+import rawSiteConfig from "@/site-config.json";
 
 export type ThemeName =
-  | 'trade-blue'
-  | 'industrial-dark'
-  | 'slate-premium'
-  | 'electric-amber'
-  | 'graphite-red'
-  | 'construction-orange'
-  | 'stone-premium'
-  | 'clean-light';
+  | "trade-blue"
+  | "industrial-dark"
+  | "slate-premium"
+  | "electric-amber"
+  | "graphite-red"
+  | "construction-orange"
+  | "stone-premium"
+  | "clean-light";
 
 export type SectionName =
-  | 'hero'
-  | 'trustBar'
-  | 'services'
-  | 'about'
-  | 'coverage'
-  | 'testimonials'
-  | 'faq'
-  | 'cta';
+  | "hero"
+  | "trustBar"
+  | "services"
+  | "about"
+  | "coverage"
+  | "testimonials"
+  | "faq"
+  | "cta";
 
 export type ServiceItem = {
   slug: string;
@@ -141,27 +141,42 @@ export type SiteConfig = {
 
 export const siteConfig = rawSiteConfig as SiteConfig;
 
+export function toSlug(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
 export function getServiceBySlug(slug: string) {
   return siteConfig.services.find((service) => service.slug === slug);
 }
 
-export function getAreaBySlug(slug: string) {
-  return siteConfig.coverage.areas.find((area) => {
-    if (typeof area === 'string') {
-      return area.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug;
-    }
-
-    if (area.slug) {
-      return area.slug === slug;
-    }
-
-    return area.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug;
-  });
+export function getAreaSlug(area: CoverageArea) {
+  if (typeof area === "string") return toSlug(area);
+  return area.slug || toSlug(area.name);
 }
 
-export function getCanonical(path = '') {
-  const base = siteConfig.seo.canonical.replace(/\/$/, '');
-  return path ? `${base}/${path.replace(/^\//, '')}` : base;
+export function getAreaName(area: CoverageArea) {
+  return typeof area === "string" ? area : area.name;
+}
+
+export function getAreaSummary(area: CoverageArea) {
+  if (typeof area === "string") return `${siteConfig.brand.name} provides trusted services in ${area}.`;
+  return area.summary || `${siteConfig.brand.name} provides trusted services in ${area.name}.`;
+}
+
+export function getAreaIntro(area: CoverageArea) {
+  if (typeof area === "string") {
+    return `${siteConfig.brand.name} supports customers across ${area} with reliable service, strong presentation and local expertise.`;
+  }
+  return area.intro || `${siteConfig.brand.name} supports customers across ${area.name} with reliable service, strong presentation and local expertise.`;
+}
+
+export function getAreaBySlug(slug: string) {
+  return siteConfig.coverage.areas.find((area) => getAreaSlug(area) === slug);
+}
+
+export function getCanonical(path = "") {
+  const base = siteConfig.seo.canonical.replace(/\/$/, "");
+  return path ? `${base}/${path.replace(/^\//, "")}` : base;
 }
 
 export function getThemeClass(theme: ThemeName) {

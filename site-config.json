@@ -4,26 +4,34 @@
     "legalName": "Titan Flow Plumbing Ltd",
     "industry": "Plumbing",
     "location": "Manchester",
-    "tagline": "Fast response. Premium finish. Clear communication.",
     "phone": "0161 555 0123",
     "email": "hello@titanflow.co.uk",
-    "primaryColor": "#2563EB",
-    "secondaryColor": "#0F172A",
-    "accentColor": "#F59E0B",
-    "theme": "trade-blue"
+    "tagline": "Emergency plumber Manchester | Premium service | Family-run",
+    "eyebrow": "Emergency Plumbing",
+    "badge": "24/7 Response"
+  },
+  "seo": {
+    "title": "Emergency Plumber Manchester | Titan Flow Plumbing",
+    "description": "Fast-response plumbing and boiler repair in Manchester with a premium, family-run service.",
+    "keywords": [
+      "emergency plumber Manchester",
+      "boiler repair Manchester",
+      "24/7 plumber Manchester",
+      "family-run plumber"
+    ],
+    "canonical": "https://example.com"
   },
   "layout": {
     "theme": "trade-blue",
     "headerVariant": "header-a",
     "heroVariant": "hero-b",
-    "servicesVariant": "services-c",
+    "servicesVariant": "services-b",
     "aboutVariant": "about-a",
-    "coverageVariant": "coverage-b",
+    "coverageVariant": "coverage-a",
     "testimonialsVariant": "testimonials-a",
-    "faqVariant": "faq-b",
-    "ctaVariant": "cta-c",
+    "faqVariant": "faq-a",
+    "ctaVariant": "cta-b",
     "footerVariant": "footer-a",
-    "copyStyle": "family-run-trust",
     "sectionOrder": [
       "hero",
       "trustBar",
@@ -35,121 +43,142 @@
       "cta"
     ]
   },
-  "seo": {
-    "title": "Emergency Plumber in Manchester | Titan Flow Plumbing",
-    "description": "Titan Flow Plumbing provides emergency plumbing, boiler repairs, leak detection and premium plumbing services across Manchester, Stockport and Salford.",
-    "keywords": [
-      "emergency plumber Manchester",
-      "boiler repairs Manchester",
-      "plumber Stockport",
-      "plumber Salford"
-    ],
-    "canonical": "https://example.com"
-  },
   "images": {
-    "logo": "/images/logos/default-trade-logo.svg",
-    "hero": "/images/hero/plumbing-2.svg",
-    "about": "/images/about/plumbing-team-1.svg",
+    "folder": "plumbing",
+    "hero": "/images/plumbing/hero-1.svg",
+    "about": "/images/plumbing/about-1.svg",
     "services": [
-      "/images/services/plumbing-emergency-1.svg",
-      "/images/services/plumbing-boiler-1.svg",
-      "/images/services/plumbing-install-1.svg"
+      "/images/plumbing/service-1.svg",
+      "/images/plumbing/service-2.svg",
+      "/images/plumbing/service-3.svg"
     ]
   },
+  "trustBar": [
+    { "label": "24/7 Emergency Response", "subtext": "Same-day callouts across Greater Manchester" },
+    { "label": "Family-Run Business", "subtext": "Clear communication from quote to completion" },
+    { "label": "Premium Finish", "subtext": "High standards on repairs and installations" },
+    { "label": "Trusted Local Team", "subtext": "Dependable support for homes and businesses" }
+  ],
   "hero": {
-    "eyebrow": "Emergency plumbing",
-    "badge": "24/7 service",
+    "eyebrow": "Emergency Plumbing",
+    "badge": "24/7 Service",
     "headline": "Titan Flow Plumbing - Your trusted emergency plumber in Manchester",
     "highlight": "Family-run, premium finish, and expert service.",
     "subheadline": "Get quick, reliable plumbing solutions for your home or business.",
-    "primaryCta": "Book Now: 0161 555 0123",
-    "secondaryCta": "Contact Us",
-    "backgroundImage": "/images/hero/plumbing-2.svg"
+    "primaryCta": "Book Now",
+    "secondaryCta": "Get a Quote"
   },
-  "trustBar": [
-    {
-      "label": "24/7 Emergency Response",
-      "subtext": "Fast attendance when it matters"
-    },
-    {
-      "label": "Family-Run Business",
-      "subtext": "Friendly, accountable local team"
-    },
-    {
-      "label": "Premium Finish",
-      "subtext": "Neat workmanship on every visit"
-    },
-    {
-      "label": "Expert Plumbers",
-      "subtext": "Experienced across repairs and installs"
-    }
-  ],
+  "servicesIntro": {
+    "eyebrow": "Services",
+    "heading": "Premium support built around uptime",
+    "body": "High-trust, high-response service positioning with cards designed to feel more agency-built than starter-template."
+  },
   "services": [
     {
-      "title": "Boiler Repairs",
-      "description": "Efficient and reliable boiler repairs for your home or business.",
-      "slug": "boiler-repairs"
-    },
-    {
+      "slug": "emergency-plumbing",
       "title": "Emergency Plumbing",
-      "description": "Quick response to any plumbing emergencies, day or night.",
-      "slug": "emergency-plumbing"
+      "short": "Quick response to urgent leaks, burst pipes and loss of water pressure.",
+      "description": "Rapid-response emergency plumbing for homes and businesses that need a dependable local specialist.",
+      "bullets": ["Burst pipes", "Leak tracing", "Emergency callouts"],
+      "cta": "Request urgent help"
     },
     {
-      "title": "Premium Finish",
-      "description": "High-quality materials and finishes to ensure durability and style.",
-      "slug": "premium-finish"
+      "slug": "boiler-repairs",
+      "title": "Boiler Repairs",
+      "short": "Efficient boiler fault finding with honest recommendations and quality workmanship.",
+      "description": "Boiler diagnostics and repairs with clear communication, tidy work and realistic turnaround times.",
+      "bullets": ["Fault diagnosis", "Component replacement", "Performance checks"],
+      "cta": "Book a boiler visit"
+    },
+    {
+      "slug": "bathroom-installation",
+      "title": "Bathroom Installation",
+      "short": "Premium installations with a polished finish and reliable aftercare.",
+      "description": "Bathroom upgrades and installations tailored to homes that want a premium finish and dependable project handling.",
+      "bullets": ["Planning support", "Fixture installation", "Finishing work"],
+      "cta": "Plan your bathroom project"
     }
   ],
   "about": {
+    "eyebrow": "About",
     "heading": "About Titan Flow Plumbing",
-    "body": "Titan Flow Plumbing is a family-run business dedicated to providing premium plumbing services in Manchester. Our team of expert plumbers offers 24/7 emergency response, ensuring your home or business remains safe and functional.",
-    "bullets": [
+    "body": "Titan Flow Plumbing is a family-run business dedicated to providing premium plumbing services in Manchester. Our team focuses on rapid response, clean workmanship and a service standard that feels reassuring from the first call.",
+    "highlights": [
       "Family-owned and operated",
       "24/7 emergency service available",
       "Premium finish on all work"
-    ]
+    ],
+    "cardEyebrow": "Why clients choose us",
+    "cardTitle": "Fast response. Clear communication. Strong presentation.",
+    "cardBody": "This section is designed to feel substantial, premium and highly credible even before bespoke edits are added."
   },
   "coverage": {
-    "heading": "Our Service Area",
+    "eyebrow": "Coverage",
+    "heading": "Our service area",
+    "body": "Local confidence matters. This section reinforces service area and helps with local SEO intent.",
     "areas": [
-      "Manchester",
-      "Stockport",
-      "Salford"
+      {
+        "slug": "manchester",
+        "name": "Manchester",
+        "summary": "Rapid-response plumbing support across Manchester.",
+        "intro": "Manchester households and businesses choose Titan Flow Plumbing for emergency response, clean workmanship and a premium finish."
+      },
+      {
+        "slug": "stockport",
+        "name": "Stockport",
+        "summary": "Trusted callouts and planned plumbing work in Stockport.",
+        "intro": "Titan Flow Plumbing supports Stockport with responsive service and a dependable, family-run approach."
+      },
+      {
+        "slug": "salford",
+        "name": "Salford",
+        "summary": "Premium plumbing support in Salford.",
+        "intro": "From urgent leaks to planned upgrades, Titan Flow Plumbing helps Salford clients with a polished service experience."
+      }
     ]
   },
-  "testimonials": [
-    {
-      "name": "John Doe",
-      "quote": "Titan Flow Plumbing was a lifesaver when my boiler broke down. They responded quickly and fixed it with precision."
-    },
-    {
-      "name": "Jane Smith",
-      "quote": "I've used Titan Flow Plumbing for several repairs, and they have always been professional and courteous. Highly recommend!"
-    }
-  ],
-  "faq": [
-    {
-      "question": "What services do you offer?",
-      "answer": "We cover emergency plumbing, boiler repairs, leak detection, maintenance and premium finish installations."
-    },
-    {
-      "question": "How quickly can you respond to emergencies?",
-      "answer": "We aim to respond as quickly as possible across Manchester and nearby areas, with emergency availability 24/7."
-    },
-    {
-      "question": "What makes your service premium?",
-      "answer": "Clear communication, tidy workmanship, strong aftercare and a focus on long-term reliability."
-    }
-  ],
+  "testimonials": {
+    "eyebrow": "Testimonials",
+    "heading": "Social proof that feels sales-ready",
+    "body": "Short, clean testimonials help the site feel established and conversion-ready from day one.",
+    "items": [
+      {
+        "name": "John D",
+        "quote": "Titan Flow Plumbing was a lifesaver when my boiler broke down. They responded quickly and fixed it with precision."
+      },
+      {
+        "name": "Jane S",
+        "quote": "I've used Titan Flow Plumbing for several repairs, and they have always been professional and courteous. Highly recommend."
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "heading": "Answers that reduce friction",
+    "body": "Built-in FAQ improves conversion confidence and gives the generator more SEO depth.",
+    "items": [
+      {
+        "question": "What services do you offer?",
+        "answer": "We handle emergency plumbing, boiler repairs, installations and a range of domestic and commercial plumbing support."
+      },
+      {
+        "question": "How quickly can you respond to emergencies?",
+        "answer": "We aim to provide rapid response for urgent callouts across our service area, subject to availability and job severity."
+      },
+      {
+        "question": "What makes your service premium?",
+        "answer": "Clients choose us for tidy workmanship, better communication, clear quoting and a polished overall service experience."
+      }
+    ]
+  },
   "cta": {
-    "heading": "Ready for Reliable Plumbing Solutions?",
+    "eyebrow": "Ready to get started?",
+    "heading": "Ready for reliable plumbing solutions?",
     "body": "Don't let a plumbing issue ruin your day. Book now or contact us today.",
     "button": "Get Started"
   },
   "footer": {
-    "copyright": "\u00a9 2026 Titan Flow Plumbing. All rights reserved.",
-    "serviceText": "Emergency plumber Manchester | Premium Service",
-    "address": "Manchester"
+    "microcopy": "Emergency plumber Manchester | Premium service",
+    "copyright": "© 2026 Titan Flow Plumbing. All rights reserved."
   }
 }

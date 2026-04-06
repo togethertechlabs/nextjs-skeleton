@@ -1,13 +1,12 @@
-import { MetadataRoute } from 'next';
-import { siteConfig } from '@/lib/site-config';
+import type { MetadataRoute } from "next";
+import { siteConfig } from "@/lib/site-config";
 
 export default function robots(): MetadataRoute.Robots {
-  const canonical = siteConfig.seo.canonical || 'https://example.com';
   return {
     rules: {
-      userAgent: '*',
-      allow: '/'
+      userAgent: "*",
+      allow: "/"
     },
-    sitemap: `${canonical}/sitemap.xml`
+    sitemap: `${siteConfig.seo.canonical.replace(/\/$/, "")}/sitemap.xml`
   };
 }
