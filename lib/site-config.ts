@@ -1,20 +1,162 @@
 import rawSiteConfig from '@/site-config.json';
 
-export type SiteConfig = typeof rawSiteConfig;
-export type ServiceItem = SiteConfig['services'][number];
-export type ThemeName = SiteConfig['layout']['theme'];
-export type SectionName = SiteConfig['layout']['sectionOrder'][number];
+export type ThemeName =
+  | 'trade-blue'
+  | 'industrial-dark'
+  | 'slate-premium'
+  | 'electric-amber'
+  | 'graphite-red'
+  | 'construction-orange'
+  | 'stone-premium'
+  | 'clean-light';
 
-export const siteConfig: SiteConfig = rawSiteConfig;
+export type SectionName =
+  | 'hero'
+  | 'trustBar'
+  | 'services'
+  | 'about'
+  | 'coverage'
+  | 'testimonials'
+  | 'faq'
+  | 'cta';
+
+export type ServiceItem = {
+  slug: string;
+  title: string;
+  short?: string;
+  description: string;
+  bullets?: string[];
+  cta?: string;
+};
+
+export type CoverageArea =
+  | string
+  | {
+      slug?: string;
+      name: string;
+      summary?: string;
+      intro?: string;
+    };
+
+export type SiteConfig = {
+  brand: {
+    name: string;
+    legalName?: string;
+    industry: string;
+    location: string;
+    phone: string;
+    email: string;
+    tagline?: string;
+    eyebrow?: string;
+    badge?: string;
+  };
+  seo: {
+    title: string;
+    description: string;
+    keywords: string[];
+    canonical: string;
+  };
+  layout: {
+    theme: ThemeName;
+    headerVariant?: string;
+    heroVariant?: string;
+    servicesVariant?: string;
+    aboutVariant?: string;
+    coverageVariant?: string;
+    testimonialsVariant?: string;
+    faqVariant?: string;
+    ctaVariant?: string;
+    footerVariant?: string;
+    sectionOrder: SectionName[];
+  };
+  images: {
+    folder?: string;
+    hero: string;
+    about?: string;
+    services: string[];
+  };
+  trustBar: Array<{
+    label: string;
+    subtext?: string;
+  }>;
+  hero: {
+    eyebrow?: string;
+    badge?: string;
+    headline: string;
+    highlight?: string;
+    subheadline: string;
+    primaryCta: string;
+    secondaryCta: string;
+  };
+  servicesIntro?: {
+    eyebrow?: string;
+    heading: string;
+    body: string;
+  };
+  services: ServiceItem[];
+  about: {
+    eyebrow?: string;
+    heading: string;
+    body: string;
+    highlights?: string[];
+    cardEyebrow?: string;
+    cardTitle?: string;
+    cardBody?: string;
+  };
+  coverage: {
+    eyebrow?: string;
+    heading: string;
+    body: string;
+    areas: CoverageArea[];
+  };
+  testimonials: {
+    eyebrow?: string;
+    heading: string;
+    body: string;
+    items: Array<{
+      name: string;
+      quote: string;
+    }>;
+  };
+  faq: {
+    eyebrow?: string;
+    heading: string;
+    body: string;
+    items: Array<{
+      question: string;
+      answer: string;
+    }>;
+  };
+  cta: {
+    eyebrow?: string;
+    heading: string;
+    body: string;
+    button: string;
+  };
+  footer: {
+    microcopy?: string;
+    copyright: string;
+  };
+};
+
+export const siteConfig = rawSiteConfig as SiteConfig;
 
 export function getServiceBySlug(slug: string) {
   return siteConfig.services.find((service) => service.slug === slug);
 }
 
 export function getAreaBySlug(slug: string) {
-  return siteConfig.coverage.areas.find(
-    (area) => area.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug
-  );
+  return siteConfig.coverage.areas.find((area) => {
+    if (typeof area === 'string') {
+      return area.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug;
+    }
+
+    if (area.slug) {
+      return area.slug === slug;
+    }
+
+    return area.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug;
+  });
 }
 
 export function getCanonical(path = '') {

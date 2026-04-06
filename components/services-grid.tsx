@@ -14,7 +14,9 @@ export function ServicesGrid({ compact = false }: { compact?: boolean }) {
         />
         <div className="mt-16 grid gap-8 lg:grid-cols-3">
           {siteConfig.services.map((service, index) => (
-            <article key={service.slug} className="overflow-hidden rounded-[2rem] border border-line bg-white shadow-soft">
+              <article
+                key={service.slug || `${service.title}-${index}`}
+                className="overflow-hidden rounded-[2rem] border border-line bg-white shadow-soft">
               <Image
                 src={siteConfig.images.services[index] || siteConfig.images.services[0]}
                 alt={service.title}
@@ -26,8 +28,10 @@ export function ServicesGrid({ compact = false }: { compact?: boolean }) {
                 <h3 className="text-3xl font-black text-ink">{service.title}</h3>
                 <p className="mt-4 text-lg leading-8 text-slate-600">{service.description}</p>
                 {!compact ? (
-                  <Link href={`/services#${service.slug}`} className="mt-6 inline-flex font-semibold text-blue-600">
-                    Learn more →
+                  <Link
+                    href={service.slug ? `/services#${service.slug}` : '/services'}
+                    className="mt-6 inline-flex font-semibold text-blue-600">
+                      Learn more →
                   </Link>
                 ) : null}
               </div>
