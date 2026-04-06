@@ -27,10 +27,10 @@
     "heroVariant": "hero-b",
     "servicesVariant": "services-b",
     "aboutVariant": "about-a",
-    "coverageVariant": "coverage-a",
+    "coverageVariant": "coverage-b",
     "testimonialsVariant": "testimonials-a",
-    "faqVariant": "faq-a",
-    "ctaVariant": "cta-b",
+    "faqVariant": "faq-b",
+    "ctaVariant": "cta-c",
     "footerVariant": "footer-a",
     "sectionOrder": [
       "hero",
@@ -44,14 +44,7 @@
     ]
   },
   "images": {
-    "folder": "plumbing",
-    "hero": "/images/plumbing/hero-1.svg",
-    "about": "/images/plumbing/about-1.svg",
-    "services": [
-      "/images/plumbing/service-1.svg",
-      "/images/plumbing/service-2.svg",
-      "/images/plumbing/service-3.svg"
-    ]
+    "folder": "plumbing"
   },
   "trustBar": [
     { "label": "24/7 Emergency Response", "subtext": "Same-day callouts across Greater Manchester" },
@@ -71,7 +64,7 @@
   "servicesIntro": {
     "eyebrow": "Services",
     "heading": "Premium support built around uptime",
-    "body": "High-trust, high-response service positioning with cards designed to feel more agency-built than starter-template."
+    "body": "High-trust, high-response service positioning with cards designed to feel more agency-built than a basic starter template."
   },
   "services": [
     {
@@ -179,6 +172,6 @@
   },
   "footer": {
     "microcopy": "Emergency plumber Manchester | Premium service",
-    "copyright": "© 2026 Titan Flow Plumbing. All rights reserved."
+    "copyright": "(c) 2026 Titan Flow Plumbing. All rights reserved."
   }
 }

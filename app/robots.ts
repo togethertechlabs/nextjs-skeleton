@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { siteConfig } from "@/lib/site-config";
+import { getCanonical } from "@/lib/site-config";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/"
     },
-    sitemap: `${siteConfig.seo.canonical.replace(/\/$/, "")}/sitemap.xml`
+    sitemap: `${getCanonical()}/sitemap.xml`
   };
 }

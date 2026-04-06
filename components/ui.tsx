@@ -21,16 +21,10 @@ export function SectionHeading({
 }) {
   return (
     <div className="max-w-3xl">
-      {eyebrow ? (
-        <p className="mb-3 text-sm uppercase tracking-[0.28em] text-accent">{eyebrow}</p>
-      ) : null}
-      <h2 className={`text-4xl font-black tracking-tight md:text-6xl ${invert ? "text-white" : "text-ink"}`}>
-        {title}
-      </h2>
+      {eyebrow ? <p className="mb-3 text-sm uppercase tracking-[0.28em] text-accent">{eyebrow}</p> : null}
+      <h2 className={`text-4xl font-black tracking-tight md:text-6xl ${invert ? "text-white" : "text-ink"}`}>{title}</h2>
       {description ? (
-        <p className={`mt-5 text-lg leading-8 ${invert ? "text-white/75" : "text-muted"}`}>
-          {description}
-        </p>
+        <p className={`mt-5 text-lg leading-8 ${invert ? "text-white/75" : "text-muted"}`}>{description}</p>
       ) : null}
     </div>
   );
@@ -65,7 +59,7 @@ export function SecondaryButton({ href, children }: PropsWithChildren<{ href: st
   return (
     <Link
       href={href}
-      className="inline-flex items-center justify-center rounded-2xl border border-white/25 bg-white/5 px-6 py-4 text-base font-semibold text-white transition hover:bg-white/10"
+      className="inline-flex items-center justify-center rounded-2xl border border-current/20 bg-white/5 px-6 py-4 text-base font-semibold transition hover:bg-white/10"
     >
       {children}
     </Link>

@@ -1,5 +1,5 @@
-import { siteConfig } from "@/lib/site-config";
 import { Container, DarkCard } from "@/components/ui";
+import { siteConfig } from "@/lib/site-config";
 
 export function TrustBarSection() {
   return (

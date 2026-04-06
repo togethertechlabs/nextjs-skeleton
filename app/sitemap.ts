@@ -1,28 +1,22 @@
 import type { MetadataRoute } from "next";
-import { getAreaSlug, siteConfig } from "@/lib/site-config";
+import { getAreaSlug, getCanonical, siteConfig } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = siteConfig.seo.canonical.replace(/\/$/, "");
+  const lastModified = new Date();
 
-  const staticRoutes = [
-    "",
-    "/about",
-    "/contact",
-    "/services",
-    "/coverage"
-  ].map((path) => ({
-    url: `${base}${path}`,
-    lastModified: new Date()
+  const staticRoutes = ["", "/about", "/contact", "/services", "/coverage"].map((pathname) => ({
+    url: getCanonical(pathname),
+    lastModified
   }));
 
   const serviceRoutes = siteConfig.services.map((service) => ({
-    url: `${base}/services/${service.slug}`,
-    lastModified: new Date()
+    url: getCanonical(`/services/${service.slug}`),
+    lastModified
   }));
 
   const areaRoutes = siteConfig.coverage.areas.map((area) => ({
-    url: `${base}/areas/${getAreaSlug(area)}`,
-    lastModified: new Date()
+    url: getCanonical(`/areas/${getAreaSlug(area)}`),
+    lastModified
   }));
 
   return [...staticRoutes, ...serviceRoutes, ...areaRoutes];

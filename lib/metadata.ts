@@ -1,19 +1,38 @@
 import type { Metadata } from "next";
-import { siteConfig } from "@/lib/site-config";
+import { getCanonical, getImagePath, siteConfig } from "@/lib/site-config";
 
-export function buildMetadata(
-  title?: string,
-  description?: string,
-  path?: string
-): Metadata {
-  const canonical = siteConfig.seo.canonical.replace(/\/$/, "");
-  const fullPath = path ? `/${path.replace(/^\//, "")}` : "";
+type MetadataInput = {
+  title?: string;
+  description?: string;
+  path?: string;
+};
+
+export function buildPageMetadata({ title, description, path }: MetadataInput = {}): Metadata {
+  const resolvedTitle = title || siteConfig.seo.title;
+  const resolvedDescription = description || siteConfig.seo.description;
+  const canonical = getCanonical(path);
+  const socialImage = getImagePath("hero");
+
   return {
-    title: title || siteConfig.seo.title,
-    description: description || siteConfig.seo.description,
+    title: resolvedTitle,
+    description: resolvedDescription,
     keywords: siteConfig.seo.keywords,
     alternates: {
-      canonical: `${canonical}${fullPath}`
+      canonical
+    },
+    openGraph: {
+      title: resolvedTitle,
+      description: resolvedDescription,
+      url: canonical,
+      siteName: siteConfig.brand.name,
+      type: "website",
+      images: socialImage ? [{ url: socialImage, alt: siteConfig.brand.name }] : undefined
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: resolvedTitle,
+      description: resolvedDescription,
+      images: socialImage ? [socialImage] : undefined
     }
   };
 }
