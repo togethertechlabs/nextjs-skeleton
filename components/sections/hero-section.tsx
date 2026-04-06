@@ -1,15 +1,6 @@
 import Image from "next/image";
 import { Container, PrimaryButton, SecondaryButton } from "@/components/ui";
-import { getHeroMetadata, getHeroPaddingClass, resolveHeaderCompatibility } from "@/lib/layout-compat";
 import { getImagePath, siteConfig } from "@/lib/site-config";
-
-const heroCompatibility = getHeroMetadata(siteConfig.layout.heroVariant);
-const headerCompatibility = resolveHeaderCompatibility({
-  isHomePage: true,
-  headerVariant: siteConfig.layout.headerVariant,
-  heroVariant: siteConfig.layout.heroVariant
-});
-const heroTopPaddingClass = getHeroPaddingClass(headerCompatibility, heroCompatibility);
 
 function HeroButtons() {
   return (
@@ -20,10 +11,10 @@ function HeroButtons() {
   );
 }
 
-function HeroA() {
+function HeroA({ topPaddingClass }: { topPaddingClass?: string }) {
   return (
     <section className="relative overflow-hidden border-b border-white/10 bg-shell text-white">
-      <Container className={`grid min-h-[74vh] items-center gap-12 py-24 lg:grid-cols-[1.05fr_0.95fr] ${heroTopPaddingClass}`}>
+      <Container className={`grid min-h-[74vh] items-center gap-12 py-24 lg:grid-cols-[1.05fr_0.95fr] ${topPaddingClass}`}>
         <div>
           <div className="mb-6 flex flex-wrap items-center gap-4 text-sm uppercase tracking-[0.28em] text-white/70">
             <span>{siteConfig.hero.eyebrow}</span>
@@ -45,12 +36,12 @@ function HeroA() {
   );
 }
 
-function HeroB() {
+function HeroB({ topPaddingClass }: { topPaddingClass?: string }) {
   return (
     <section className="relative overflow-hidden bg-shell py-24 text-white">
       <Image src={getImagePath("hero")} alt={siteConfig.hero.headline} fill className="object-cover opacity-20" priority />
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/55 to-black/30" />
-      <Container className={`relative ${heroTopPaddingClass}`}>
+      <Container className={`relative ${topPaddingClass}`}>
         <div className="max-w-4xl rounded-[2rem] border border-white/10 bg-black/25 p-8 backdrop-blur-xl lg:p-12">
           <div className="flex flex-wrap items-center gap-4 text-sm uppercase tracking-[0.28em] text-white/70">
             <span>{siteConfig.hero.eyebrow}</span>
@@ -66,10 +57,10 @@ function HeroB() {
   );
 }
 
-function HeroC() {
+function HeroC({ topPaddingClass }: { topPaddingClass?: string }) {
   return (
     <section className="bg-panel py-16">
-      <Container className={`grid items-center gap-12 lg:grid-cols-[0.92fr_1.08fr] ${heroTopPaddingClass}`}>
+      <Container className={`grid items-center gap-12 lg:grid-cols-[0.92fr_1.08fr] ${topPaddingClass}`}>
         <div className="rounded-[2rem] bg-shell p-8 text-white shadow-glow lg:p-10">
           <p className="text-sm uppercase tracking-[0.35em] text-white/65">{siteConfig.hero.eyebrow}</p>
           <h1 className="mt-6 text-5xl font-black tracking-tight sm:text-6xl">{siteConfig.hero.headline}</h1>
@@ -85,13 +76,13 @@ function HeroC() {
   );
 }
 
-export function HeroSection() {
+export function HeroSection({ topPaddingClass = "" }: { topPaddingClass?: string }) {
   switch (siteConfig.layout.heroVariant) {
     case "hero-b":
-      return <HeroB />;
+      return <HeroB topPaddingClass={topPaddingClass} />;
     case "hero-c":
-      return <HeroC />;
+      return <HeroC topPaddingClass={topPaddingClass} />;
     default:
-      return <HeroA />;
+      return <HeroA topPaddingClass={topPaddingClass} />;
   }
 }
