@@ -1,9 +1,15 @@
 import { Container, DarkCard, SectionHeading } from "@/components/ui";
+import type { TestimonialsVariant } from "@/lib/site-config";
 import { siteConfig } from "@/lib/site-config";
 
-function TestimonialsA() {
+type TestimonialsSectionProps = {
+  variantOverride?: TestimonialsVariant;
+  spacingClassName?: string;
+};
+
+function TestimonialsA({ spacingClassName = "" }: Pick<TestimonialsSectionProps, "spacingClassName">) {
   return (
-    <section className="bg-shell py-24 text-white">
+    <section className={`bg-shell py-24 text-white ${spacingClassName}`}>
       <Container>
         <SectionHeading
           eyebrow={siteConfig.testimonials.eyebrow}
@@ -26,9 +32,9 @@ function TestimonialsA() {
   );
 }
 
-function TestimonialsB() {
+function TestimonialsB({ spacingClassName = "" }: Pick<TestimonialsSectionProps, "spacingClassName">) {
   return (
-    <section className="bg-panel py-24">
+    <section className={`bg-panel py-24 ${spacingClassName}`}>
       <Container>
         <SectionHeading
           eyebrow={siteConfig.testimonials.eyebrow}
@@ -53,6 +59,13 @@ function TestimonialsB() {
   );
 }
 
-export function TestimonialsSection() {
-  return siteConfig.layout.testimonialsVariant === "testimonials-b" ? <TestimonialsB /> : <TestimonialsA />;
+export function TestimonialsSection({
+  variantOverride,
+  spacingClassName
+}: TestimonialsSectionProps) {
+  const variant = variantOverride || siteConfig.layout.testimonialsVariant;
+
+  return variant === "testimonials-b"
+    ? <TestimonialsB spacingClassName={spacingClassName} />
+    : <TestimonialsA spacingClassName={spacingClassName} />;
 }
