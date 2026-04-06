@@ -1,43 +1,92 @@
 import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
-import { CtaBanner } from '@/components/cta-banner';
-import { SectionHeading } from '@/components/section-heading';
-import { buildMetadata } from '@/lib/metadata';
+import { PageShell } from '@/components/page-shell';
+import { Container, SectionHeading, Card } from '@/components/ui';
 import { getAreaBySlug, siteConfig } from '@/lib/site-config';
 
-export function generateStaticParams() {
-  return siteConfig.coverage.areas.map((area) => ({
-    slug: area.toLowerCase().replace(/[^a-z0-9]+/g, '-')
-  }));
+function areaToSlug(
+  area: string | { slug?: string; name: string; summary?: string; intro?: string }
+) {
+  if (typeof area === 'string') {
+    return area.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  }
+
+  if (area.slug) {
+    return area.slug;
+  }
+
+  return area.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
-  const area = getAreaBySlug(slug);
-  if (!area) return buildMetadata();
-  return buildMetadata(
-    `${siteConfig.brand.industry} in ${area} | ${siteConfig.brand.name}`,
-    `${siteConfig.brand.name} provides ${siteConfig.brand.industry.toLowerCase()} services in ${area} with fast response and premium presentation.`,
-    `/areas/${slug}`
+function areaToName(
+  area: string | { slug?: string; name: string; summary?: string; intro?: string }
+) {
+  return typeof area === 'string' ? area : area.name;
+}
+
+function areaToSummary(
+  area: string | { slug?: string; name: string; summary?: string; intro?: string }
+) {
+  if (typeof area === 'string') {
+    return `${siteConfig.brand.name} provides trusted services in ${area}.`;
+  }
+
+  return area.summary || `${siteConfig.brand.name} provides trusted services in ${area.name}.`;
+}
+
+function areaToIntro(
+  area: string | { slug?: string; name: string; summary?: string; intro?: string }
+) {
+  if (typeof area === 'string') {
+    return `${siteConfig.brand.name} supports customers across ${area} with reliable service, strong presentation and local expertise.`;
+  }
+
+  return (
+    area.intro ||
+    `${siteConfig.brand.name} supports customers across ${area.name} with reliable service, strong presentation and local expertise.`
   );
 }
 
-export default async function AreaPage({ params }: { params: Promise<{ slug: string }> }) {
+export function generateStaticParams() {
+  return siteConfig.coverage.areas.map((area) => ({
+    slug: areaToSlug(area)
+  }));
+}
+
+export default async function AreaPage({
+  params
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const area = getAreaBySlug(slug);
-  if (!area) notFound();
+
+  if (!area) {
+    notFound();
+  }
+
+  const areaName = areaToName(area);
+  const areaSummary = areaToSummary(area);
+  const areaIntro = areaToIntro(area);
 
   return (
-    <>
-      <section className="surface py-24">
-        <div className="section-shell">
-          <SectionHeading eyebrow="Local page" title={`${siteConfig.brand.industry} services in ${area}`} description={`${siteConfig.brand.name} serves ${area} with local-first positioning, stronger SEO depth and a page structure ready for future expansion.`} />
-          <div className="mt-12 rounded-[2rem] border line surface-2 p-10 shadow-premium">
-            <p className="text-xl leading-9 text-muted">This area page is here so your generator can scale beyond one-page sites. Duplicate the pattern for more towns, services or service-area combinations.</p>
+    <PageShell>
+      <section className="bg-white py-24">
+        <Container className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
+          <div>
+            <SectionHeading
+              eyebrow="Coverage Area"
+              title={`${siteConfig.brand.name} in ${areaName}`}
+              body={areaIntro}
+            />
           </div>
-        </div>
+
+          <Card className="p-8 md:p-10">
+            <p className="text-sm uppercase tracking-[0.25em] text-muted">Local summary</p>
+            <h2 className="mt-4 text-3xl font-black text-ink">{areaName}</h2>
+            <p className="mt-4 text-lg leading-8 text-muted">{areaSummary}</p>
+          </Card>
+        </Container>
       </section>
-      <CtaBanner />
-    </>
+    </PageShell>
   );
 }
