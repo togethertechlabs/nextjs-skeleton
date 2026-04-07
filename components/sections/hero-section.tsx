@@ -62,7 +62,7 @@ function HeroA({ topPaddingClass }: { topPaddingClass?: string }) {
       ) : null}
       <Container className={`${composition.container} ${topPaddingClass}`}>
         <div className={`${siteBranding.heroContentClassName} ${composition.content} ${composition.contentFirst ? "order-1" : "order-2"}`}>
-          <div className="mb-6 flex flex-wrap items-center gap-4 text-sm uppercase tracking-[0.28em] text-white/70">
+          <div className={`mb-6 flex flex-wrap items-center gap-4 text-sm uppercase tracking-[0.28em] text-white/70 ${centered ? "justify-center" : ""}`}>
             <span>{siteConfig.hero.eyebrow}</span>
             <span className="industry-chip rounded-full border border-primary/30 px-4 py-2 text-primary">{siteConfig.hero.badge}</span>
           </div>
@@ -92,7 +92,7 @@ function HeroB({ topPaddingClass }: { topPaddingClass?: string }) {
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/55 to-black/30" />
       <Container className={`relative ${topPaddingClass}`}>
         <div className={`industry-hero-panel rounded-[2rem] border border-white/10 bg-black/25 p-8 backdrop-blur-xl lg:p-12 ${siteBranding.heroPanelClassName} ${siteBranding.heroContentClassName} ${alignClass}`}>
-          <div className="flex flex-wrap items-center gap-4 text-sm uppercase tracking-[0.28em] text-white/70">
+          <div className={`flex flex-wrap items-center gap-4 text-sm uppercase tracking-[0.28em] text-white/70 ${centered ? "justify-center" : ""}`}>
             <span>{siteConfig.hero.eyebrow}</span>
             <span className="industry-chip rounded-full border border-white/20 px-4 py-2 text-primary">{siteConfig.hero.badge}</span>
           </div>
