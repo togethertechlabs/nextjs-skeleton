@@ -23,6 +23,20 @@ export type VisualMode = "cinematic" | "clean" | "bold" | "minimal" | "technical
 export type HeroComposition = "split" | "full-bleed" | "centered" | "stacked";
 export type AccentStyle = "glow" | "solid" | "outline" | "gradient";
 export type SpacingScale = "normal" | "spacious";
+export type DesignDominance = "hero" | "services" | "cta" | "trust" | "balanced";
+export type SectionScaleValue = "sm" | "md" | "lg" | "xl";
+export type ContrastProfile = "soft" | "balanced" | "high";
+
+export type SectionScale = {
+  hero: SectionScaleValue;
+  trustBar: "sm" | "md" | "lg";
+  about: "sm" | "md" | "lg";
+  coverage: "sm" | "md" | "lg";
+  services: SectionScaleValue;
+  testimonials: "sm" | "md" | "lg";
+  faq: "sm" | "md" | "lg";
+  cta: SectionScaleValue;
+};
 
 export type IndustryBranding = {
   key: IndustryKey;
@@ -30,6 +44,9 @@ export type IndustryBranding = {
   intensity: IndustryIntensity;
   premiumMode: boolean;
   spacingScale: SpacingScale;
+  designDominance: DesignDominance;
+  sectionScale: SectionScale;
+  contrastProfile: ContrastProfile;
   heroEnergy: HeroEnergy;
   visualMode: VisualMode;
   heroComposition: HeroComposition;
@@ -39,7 +56,7 @@ export type IndustryBranding = {
   accentBehavior: AccentBehavior;
   ctaStyle: CtaStyle;
   textureProfile: TextureProfile;
-  contentDensity: "airy" | "balanced" | "dense";
+  contentDensity: "tight" | "balanced" | "spacious";
   sectionEmphasis: Record<SectionName, SectionEmphasis>;
   sectionSpacingClassName: string;
   shellClassName: string;
@@ -95,7 +112,17 @@ function createSectionEmphasis(overrides: Partial<Record<SectionName, SectionEmp
 
 type IndustryBrandingBase = Omit<
   IndustryBranding,
-  "key" | "premiumMode" | "spacingScale" | "visualMode" | "heroComposition" | "accentStyle" | "visualSeed" | "sectionSpacingClassName"
+  | "key"
+  | "premiumMode"
+  | "spacingScale"
+  | "designDominance"
+  | "sectionScale"
+  | "contrastProfile"
+  | "visualMode"
+  | "heroComposition"
+  | "accentStyle"
+  | "visualSeed"
+  | "sectionSpacingClassName"
 >;
 
 function hashString(value: string) {
@@ -149,6 +176,24 @@ function getAllowedAccentStyles(visualMode: VisualMode): readonly AccentStyle[] 
   }
 }
 
+function getAllowedDesignDominance(
+  key: IndustryKey,
+  premiumMode: boolean,
+  visualMode: VisualMode,
+  heroEnergy: HeroEnergy
+): readonly DesignDominance[] {
+  if (key === "transport") return premiumMode ? ["hero", "cta", "services", "balanced"] : ["hero", "services", "cta", "balanced"];
+  if (key === "electrician") return premiumMode ? ["hero", "cta", "services", "balanced"] : ["cta", "services", "hero", "balanced"];
+  if (key === "construction") return premiumMode ? ["services", "trust", "hero", "balanced"] : ["services", "trust", "balanced", "hero"];
+  if (key === "roofing") return premiumMode ? ["trust", "services", "cta", "balanced"] : ["trust", "services", "balanced", "cta"];
+  if (key === "plumbing" || key === "heating") return premiumMode ? ["cta", "services", "trust", "balanced"] : ["cta", "trust", "services", "balanced"];
+  if (key === "decorators") return premiumMode ? ["hero", "balanced", "services"] : ["balanced", "hero", "services"];
+  if (key === "plasterer") return premiumMode ? ["services", "balanced", "trust"] : ["balanced", "services", "trust"];
+  if (visualMode === "cinematic" || heroEnergy === "high") return ["hero", "balanced", "services", "cta"];
+
+  return ["balanced", "services", "cta", "trust", "hero"];
+}
+
 function getAllowedHeroCompositions(
   key: IndustryKey,
   visualMode: VisualMode,
@@ -176,10 +221,99 @@ function getSectionSpacingClassName(
   visualMode: VisualMode,
   premiumMode: boolean
 ) {
-  if (premiumMode) return "industry-section-space-premium";
-  if (visualMode === "minimal" || contentDensity === "airy") return "industry-section-space-relaxed";
-  if (visualMode === "bold" || contentDensity === "dense") return "industry-section-space-compact";
+  if (premiumMode && contentDensity === "spacious") return "industry-section-space-premium";
+  if (contentDensity === "spacious" || visualMode === "minimal") return "industry-section-space-relaxed";
+  if (contentDensity === "tight" || visualMode === "bold") return "industry-section-space-compact";
   return "industry-section-space-balanced";
+}
+
+function resolveContrastProfile(
+  key: IndustryKey,
+  premiumMode: boolean,
+  visualMode: VisualMode,
+  intensity: IndustryIntensity
+): ContrastProfile {
+  if (key === "transport" || key === "electrician") return "high";
+  if (visualMode === "bold" || (premiumMode && visualMode === "cinematic")) return "high";
+  if (key === "decorators" || key === "plasterer" || visualMode === "minimal") return "soft";
+  if (intensity === "high") return "high";
+  return "balanced";
+}
+
+function getDefaultSectionScale(): SectionScale {
+  return {
+    hero: "lg",
+    trustBar: "md",
+    about: "md",
+    coverage: "md",
+    services: "lg",
+    testimonials: "md",
+    faq: "sm",
+    cta: "lg"
+  };
+}
+
+function resolveSectionScale(
+  dominance: DesignDominance,
+  premiumMode: boolean,
+  contentDensity: IndustryBrandingBase["contentDensity"]
+): SectionScale {
+  const scale = getDefaultSectionScale();
+
+  if (premiumMode) {
+    scale.hero = "xl";
+    scale.services = "lg";
+    scale.cta = "lg";
+    scale.about = "md";
+  }
+
+  if (contentDensity === "tight") {
+    scale.trustBar = "sm";
+    scale.about = "sm";
+    scale.testimonials = "sm";
+  }
+
+  if (contentDensity === "spacious") {
+    scale.about = "lg";
+    scale.testimonials = "lg";
+    scale.faq = "md";
+  }
+
+  switch (dominance) {
+    case "hero":
+      scale.hero = premiumMode ? "xl" : "lg";
+      scale.services = "md";
+      scale.coverage = "sm";
+      scale.testimonials = "sm";
+      scale.faq = "sm";
+      break;
+    case "services":
+      scale.services = premiumMode ? "xl" : "lg";
+      scale.hero = premiumMode ? "lg" : "md";
+      scale.coverage = "md";
+      scale.cta = "md";
+      scale.testimonials = "sm";
+      break;
+    case "cta":
+      scale.cta = premiumMode ? "xl" : "lg";
+      scale.services = "md";
+      scale.about = "sm";
+      scale.coverage = "sm";
+      scale.faq = "sm";
+      break;
+    case "trust":
+      scale.trustBar = "lg";
+      scale.testimonials = "lg";
+      scale.hero = "md";
+      scale.services = "md";
+      scale.coverage = "sm";
+      scale.cta = "md";
+      break;
+    default:
+      break;
+  }
+
+  return scale;
 }
 
 function getVariationCssVars(
@@ -189,9 +323,9 @@ function getVariationCssVars(
   seed: number,
   premiumMode: boolean
 ) {
-  const radiusOptions = base.contentDensity === "airy"
+  const radiusOptions = base.contentDensity === "spacious"
     ? ["1.9rem", "2rem", "2.1rem"]
-    : base.contentDensity === "dense"
+    : base.contentDensity === "tight"
       ? ["1.35rem", "1.5rem", "1.65rem"]
       : ["1.55rem", "1.7rem", "1.85rem"];
   const surfaceContrast = premiumMode
@@ -231,7 +365,8 @@ function getVariationCssVars(
     "--industry-section-gap": pickDeterministic(spacingOptions, seed, 5),
     "--industry-accent-fill-mode": accentStyle,
     "--industry-hero-min-height": heroMinHeight,
-    "--industry-heading-scale": headingScale
+    "--industry-heading-scale": headingScale,
+    "--industry-density-scale": base.contentDensity === "spacious" ? "1.08" : base.contentDensity === "tight" ? "0.92" : "1"
   };
 }
 
@@ -244,7 +379,7 @@ const brandingMap: Record<IndustryKey, IndustryBrandingBase> = {
     accentBehavior: "warning",
     ctaStyle: "assertive",
     textureProfile: "grid",
-    contentDensity: "dense",
+    contentDensity: "tight",
     sectionEmphasis: createSectionEmphasis({ trustBar: "high", services: "high", cta: "high" }),
     shellClassName: "industry-shell industry-shell-industrial",
     heroContentClassName: "max-w-5xl",
@@ -282,7 +417,7 @@ const brandingMap: Record<IndustryKey, IndustryBrandingBase> = {
     accentBehavior: "signal",
     ctaStyle: "assertive",
     textureProfile: "strata",
-    contentDensity: "dense",
+    contentDensity: "tight",
     sectionEmphasis: createSectionEmphasis({ services: "high", testimonials: "high", cta: "high" }),
     shellClassName: "industry-shell industry-shell-rugged",
     heroContentClassName: "max-w-4xl",
@@ -434,7 +569,7 @@ const brandingMap: Record<IndustryKey, IndustryBrandingBase> = {
     accentBehavior: "glow",
     ctaStyle: "performance",
     textureProfile: "signal",
-    contentDensity: "dense",
+    contentDensity: "tight",
     sectionEmphasis: createSectionEmphasis({ hero: "high", trustBar: "high", services: "high", cta: "high" }),
     shellClassName: "industry-shell industry-shell-performance",
     heroContentClassName: "max-w-5xl",
@@ -472,7 +607,7 @@ const brandingMap: Record<IndustryKey, IndustryBrandingBase> = {
     accentBehavior: "refined",
     ctaStyle: "refined",
     textureProfile: "soft-canvas",
-    contentDensity: "airy",
+    contentDensity: "spacious",
     sectionEmphasis: createSectionEmphasis({ about: "high", testimonials: "high" }),
     shellClassName: "industry-shell industry-shell-refined",
     heroContentClassName: "max-w-4xl",
@@ -588,12 +723,22 @@ export function resolveIndustryBranding(input: BrandingInput): IndustryBranding 
   const visualMode = pickDeterministic(getAllowedVisualModes(key, premiumMode), seed, 0);
   const accentStyle = pickDeterministic(getAllowedAccentStyles(visualMode), seed, 1);
   const heroComposition = pickDeterministic(getAllowedHeroCompositions(key, visualMode, premiumMode), seed, 2);
+  const designDominance = pickDeterministic(
+    getAllowedDesignDominance(key, premiumMode, visualMode, base.heroEnergy),
+    seed,
+    3
+  );
+  const contrastProfile = resolveContrastProfile(key, premiumMode, visualMode, base.intensity);
+  const sectionScale = resolveSectionScale(designDominance, premiumMode, base.contentDensity);
 
   return {
     key,
     ...base,
     premiumMode,
     spacingScale: premiumMode ? "spacious" : "normal",
+    designDominance,
+    sectionScale,
+    contrastProfile,
     visualMode,
     accentStyle,
     heroComposition,
@@ -618,11 +763,25 @@ export function getIndustrySectionWrapperClass(
   section: SectionName
 ) {
   const emphasis = branding.sectionEmphasis[section];
+  const sectionScale = branding.sectionScale[section];
+  const sectionDominanceKey =
+    section === "trustBar" || section === "testimonials"
+      ? "trust"
+      : section === "hero" || section === "services" || section === "cta"
+        ? section
+        : "balanced";
+  const dominanceClass = branding.designDominance === sectionDominanceKey
+    ? `dominant-${sectionDominanceKey}`
+    : `supporting-${sectionDominanceKey}`;
   return [
     "industry-section",
     branding.premiumMode ? "premium-section" : "",
     emphasis === "high" ? "industry-section-emphasis-high" : "industry-section-emphasis-standard",
-    branding.sectionSpacingClassName
+    branding.sectionSpacingClassName,
+    `scale-${sectionScale}`,
+    `density-${branding.contentDensity}`,
+    `contrast-${branding.contrastProfile}`,
+    dominanceClass
   ].filter(Boolean).join(" ");
 }
 

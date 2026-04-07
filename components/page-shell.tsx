@@ -28,6 +28,9 @@ export function PageShell({
       data-accent-style={siteBranding.accentStyle}
       data-hero-composition={siteBranding.heroComposition}
       data-premium-mode={siteBranding.premiumMode ? "true" : "false"}
+      data-design-dominance={siteBranding.designDominance}
+      data-content-density={siteBranding.contentDensity}
+      data-contrast-profile={siteBranding.contrastProfile}
     >
       <SiteHeader
         brand={siteConfig.brand}

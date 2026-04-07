@@ -127,15 +127,23 @@ function getResolvedSectionOrder() {
     return uniqueSections;
   }
 
-  const prioritySections: SectionName[] = ["trustBar", "services"];
+  const dominancePriorityMap: Record<typeof siteBranding.designDominance, SectionName[]> = {
+    hero: ["hero", "services"],
+    services: ["services", "trustBar"],
+    cta: ["services", "trustBar"],
+    trust: ["trustBar", "testimonials"],
+    balanced: ["trustBar", "services"]
+  };
+  const prioritySections = dominancePriorityMap[siteBranding.designDominance];
   const withoutHero = uniqueSections.filter((section) => section !== "hero" && section !== "cta");
   const prioritized = withoutHero.filter((section) => prioritySections.includes(section));
   const remainder = withoutHero.filter((section) => !prioritySections.includes(section));
   const filtered = [
     "hero" as const,
     ...prioritized,
+    ...(siteBranding.designDominance === "cta" ? ["cta" as const] : []),
     ...remainder,
-    "cta" as const
+    ...(siteBranding.designDominance === "cta" ? [] : ["cta" as const])
   ].filter((section, index, items) => items.indexOf(section) === index);
 
   return filtered.filter((section) => {

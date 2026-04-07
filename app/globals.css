@@ -38,9 +38,11 @@
   --industry-button-px: 1.6rem;
   --industry-button-py: 1rem;
   --industry-card-padding: 1.85rem;
+  --industry-section-gap-base: 5.5rem;
   --industry-section-gap: 5.5rem;
   --industry-hero-min-height: 74vh;
   --industry-heading-scale: 1;
+  --industry-density-scale: 1;
 }
 
 * {
@@ -279,6 +281,10 @@ a {
 .industry-section {
   position: relative;
   isolation: isolate;
+  --section-card-padding: var(--industry-card-padding);
+  --section-heading-multiplier: 1;
+  --section-space-y: 6rem;
+  --section-grid-gap: 2rem;
 }
 
 .industry-section::before {
@@ -294,6 +300,19 @@ a {
 .industry-section > * {
   position: relative;
   z-index: 1;
+}
+
+.industry-section > section {
+  padding-top: var(--section-space-y);
+  padding-bottom: var(--section-space-y);
+}
+
+.industry-section .industry-heading {
+  transform: scale(calc(var(--industry-heading-scale) * var(--section-heading-multiplier)));
+}
+
+.industry-section .grid {
+  gap: var(--section-grid-gap);
 }
 
 .industry-section-emphasis-high {
@@ -477,6 +496,121 @@ a {
   margin-top: calc(var(--industry-section-gap) * -0.04);
 }
 
+.scale-sm {
+  --section-space-y: 4.75rem;
+  --section-card-padding: calc(var(--industry-card-padding) - 0.35rem);
+  --section-heading-multiplier: 0.94;
+  --section-grid-gap: 1.35rem;
+}
+
+.scale-md {
+  --section-space-y: 6rem;
+  --section-card-padding: var(--industry-card-padding);
+  --section-heading-multiplier: 1;
+  --section-grid-gap: 1.75rem;
+}
+
+.scale-lg {
+  --section-space-y: 7rem;
+  --section-card-padding: calc(var(--industry-card-padding) + 0.25rem);
+  --section-heading-multiplier: 1.04;
+  --section-grid-gap: 2.1rem;
+}
+
+.scale-xl {
+  --section-space-y: 8.5rem;
+  --section-card-padding: calc(var(--industry-card-padding) + 0.55rem);
+  --section-heading-multiplier: 1.08;
+  --section-grid-gap: 2.5rem;
+}
+
+.density-tight {
+  --section-grid-gap: max(1.25rem, calc(var(--section-grid-gap) - 0.35rem));
+}
+
+.density-spacious {
+  --section-grid-gap: calc(var(--section-grid-gap) + 0.45rem);
+}
+
+.contrast-soft {
+  --industry-divider: color-mix(in srgb, var(--industry-divider) 72%, white 28%);
+}
+
+.contrast-high {
+  --industry-divider: color-mix(in srgb, var(--industry-divider) 112%, black 8%);
+  --industry-surface-contrast: calc(var(--industry-surface-contrast) + 0.08);
+}
+
+.dominant-hero > section {
+  --section-space-y: calc(var(--section-space-y) + 0.75rem);
+}
+
+.dominant-hero .premium-hero {
+  min-height: calc(var(--industry-hero-min-height) + 8vh);
+}
+
+.dominant-hero .industry-hero-panel {
+  box-shadow:
+    0 34px 80px rgba(2,6,23,0.32),
+    0 0 40px color-mix(in srgb, var(--industry-accent-glow) 18%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--industry-frame-color) 70%, transparent),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+.dominant-services .industry-service-card {
+  transform: translateY(-2px);
+  box-shadow:
+    0 28px 60px rgba(15,23,42,0.14),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+.dominant-services .industry-service-card .industry-heading {
+  transform: scale(calc(var(--industry-heading-scale) * 1.05));
+}
+
+.dominant-cta .industry-cta-panel {
+  box-shadow:
+    0 30px 72px rgba(15,23,42,0.18),
+    0 0 42px color-mix(in srgb, var(--industry-accent-glow) 18%, transparent),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+.dominant-cta .premium-cta {
+  font-size: 1.06rem;
+}
+
+.dominant-trust .industry-trust-grid,
+.dominant-trust .industry-testimonial-card {
+  box-shadow:
+    0 24px 54px rgba(15,23,42,0.14),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+.dominant-trust .industry-chip {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.16),
+    0 14px 28px color-mix(in srgb, var(--industry-accent-glow) 16%, transparent);
+}
+
+.supporting-testimonials,
+.supporting-faq,
+.supporting-about {
+  --section-heading-multiplier: calc(var(--section-heading-multiplier) - 0.04);
+}
+
+.supporting-testimonials .industry-testimonial-card,
+.supporting-faq .industry-card,
+.supporting-about .industry-card {
+  box-shadow:
+    0 14px 28px rgba(15,23,42,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.supporting-faq > section,
+.supporting-testimonials > section {
+  --section-space-y: calc(var(--section-space-y) - 0.4rem);
+}
+
 .industry-shell-industrial .industry-service-card::after,
 .industry-shell-rugged .industry-service-card::after {
   border-width: 1px;
@@ -549,7 +683,7 @@ a {
 }
 
 .premium-shell {
-  --industry-section-gap: calc(var(--industry-section-gap) + 0.75rem);
+  --industry-section-gap: calc(var(--industry-section-gap-base) + 0.75rem);
 }
 
 .premium-section {

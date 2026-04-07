@@ -91,7 +91,7 @@ function HeroB({ topPaddingClass }: { topPaddingClass?: string }) {
       <Image src={getImagePath("hero")} alt={siteConfig.hero.headline} fill className="object-cover opacity-20" priority />
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/55 to-black/30" />
       <Container className={`relative ${topPaddingClass}`}>
-        <div className={`industry-hero-panel rounded-[2rem] border border-white/10 bg-black/25 p-[var(--industry-card-padding)] backdrop-blur-xl lg:p-[calc(var(--industry-card-padding)+1rem)] ${siteBranding.heroPanelClassName} ${siteBranding.heroContentClassName} ${alignClass}`}>
+        <div className={`industry-hero-panel rounded-[2rem] border border-white/10 bg-black/25 p-[var(--section-card-padding,var(--industry-card-padding))] backdrop-blur-xl lg:p-[calc(var(--section-card-padding,var(--industry-card-padding))+1rem)] ${siteBranding.heroPanelClassName} ${siteBranding.heroContentClassName} ${alignClass}`}>
           <div className={`flex flex-wrap items-center gap-4 text-sm uppercase tracking-[0.28em] text-white/70 ${centered ? "justify-center" : ""}`}>
             <span>{siteConfig.hero.eyebrow}</span>
             <span className="industry-chip rounded-full border border-white/20 px-4 py-2 text-primary">{siteConfig.hero.badge}</span>
@@ -118,7 +118,7 @@ function HeroC({ topPaddingClass }: { topPaddingClass?: string }) {
         </div>
       ) : null}
       <Container className={`${composition.container} ${topPaddingClass}`}>
-        <div className={`industry-hero-panel rounded-[2rem] bg-shell p-[var(--industry-card-padding)] text-white shadow-glow lg:p-[calc(var(--industry-card-padding)+0.5rem)] ${siteBranding.heroPanelClassName} ${siteBranding.heroContentClassName} ${composition.content} ${composition.contentFirst ? "order-1" : "order-2"}`}>
+        <div className={`industry-hero-panel rounded-[2rem] bg-shell p-[var(--section-card-padding,var(--industry-card-padding))] text-white shadow-glow lg:p-[calc(var(--section-card-padding,var(--industry-card-padding))+0.5rem)] ${siteBranding.heroPanelClassName} ${siteBranding.heroContentClassName} ${composition.content} ${composition.contentFirst ? "order-1" : "order-2"}`}>
           <p className="text-sm uppercase tracking-[0.35em] text-white/65">{siteConfig.hero.eyebrow}</p>
           <h1 className="industry-heading mt-6 text-5xl font-black tracking-tight sm:text-6xl">{siteConfig.hero.headline}</h1>
           <p className="mt-6 text-3xl font-black text-accent">{siteConfig.hero.highlight}</p>
