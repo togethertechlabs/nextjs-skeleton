@@ -24,6 +24,9 @@ export function PageShell({
       className={`min-h-screen ${siteBranding.shellClassName}`}
       style={siteBranding.cssVars as CSSProperties}
       data-industry={siteBranding.key}
+      data-visual-mode={siteBranding.visualMode}
+      data-accent-style={siteBranding.accentStyle}
+      data-hero-composition={siteBranding.heroComposition}
     >
       <SiteHeader
         brand={siteConfig.brand}
