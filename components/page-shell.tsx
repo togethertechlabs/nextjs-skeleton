@@ -27,6 +27,7 @@ export function PageShell({
       data-visual-mode={siteBranding.visualMode}
       data-accent-style={siteBranding.accentStyle}
       data-hero-composition={siteBranding.heroComposition}
+      data-premium-mode={siteBranding.premiumMode ? "true" : "false"}
     >
       <SiteHeader
         brand={siteConfig.brand}

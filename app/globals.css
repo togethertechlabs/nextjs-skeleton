@@ -39,6 +39,8 @@
   --industry-button-py: 1rem;
   --industry-card-padding: 1.85rem;
   --industry-section-gap: 5.5rem;
+  --industry-hero-min-height: 74vh;
+  --industry-heading-scale: 1;
 }
 
 * {
@@ -173,6 +175,8 @@ a {
   font-weight: var(--industry-heading-weight);
   letter-spacing: var(--industry-heading-spacing);
   text-wrap: balance;
+  transform: scale(var(--industry-heading-scale));
+  transform-origin: left top;
 }
 
 .industry-eyebrow {
@@ -469,6 +473,10 @@ a {
   margin-top: calc(var(--industry-section-gap) * -0.06);
 }
 
+.industry-section-space-premium {
+  margin-top: calc(var(--industry-section-gap) * -0.04);
+}
+
 .industry-shell-industrial .industry-service-card::after,
 .industry-shell-rugged .industry-service-card::after {
   border-width: 1px;
@@ -538,6 +546,61 @@ a {
 .industry-hero > * {
   position: relative;
   z-index: 1;
+}
+
+.premium-shell {
+  --industry-section-gap: calc(var(--industry-section-gap) + 0.75rem);
+}
+
+.premium-section {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.premium-card {
+  box-shadow:
+    var(--industry-card-shadow),
+    0 24px calc(52px * var(--industry-shadow-depth)) rgba(15,23,42,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.88);
+}
+
+.premium-cta {
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+}
+
+.premium-hero {
+  min-height: var(--industry-hero-min-height);
+}
+
+.premium-hero .industry-heading {
+  max-width: 12ch;
+}
+
+.premium-shell .industry-hero-panel {
+  border-radius: calc(var(--industry-card-radius) + 0.25rem);
+}
+
+.premium-shell .industry-cta-panel {
+  border-radius: calc(var(--industry-card-radius) + 0.35rem);
+}
+
+.premium-shell .industry-button-primary,
+.premium-shell .industry-button-secondary {
+  min-height: 3.7rem;
+}
+
+.premium-shell .industry-section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 5rem;
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--industry-accent-soft) 16%, transparent));
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
 }
 
 .industry-hero-media {

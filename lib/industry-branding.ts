@@ -22,11 +22,14 @@ export type SectionEmphasis = "standard" | "high";
 export type VisualMode = "cinematic" | "clean" | "bold" | "minimal" | "technical";
 export type HeroComposition = "split" | "full-bleed" | "centered" | "stacked";
 export type AccentStyle = "glow" | "solid" | "outline" | "gradient";
+export type SpacingScale = "normal" | "spacious";
 
 export type IndustryBranding = {
   key: IndustryKey;
   mood: IndustryMood;
   intensity: IndustryIntensity;
+  premiumMode: boolean;
+  spacingScale: SpacingScale;
   heroEnergy: HeroEnergy;
   visualMode: VisualMode;
   heroComposition: HeroComposition;
@@ -52,6 +55,7 @@ type BrandingInput = {
   folder?: string;
   theme?: ThemeName;
   seedSource?: string;
+  premiumMode?: boolean;
 };
 
 function normalizeKey(value: string) {
@@ -91,7 +95,7 @@ function createSectionEmphasis(overrides: Partial<Record<SectionName, SectionEmp
 
 type IndustryBrandingBase = Omit<
   IndustryBranding,
-  "key" | "visualMode" | "heroComposition" | "accentStyle" | "visualSeed" | "sectionSpacingClassName"
+  "key" | "premiumMode" | "spacingScale" | "visualMode" | "heroComposition" | "accentStyle" | "visualSeed" | "sectionSpacingClassName"
 >;
 
 function hashString(value: string) {
@@ -109,24 +113,24 @@ function pickDeterministic<T>(options: readonly T[], seed: number, offset = 0): 
   return options[(seed + offset) % options.length];
 }
 
-function getAllowedVisualModes(key: IndustryKey): readonly VisualMode[] {
+function getAllowedVisualModes(key: IndustryKey, premiumMode: boolean): readonly VisualMode[] {
   switch (key) {
     case "transport":
-      return ["cinematic", "bold", "technical"];
+      return premiumMode ? ["cinematic", "bold", "technical"] : ["bold", "technical", "cinematic"];
     case "electrician":
-      return ["technical", "bold", "cinematic"];
+      return premiumMode ? ["cinematic", "technical", "bold"] : ["technical", "bold", "cinematic"];
     case "construction":
     case "roofing":
-      return ["bold", "cinematic", "technical"];
+      return premiumMode ? ["cinematic", "bold", "technical"] : ["bold", "technical", "cinematic"];
     case "plumbing":
     case "heating":
-      return ["clean", "technical", "bold"];
+      return premiumMode ? ["cinematic", "clean", "technical"] : ["clean", "technical", "bold"];
     case "decorators":
-      return ["minimal", "clean", "cinematic"];
+      return premiumMode ? ["cinematic", "minimal", "clean"] : ["minimal", "clean", "cinematic"];
     case "plasterer":
-      return ["minimal", "clean", "bold"];
+      return premiumMode ? ["cinematic", "minimal", "clean"] : ["minimal", "clean", "bold"];
     default:
-      return ["clean", "bold", "technical", "minimal"];
+      return premiumMode ? ["cinematic", "bold", "clean", "technical"] : ["clean", "bold", "technical", "minimal"];
   }
 }
 
@@ -145,7 +149,20 @@ function getAllowedAccentStyles(visualMode: VisualMode): readonly AccentStyle[] 
   }
 }
 
-function getAllowedHeroCompositions(key: IndustryKey, visualMode: VisualMode): readonly HeroComposition[] {
+function getAllowedHeroCompositions(
+  key: IndustryKey,
+  visualMode: VisualMode,
+  premiumMode: boolean
+): readonly HeroComposition[] {
+  if (premiumMode && visualMode === "cinematic") return ["full-bleed", "centered", "split"];
+  if (premiumMode) {
+    if (key === "transport" || key === "electrician" || key === "construction" || key === "roofing") {
+      return ["full-bleed", "centered", "split", "stacked"];
+    }
+
+    return ["centered", "full-bleed", "split", "stacked"];
+  }
+
   if (visualMode === "cinematic") return ["full-bleed", "split", "centered"];
   if (visualMode === "minimal") return ["centered", "stacked", "split"];
   if (key === "transport" || key === "electrician") return ["split", "full-bleed", "centered"];
@@ -154,7 +171,12 @@ function getAllowedHeroCompositions(key: IndustryKey, visualMode: VisualMode): r
   return ["split", "centered", "stacked", "full-bleed"];
 }
 
-function getSectionSpacingClassName(contentDensity: IndustryBrandingBase["contentDensity"], visualMode: VisualMode) {
+function getSectionSpacingClassName(
+  contentDensity: IndustryBrandingBase["contentDensity"],
+  visualMode: VisualMode,
+  premiumMode: boolean
+) {
+  if (premiumMode) return "industry-section-space-premium";
   if (visualMode === "minimal" || contentDensity === "airy") return "industry-section-space-relaxed";
   if (visualMode === "bold" || contentDensity === "dense") return "industry-section-space-compact";
   return "industry-section-space-balanced";
@@ -164,26 +186,37 @@ function getVariationCssVars(
   base: IndustryBrandingBase,
   visualMode: VisualMode,
   accentStyle: AccentStyle,
-  seed: number
+  seed: number,
+  premiumMode: boolean
 ) {
   const radiusOptions = base.contentDensity === "airy"
     ? ["1.9rem", "2rem", "2.1rem"]
     : base.contentDensity === "dense"
       ? ["1.35rem", "1.5rem", "1.65rem"]
       : ["1.55rem", "1.7rem", "1.85rem"];
-  const surfaceContrast = visualMode === "minimal" ? "0.82" : visualMode === "bold" ? "1.18" : visualMode === "cinematic" ? "1.12" : "1";
-  const shadowDepth = base.heroEnergy === "high" ? "1.2" : base.heroEnergy === "medium" ? "1" : "0.82";
+  const surfaceContrast = premiumMode
+    ? (visualMode === "minimal" ? "0.96" : visualMode === "bold" ? "1.24" : visualMode === "cinematic" ? "1.18" : "1.08")
+    : (visualMode === "minimal" ? "0.82" : visualMode === "bold" ? "1.18" : visualMode === "cinematic" ? "1.12" : "1");
+  const shadowDepth = premiumMode
+    ? (base.heroEnergy === "high" ? "1.38" : base.heroEnergy === "medium" ? "1.18" : "0.96")
+    : (base.heroEnergy === "high" ? "1.2" : base.heroEnergy === "medium" ? "1" : "0.82");
   const glowStrength = base.heroEnergy === "high"
-    ? (visualMode === "cinematic" ? "1.2" : "1")
+    ? (premiumMode ? (visualMode === "cinematic" ? "1.38" : "1.16") : (visualMode === "cinematic" ? "1.2" : "1"))
     : base.heroEnergy === "medium"
-      ? "0.78"
-      : "0.5";
-  const vignetteOpacity = base.heroEnergy === "high" ? "0.62" : base.heroEnergy === "medium" ? "0.42" : "0.26";
-  const sectionWashOpacity = base.heroEnergy === "high" ? "1" : base.heroEnergy === "medium" ? "0.86" : "0.72";
-  const buttonPxOptions = ["1.45rem", "1.6rem", "1.8rem"];
-  const buttonPyOptions = ["0.9rem", "1rem", "1.08rem"];
-  const cardPaddingOptions = ["1.6rem", "1.85rem", "2.1rem"];
-  const spacingOptions = ["4.5rem", "5.5rem", "6.5rem"];
+      ? (premiumMode ? "0.94" : "0.78")
+      : (premiumMode ? "0.64" : "0.5");
+  const vignetteOpacity = premiumMode
+    ? (base.heroEnergy === "high" ? "0.74" : base.heroEnergy === "medium" ? "0.54" : "0.34")
+    : (base.heroEnergy === "high" ? "0.62" : base.heroEnergy === "medium" ? "0.42" : "0.26");
+  const sectionWashOpacity = premiumMode
+    ? (base.heroEnergy === "high" ? "1" : base.heroEnergy === "medium" ? "0.94" : "0.8")
+    : (base.heroEnergy === "high" ? "1" : base.heroEnergy === "medium" ? "0.86" : "0.72");
+  const buttonPxOptions = premiumMode ? ["1.7rem", "1.9rem", "2.1rem"] : ["1.45rem", "1.6rem", "1.8rem"];
+  const buttonPyOptions = premiumMode ? ["1rem", "1.08rem", "1.18rem"] : ["0.9rem", "1rem", "1.08rem"];
+  const cardPaddingOptions = premiumMode ? ["2rem", "2.25rem", "2.5rem"] : ["1.6rem", "1.85rem", "2.1rem"];
+  const spacingOptions = premiumMode ? ["6rem", "7rem", "8rem"] : ["4.5rem", "5.5rem", "6.5rem"];
+  const heroMinHeight = premiumMode ? "80vh" : "74vh";
+  const headingScale = premiumMode ? "1.08" : "1";
 
   return {
     "--industry-card-radius": pickDeterministic(radiusOptions, seed, 1),
@@ -196,7 +229,9 @@ function getVariationCssVars(
     "--industry-button-py": pickDeterministic(buttonPyOptions, seed, 3),
     "--industry-card-padding": pickDeterministic(cardPaddingOptions, seed, 4),
     "--industry-section-gap": pickDeterministic(spacingOptions, seed, 5),
-    "--industry-accent-fill-mode": accentStyle
+    "--industry-accent-fill-mode": accentStyle,
+    "--industry-hero-min-height": heroMinHeight,
+    "--industry-heading-scale": headingScale
   };
 }
 
@@ -549,27 +584,31 @@ export function resolveIndustryBranding(input: BrandingInput): IndustryBranding 
   const key = detectIndustryKey(input);
   const base = brandingMap[key];
   const seed = hashString(`${input.seedSource || ""}|${input.industry}|${input.folder || ""}|${input.theme || ""}|${key}`);
-  const visualMode = pickDeterministic(getAllowedVisualModes(key), seed, 0);
+  const premiumMode = input.premiumMode ?? true;
+  const visualMode = pickDeterministic(getAllowedVisualModes(key, premiumMode), seed, 0);
   const accentStyle = pickDeterministic(getAllowedAccentStyles(visualMode), seed, 1);
-  const heroComposition = pickDeterministic(getAllowedHeroCompositions(key, visualMode), seed, 2);
+  const heroComposition = pickDeterministic(getAllowedHeroCompositions(key, visualMode, premiumMode), seed, 2);
 
   return {
     key,
     ...base,
+    premiumMode,
+    spacingScale: premiumMode ? "spacious" : "normal",
     visualMode,
     accentStyle,
     heroComposition,
     visualSeed: seed,
-    sectionSpacingClassName: getSectionSpacingClassName(base.contentDensity, visualMode),
+    sectionSpacingClassName: getSectionSpacingClassName(base.contentDensity, visualMode, premiumMode),
     shellClassName: [
       base.shellClassName,
+      premiumMode ? "premium-shell" : "",
       `industry-visual-${visualMode}`,
       `industry-accent-${accentStyle}`,
       `industry-composition-${heroComposition}`
-    ].join(" "),
+    ].filter(Boolean).join(" "),
     cssVars: {
       ...base.cssVars,
-      ...getVariationCssVars(base, visualMode, accentStyle, seed)
+      ...getVariationCssVars(base, visualMode, accentStyle, seed, premiumMode)
     }
   };
 }
@@ -581,9 +620,10 @@ export function getIndustrySectionWrapperClass(
   const emphasis = branding.sectionEmphasis[section];
   return [
     "industry-section",
+    branding.premiumMode ? "premium-section" : "",
     emphasis === "high" ? "industry-section-emphasis-high" : "industry-section-emphasis-standard",
     branding.sectionSpacingClassName
-  ].join(" ");
+  ].filter(Boolean).join(" ");
 }
 
 export function getIndustryLabel(branding: IndustryBranding) {

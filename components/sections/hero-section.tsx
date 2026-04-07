@@ -7,7 +7,7 @@ function getHeroCompositionClasses() {
   switch (siteBranding.heroComposition) {
     case "full-bleed":
       return {
-        container: "relative flex min-h-[74vh] items-center justify-center py-24",
+        container: "relative flex min-h-[var(--industry-hero-min-height)] items-center justify-center py-24",
         content: "mx-auto max-w-4xl text-center",
         media: "hidden",
         mediaFirst: false,
@@ -15,7 +15,7 @@ function getHeroCompositionClasses() {
       };
     case "centered":
       return {
-        container: "grid min-h-[70vh] justify-center gap-10 py-24",
+        container: "grid min-h-[calc(var(--industry-hero-min-height)-4vh)] justify-center gap-10 py-24",
         content: "mx-auto max-w-4xl text-center",
         media: "mx-auto w-full max-w-5xl",
         mediaFirst: false,
@@ -31,7 +31,7 @@ function getHeroCompositionClasses() {
       };
     default:
       return {
-        container: "grid min-h-[74vh] items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] py-24",
+        container: "grid min-h-[var(--industry-hero-min-height)] items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] py-24",
         content: "",
         media: "",
         mediaFirst: false,
@@ -54,7 +54,7 @@ function HeroA({ topPaddingClass }: { topPaddingClass?: string }) {
   const centered = siteBranding.heroComposition === "centered" || siteBranding.heroComposition === "full-bleed";
 
   return (
-    <section className="industry-hero relative overflow-hidden border-b border-white/10 bg-shell text-white">
+    <section className="industry-hero premium-hero relative overflow-hidden border-b border-white/10 bg-shell text-white">
       {siteBranding.heroComposition === "full-bleed" ? (
         <div className="industry-hero-media absolute inset-0">
           <Image src={getImagePath("hero")} alt={siteConfig.brand.name} fill className="object-cover opacity-40" priority />
@@ -87,11 +87,11 @@ function HeroB({ topPaddingClass }: { topPaddingClass?: string }) {
   const alignClass = centered ? "mx-auto text-center" : siteBranding.heroComposition === "stacked" ? "max-w-4xl" : "max-w-4xl";
 
   return (
-    <section className="industry-hero relative overflow-hidden bg-shell py-24 text-white">
+    <section className="industry-hero premium-hero relative overflow-hidden bg-shell py-24 text-white">
       <Image src={getImagePath("hero")} alt={siteConfig.hero.headline} fill className="object-cover opacity-20" priority />
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/55 to-black/30" />
       <Container className={`relative ${topPaddingClass}`}>
-        <div className={`industry-hero-panel rounded-[2rem] border border-white/10 bg-black/25 p-8 backdrop-blur-xl lg:p-12 ${siteBranding.heroPanelClassName} ${siteBranding.heroContentClassName} ${alignClass}`}>
+        <div className={`industry-hero-panel rounded-[2rem] border border-white/10 bg-black/25 p-[var(--industry-card-padding)] backdrop-blur-xl lg:p-[calc(var(--industry-card-padding)+1rem)] ${siteBranding.heroPanelClassName} ${siteBranding.heroContentClassName} ${alignClass}`}>
           <div className={`flex flex-wrap items-center gap-4 text-sm uppercase tracking-[0.28em] text-white/70 ${centered ? "justify-center" : ""}`}>
             <span>{siteConfig.hero.eyebrow}</span>
             <span className="industry-chip rounded-full border border-white/20 px-4 py-2 text-primary">{siteConfig.hero.badge}</span>
@@ -111,14 +111,14 @@ function HeroC({ topPaddingClass }: { topPaddingClass?: string }) {
   const centered = siteBranding.heroComposition === "centered" || siteBranding.heroComposition === "full-bleed";
 
   return (
-    <section className="industry-hero bg-panel py-16">
+    <section className="industry-hero premium-hero bg-panel py-16">
       {siteBranding.heroComposition === "full-bleed" ? (
         <div className="industry-hero-media absolute inset-0">
           <Image src={getImagePath("hero")} alt={siteConfig.hero.headline} fill className="object-cover opacity-30" priority />
         </div>
       ) : null}
       <Container className={`${composition.container} ${topPaddingClass}`}>
-        <div className={`industry-hero-panel rounded-[2rem] bg-shell p-8 text-white shadow-glow lg:p-10 ${siteBranding.heroPanelClassName} ${siteBranding.heroContentClassName} ${composition.content} ${composition.contentFirst ? "order-1" : "order-2"}`}>
+        <div className={`industry-hero-panel rounded-[2rem] bg-shell p-[var(--industry-card-padding)] text-white shadow-glow lg:p-[calc(var(--industry-card-padding)+0.5rem)] ${siteBranding.heroPanelClassName} ${siteBranding.heroContentClassName} ${composition.content} ${composition.contentFirst ? "order-1" : "order-2"}`}>
           <p className="text-sm uppercase tracking-[0.35em] text-white/65">{siteConfig.hero.eyebrow}</p>
           <h1 className="industry-heading mt-6 text-5xl font-black tracking-tight sm:text-6xl">{siteConfig.hero.headline}</h1>
           <p className="mt-6 text-3xl font-black text-accent">{siteConfig.hero.highlight}</p>

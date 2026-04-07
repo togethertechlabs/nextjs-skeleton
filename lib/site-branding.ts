@@ -6,6 +6,7 @@ export const siteBranding = resolveIndustryBranding({
   industry: siteConfig.brand.industry,
   folder: siteConfig.images.folder,
   theme: siteConfig.layout.theme,
+  premiumMode: true,
   seedSource: [
     siteConfig.brand.name,
     siteConfig.brand.location,

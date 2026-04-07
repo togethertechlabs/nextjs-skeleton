@@ -27,7 +27,7 @@ function ServicesA() {
               <div className="relative h-56">
                 <Image src={getImagePath("services", index)} alt={service.title} fill className="object-cover" />
               </div>
-              <div className="p-8">
+              <div className="p-[var(--industry-card-padding)]">
                 <h3 className="industry-heading text-3xl font-black text-ink">{service.title}</h3>
                 <p className="mt-4 text-lg leading-8 text-muted">{service.description}</p>
                 <ServiceLink slug={service.slug} />
@@ -58,7 +58,7 @@ function ServicesB() {
               <div className="relative min-h-[240px]">
                 <Image src={getImagePath("services", index)} alt={service.title} fill className="object-cover" />
               </div>
-              <div className="p-8">
+              <div className="p-[var(--industry-card-padding)]">
                 <p className="industry-eyebrow text-xs uppercase tracking-[0.3em] text-primary">Featured service</p>
                 <h3 className="industry-heading mt-4 text-3xl font-black text-ink">{service.title}</h3>
                 <p className="mt-4 text-lg leading-8 text-muted">{service.short}</p>
@@ -89,7 +89,7 @@ function ServicesC() {
 
         <div className={`mt-14 grid gap-6 ${siteBranding.servicesGridClassName}`}>
           {siteConfig.services.map((service, index) => (
-            <article key={service.slug} className="industry-service-card rounded-[2rem] border border-line bg-shell p-5 text-white shadow-glow">
+            <article key={service.slug} className="industry-service-card rounded-[2rem] border border-line bg-shell p-[calc(var(--industry-card-padding)-0.35rem)] text-white shadow-glow">
               <div className="overflow-hidden rounded-[1.5rem]">
                 <Image src={getImagePath("services", index)} alt={service.title} width={800} height={500} className="h-48 w-full object-cover" />
               </div>

@@ -36,14 +36,14 @@ export function Card({
   children,
   className = ""
 }: PropsWithChildren<{ className?: string }>) {
-  return <div className={`industry-card industry-surface rounded-[2rem] border border-line bg-white shadow-soft ${className}`}>{children}</div>;
+  return <div className={`industry-card industry-surface premium-card rounded-[2rem] border border-line bg-white shadow-soft ${className}`}>{children}</div>;
 }
 
 export function DarkCard({
   children,
   className = ""
 }: PropsWithChildren<{ className?: string }>) {
-  return <div className={`industry-dark-card industry-surface rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur ${className}`}>{children}</div>;
+  return <div className={`industry-dark-card industry-surface premium-card rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur ${className}`}>{children}</div>;
 }
 
 export function PrimaryButton({
@@ -54,7 +54,7 @@ export function PrimaryButton({
   return (
     <Link
       href={href}
-      className={`industry-button-primary industry-accent-target inline-flex items-center justify-center rounded-2xl bg-primary px-[var(--industry-button-px)] py-[var(--industry-button-py)] text-base font-semibold text-white shadow-glow transition hover:opacity-95 ${className}`}
+      className={`industry-button-primary industry-accent-target premium-cta inline-flex items-center justify-center rounded-2xl bg-primary px-[var(--industry-button-px)] py-[var(--industry-button-py)] text-base font-semibold text-white shadow-glow transition hover:opacity-95 ${className}`}
     >
       {children}
     </Link>
@@ -69,7 +69,7 @@ export function SecondaryButton({
   return (
     <Link
       href={href}
-      className={`industry-button-secondary industry-accent-target inline-flex items-center justify-center rounded-2xl border border-current/20 bg-white/5 px-[var(--industry-button-px)] py-[var(--industry-button-py)] text-base font-semibold transition hover:bg-white/10 ${className}`}
+      className={`industry-button-secondary industry-accent-target premium-cta inline-flex items-center justify-center rounded-2xl border border-current/20 bg-white/5 px-[var(--industry-button-px)] py-[var(--industry-button-py)] text-base font-semibold transition hover:bg-white/10 ${className}`}
     >
       {children}
     </Link>

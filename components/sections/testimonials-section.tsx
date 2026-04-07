@@ -21,7 +21,7 @@ function TestimonialsA({ spacingClassName = "" }: Pick<TestimonialsSectionProps,
 
         <div className="mt-14 grid gap-8 md:grid-cols-2">
           {siteConfig.testimonials.items.map((item) => (
-            <DarkCard key={item.name} className="industry-testimonial-card p-10">
+            <DarkCard key={item.name} className="industry-testimonial-card p-[calc(var(--industry-card-padding)+0.4rem)]">
               <div className="industry-eyebrow text-primary">5-star review</div>
               <p className="mt-8 text-3xl leading-tight text-white/90">"{item.quote}"</p>
               <p className="mt-10 text-lg uppercase tracking-[0.3em] text-white/55">{item.name}</p>
@@ -45,7 +45,7 @@ function TestimonialsB({ spacingClassName = "" }: Pick<TestimonialsSectionProps,
 
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {siteConfig.testimonials.items.map((item, index) => (
-            <article key={item.name} className="industry-testimonial-card rounded-[2rem] border border-line bg-white p-8 shadow-soft">
+            <article key={item.name} className="industry-testimonial-card rounded-[2rem] border border-line bg-white p-[var(--industry-card-padding)] shadow-soft">
               <div className="flex items-center justify-between">
                 <p className="text-sm uppercase tracking-[0.35em] text-muted">Review 0{index + 1}</p>
                 <p className="font-black text-primary">5.0</p>

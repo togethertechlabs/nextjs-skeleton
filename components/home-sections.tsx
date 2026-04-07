@@ -106,7 +106,9 @@ function planSections(): PlannedSection[] {
   });
   const heroTopPaddingClass = getHeroPaddingClass(pageCompatibility);
 
-  for (const section of siteConfig.layout.sectionOrder) {
+  const orderedSections = getResolvedSectionOrder();
+
+  for (const section of orderedSections) {
     const plannedSection = getSectionPlan(section, previousMetadata, heroTopPaddingClass);
 
     if (!plannedSection) continue;
@@ -116,6 +118,31 @@ function planSections(): PlannedSection[] {
   }
 
   return planned;
+}
+
+function getResolvedSectionOrder() {
+  const uniqueSections = Array.from(new Set(siteConfig.layout.sectionOrder));
+
+  if (!siteBranding.premiumMode) {
+    return uniqueSections;
+  }
+
+  const prioritySections: SectionName[] = ["trustBar", "services"];
+  const withoutHero = uniqueSections.filter((section) => section !== "hero" && section !== "cta");
+  const prioritized = withoutHero.filter((section) => prioritySections.includes(section));
+  const remainder = withoutHero.filter((section) => !prioritySections.includes(section));
+  const filtered = [
+    "hero" as const,
+    ...prioritized,
+    ...remainder,
+    "cta" as const
+  ].filter((section, index, items) => items.indexOf(section) === index);
+
+  return filtered.filter((section) => {
+    if (section === "faq" && siteConfig.faq.items.length < 3) return false;
+    if (section === "testimonials" && siteConfig.testimonials.items.length < 2) return false;
+    return true;
+  });
 }
 
 export function HomeSections() {
