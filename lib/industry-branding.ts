@@ -99,6 +99,7 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
     cssVars: {
       "--industry-accent-strong": "#f59e0b",
       "--industry-accent-soft": "rgba(245, 158, 11, 0.14)",
+      "--industry-accent-glow": "rgba(245, 158, 11, 0.42)",
       "--industry-frame-color": "rgba(245, 158, 11, 0.28)",
       "--industry-card-shadow": "0 18px 40px rgba(15, 23, 42, 0.14)",
       "--industry-button-shadow": "0 16px 32px rgba(245, 158, 11, 0.22)",
@@ -108,7 +109,14 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
       "--industry-heading-weight": "920",
       "--industry-heading-spacing": "-0.045em",
       "--industry-card-radius": "1.55rem",
-      "--industry-panel-overlay": "linear-gradient(135deg, rgba(15,23,42,0.96), rgba(51,65,85,0.8))"
+      "--industry-panel-overlay": "linear-gradient(135deg, rgba(15,23,42,0.96), rgba(51,65,85,0.8))",
+      "--industry-hero-light": "radial-gradient(circle at 18% 22%, rgba(245,158,11,0.2), transparent 42%)",
+      "--industry-hero-tint": "linear-gradient(115deg, rgba(15,23,42,0.78), rgba(15,23,42,0.32) 48%, rgba(15,23,42,0.88))",
+      "--industry-hero-vignette": "radial-gradient(circle at 50% 42%, transparent 32%, rgba(2,6,23,0.42) 100%)",
+      "--industry-section-wash": "linear-gradient(180deg, rgba(245,158,11,0.06), transparent 28%, transparent 72%, rgba(15,23,42,0.08))",
+      "--industry-surface-sheen": "linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.02) 28%, transparent 68%)",
+      "--industry-surface-lowlight": "radial-gradient(circle at bottom right, rgba(15,23,42,0.18), transparent 46%)",
+      "--industry-header-glow": "rgba(245, 158, 11, 0.18)"
     }
   },
   roofing: {
@@ -129,6 +137,7 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
     cssVars: {
       "--industry-accent-strong": "#ef4444",
       "--industry-accent-soft": "rgba(239, 68, 68, 0.12)",
+      "--industry-accent-glow": "rgba(239, 68, 68, 0.36)",
       "--industry-frame-color": "rgba(100, 116, 139, 0.3)",
       "--industry-card-shadow": "0 18px 42px rgba(15, 23, 42, 0.16)",
       "--industry-button-shadow": "0 16px 32px rgba(239, 68, 68, 0.18)",
@@ -138,7 +147,14 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
       "--industry-heading-weight": "900",
       "--industry-heading-spacing": "-0.042em",
       "--industry-card-radius": "1.45rem",
-      "--industry-panel-overlay": "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(31,41,55,0.84))"
+      "--industry-panel-overlay": "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(31,41,55,0.84))",
+      "--industry-hero-light": "radial-gradient(circle at 78% 18%, rgba(239,68,68,0.14), transparent 44%)",
+      "--industry-hero-tint": "linear-gradient(125deg, rgba(15,23,42,0.82), rgba(31,41,55,0.3) 46%, rgba(17,24,39,0.9))",
+      "--industry-hero-vignette": "radial-gradient(circle at 50% 42%, transparent 28%, rgba(2,6,23,0.5) 100%)",
+      "--industry-section-wash": "linear-gradient(180deg, rgba(100,116,139,0.08), transparent 22%, transparent 76%, rgba(15,23,42,0.08))",
+      "--industry-surface-sheen": "linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.02) 24%, transparent 68%)",
+      "--industry-surface-lowlight": "radial-gradient(circle at bottom right, rgba(15,23,42,0.2), transparent 48%)",
+      "--industry-header-glow": "rgba(239, 68, 68, 0.14)"
     }
   },
   plumbing: {
@@ -159,6 +175,7 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
     cssVars: {
       "--industry-accent-strong": "#38bdf8",
       "--industry-accent-soft": "rgba(56, 189, 248, 0.12)",
+      "--industry-accent-glow": "rgba(56, 189, 248, 0.3)",
       "--industry-frame-color": "rgba(56, 189, 248, 0.26)",
       "--industry-card-shadow": "0 16px 34px rgba(37, 99, 235, 0.1)",
       "--industry-button-shadow": "0 14px 28px rgba(56, 189, 248, 0.18)",
@@ -168,7 +185,14 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
       "--industry-heading-weight": "880",
       "--industry-heading-spacing": "-0.035em",
       "--industry-card-radius": "1.7rem",
-      "--industry-panel-overlay": "linear-gradient(135deg, rgba(15,23,42,0.94), rgba(30,64,175,0.72))"
+      "--industry-panel-overlay": "linear-gradient(135deg, rgba(15,23,42,0.94), rgba(30,64,175,0.72))",
+      "--industry-hero-light": "radial-gradient(circle at 16% 18%, rgba(56,189,248,0.16), transparent 44%)",
+      "--industry-hero-tint": "linear-gradient(120deg, rgba(15,23,42,0.7), rgba(30,64,175,0.18) 42%, rgba(15,23,42,0.82))",
+      "--industry-hero-vignette": "radial-gradient(circle at 50% 40%, transparent 34%, rgba(15,23,42,0.36) 100%)",
+      "--industry-section-wash": "linear-gradient(180deg, rgba(56,189,248,0.04), transparent 26%, transparent 74%, rgba(15,23,42,0.04))",
+      "--industry-surface-sheen": "linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.05) 28%, transparent 70%)",
+      "--industry-surface-lowlight": "radial-gradient(circle at bottom right, rgba(30,64,175,0.08), transparent 50%)",
+      "--industry-header-glow": "rgba(56, 189, 248, 0.14)"
     }
   },
   heating: {
@@ -189,6 +213,7 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
     cssVars: {
       "--industry-accent-strong": "#fb923c",
       "--industry-accent-soft": "rgba(251, 146, 60, 0.12)",
+      "--industry-accent-glow": "rgba(251, 146, 60, 0.32)",
       "--industry-frame-color": "rgba(251, 146, 60, 0.24)",
       "--industry-card-shadow": "0 16px 34px rgba(251, 146, 60, 0.12)",
       "--industry-button-shadow": "0 14px 28px rgba(249, 115, 22, 0.18)",
@@ -198,7 +223,14 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
       "--industry-heading-weight": "890",
       "--industry-heading-spacing": "-0.036em",
       "--industry-card-radius": "1.65rem",
-      "--industry-panel-overlay": "linear-gradient(135deg, rgba(30,41,59,0.95), rgba(154,52,18,0.68))"
+      "--industry-panel-overlay": "linear-gradient(135deg, rgba(30,41,59,0.95), rgba(154,52,18,0.68))",
+      "--industry-hero-light": "radial-gradient(circle at 80% 18%, rgba(251,146,60,0.16), transparent 42%)",
+      "--industry-hero-tint": "linear-gradient(120deg, rgba(30,41,59,0.74), rgba(154,52,18,0.12) 44%, rgba(30,41,59,0.84))",
+      "--industry-hero-vignette": "radial-gradient(circle at 50% 42%, transparent 34%, rgba(15,23,42,0.36) 100%)",
+      "--industry-section-wash": "linear-gradient(180deg, rgba(251,146,60,0.05), transparent 26%, transparent 72%, rgba(30,41,59,0.04))",
+      "--industry-surface-sheen": "linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.04) 26%, transparent 68%)",
+      "--industry-surface-lowlight": "radial-gradient(circle at bottom right, rgba(154,52,18,0.08), transparent 48%)",
+      "--industry-header-glow": "rgba(251, 146, 60, 0.15)"
     }
   },
   electrician: {
@@ -219,6 +251,7 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
     cssVars: {
       "--industry-accent-strong": "#facc15",
       "--industry-accent-soft": "rgba(250, 204, 21, 0.16)",
+      "--industry-accent-glow": "rgba(250, 204, 21, 0.46)",
       "--industry-frame-color": "rgba(250, 204, 21, 0.32)",
       "--industry-card-shadow": "0 18px 40px rgba(15, 23, 42, 0.16)",
       "--industry-button-shadow": "0 18px 34px rgba(250, 204, 21, 0.24)",
@@ -228,7 +261,14 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
       "--industry-heading-weight": "910",
       "--industry-heading-spacing": "-0.04em",
       "--industry-card-radius": "1.55rem",
-      "--industry-panel-overlay": "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(180,83,9,0.55))"
+      "--industry-panel-overlay": "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(180,83,9,0.55))",
+      "--industry-hero-light": "radial-gradient(circle at 82% 16%, rgba(250,204,21,0.22), transparent 40%)",
+      "--industry-hero-tint": "linear-gradient(120deg, rgba(15,23,42,0.78), rgba(180,83,9,0.1) 40%, rgba(15,23,42,0.9))",
+      "--industry-hero-vignette": "radial-gradient(circle at 50% 44%, transparent 30%, rgba(2,6,23,0.5) 100%)",
+      "--industry-section-wash": "linear-gradient(180deg, rgba(250,204,21,0.06), transparent 24%, transparent 74%, rgba(15,23,42,0.08))",
+      "--industry-surface-sheen": "linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.05) 24%, transparent 66%)",
+      "--industry-surface-lowlight": "radial-gradient(circle at bottom right, rgba(15,23,42,0.18), transparent 48%)",
+      "--industry-header-glow": "rgba(250, 204, 21, 0.24)"
     }
   },
   transport: {
@@ -249,6 +289,7 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
     cssVars: {
       "--industry-accent-strong": "#22d3ee",
       "--industry-accent-soft": "rgba(34, 211, 238, 0.16)",
+      "--industry-accent-glow": "rgba(34, 211, 238, 0.42)",
       "--industry-frame-color": "rgba(34, 211, 238, 0.34)",
       "--industry-card-shadow": "0 22px 48px rgba(8, 15, 35, 0.24)",
       "--industry-button-shadow": "0 20px 36px rgba(34, 211, 238, 0.24)",
@@ -258,7 +299,14 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
       "--industry-heading-weight": "930",
       "--industry-heading-spacing": "-0.05em",
       "--industry-card-radius": "1.45rem",
-      "--industry-panel-overlay": "linear-gradient(135deg, rgba(2,6,23,0.98), rgba(14,116,144,0.58))"
+      "--industry-panel-overlay": "linear-gradient(135deg, rgba(2,6,23,0.98), rgba(14,116,144,0.58))",
+      "--industry-hero-light": "radial-gradient(circle at 80% 20%, rgba(34,211,238,0.24), transparent 40%)",
+      "--industry-hero-tint": "linear-gradient(122deg, rgba(2,6,23,0.88), rgba(14,116,144,0.18) 42%, rgba(2,6,23,0.92))",
+      "--industry-hero-vignette": "radial-gradient(circle at 52% 42%, transparent 28%, rgba(2,6,23,0.56) 100%)",
+      "--industry-section-wash": "linear-gradient(180deg, rgba(34,211,238,0.08), transparent 22%, transparent 72%, rgba(2,6,23,0.1))",
+      "--industry-surface-sheen": "linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.05) 24%, transparent 64%)",
+      "--industry-surface-lowlight": "radial-gradient(circle at bottom right, rgba(8,15,35,0.24), transparent 46%)",
+      "--industry-header-glow": "rgba(34, 211, 238, 0.26)"
     }
   },
   decorators: {
@@ -279,6 +327,7 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
     cssVars: {
       "--industry-accent-strong": "#f97316",
       "--industry-accent-soft": "rgba(249, 115, 22, 0.1)",
+      "--industry-accent-glow": "rgba(249, 115, 22, 0.18)",
       "--industry-frame-color": "rgba(249, 115, 22, 0.18)",
       "--industry-card-shadow": "0 14px 28px rgba(148, 163, 184, 0.12)",
       "--industry-button-shadow": "0 12px 24px rgba(249, 115, 22, 0.12)",
@@ -288,7 +337,14 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
       "--industry-heading-weight": "840",
       "--industry-heading-spacing": "-0.03em",
       "--industry-card-radius": "1.9rem",
-      "--industry-panel-overlay": "linear-gradient(135deg, rgba(255,255,255,0.94), rgba(251,146,60,0.16))"
+      "--industry-panel-overlay": "linear-gradient(135deg, rgba(255,255,255,0.94), rgba(251,146,60,0.16))",
+      "--industry-hero-light": "radial-gradient(circle at 18% 18%, rgba(249,115,22,0.12), transparent 42%)",
+      "--industry-hero-tint": "linear-gradient(120deg, rgba(255,255,255,0.26), rgba(251,146,60,0.08) 42%, rgba(255,255,255,0.1))",
+      "--industry-hero-vignette": "radial-gradient(circle at 50% 42%, transparent 40%, rgba(15,23,42,0.12) 100%)",
+      "--industry-section-wash": "linear-gradient(180deg, rgba(249,115,22,0.03), transparent 28%, transparent 74%, rgba(148,163,184,0.04))",
+      "--industry-surface-sheen": "linear-gradient(180deg, rgba(255,255,255,0.34), rgba(255,255,255,0.08) 30%, transparent 72%)",
+      "--industry-surface-lowlight": "radial-gradient(circle at bottom right, rgba(249,115,22,0.05), transparent 50%)",
+      "--industry-header-glow": "rgba(249, 115, 22, 0.12)"
     }
   },
   plasterer: {
@@ -309,6 +365,7 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
     cssVars: {
       "--industry-accent-strong": "#a16207",
       "--industry-accent-soft": "rgba(161, 98, 7, 0.1)",
+      "--industry-accent-glow": "rgba(161, 98, 7, 0.2)",
       "--industry-frame-color": "rgba(120, 113, 108, 0.24)",
       "--industry-card-shadow": "0 16px 30px rgba(28, 25, 23, 0.12)",
       "--industry-button-shadow": "0 14px 26px rgba(161, 98, 7, 0.14)",
@@ -318,7 +375,14 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
       "--industry-heading-weight": "860",
       "--industry-heading-spacing": "-0.032em",
       "--industry-card-radius": "1.8rem",
-      "--industry-panel-overlay": "linear-gradient(135deg, rgba(68,64,60,0.95), rgba(214,211,209,0.52))"
+      "--industry-panel-overlay": "linear-gradient(135deg, rgba(68,64,60,0.95), rgba(214,211,209,0.52))",
+      "--industry-hero-light": "radial-gradient(circle at 22% 18%, rgba(161,98,7,0.12), transparent 42%)",
+      "--industry-hero-tint": "linear-gradient(120deg, rgba(68,64,60,0.72), rgba(214,211,209,0.08) 44%, rgba(68,64,60,0.78))",
+      "--industry-hero-vignette": "radial-gradient(circle at 50% 42%, transparent 38%, rgba(28,25,23,0.18) 100%)",
+      "--industry-section-wash": "linear-gradient(180deg, rgba(120,113,108,0.04), transparent 28%, transparent 74%, rgba(68,64,60,0.04))",
+      "--industry-surface-sheen": "linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.06) 28%, transparent 70%)",
+      "--industry-surface-lowlight": "radial-gradient(circle at bottom right, rgba(120,113,108,0.08), transparent 48%)",
+      "--industry-header-glow": "rgba(161, 98, 7, 0.12)"
     }
   },
   generic: {
@@ -339,6 +403,7 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
     cssVars: {
       "--industry-accent-strong": "#2563eb",
       "--industry-accent-soft": "rgba(37, 99, 235, 0.1)",
+      "--industry-accent-glow": "rgba(37, 99, 235, 0.24)",
       "--industry-frame-color": "rgba(37, 99, 235, 0.2)",
       "--industry-card-shadow": "0 16px 32px rgba(15, 23, 42, 0.1)",
       "--industry-button-shadow": "0 14px 28px rgba(37, 99, 235, 0.16)",
@@ -348,7 +413,14 @@ const brandingMap: Record<IndustryKey, Omit<IndustryBranding, "key">> = {
       "--industry-heading-weight": "880",
       "--industry-heading-spacing": "-0.035em",
       "--industry-card-radius": "1.75rem",
-      "--industry-panel-overlay": "linear-gradient(135deg, rgba(15,23,42,0.94), rgba(59,130,246,0.38))"
+      "--industry-panel-overlay": "linear-gradient(135deg, rgba(15,23,42,0.94), rgba(59,130,246,0.38))",
+      "--industry-hero-light": "radial-gradient(circle at 18% 18%, rgba(37,99,235,0.14), transparent 42%)",
+      "--industry-hero-tint": "linear-gradient(120deg, rgba(15,23,42,0.74), rgba(59,130,246,0.08) 42%, rgba(15,23,42,0.82))",
+      "--industry-hero-vignette": "radial-gradient(circle at 50% 42%, transparent 36%, rgba(15,23,42,0.26) 100%)",
+      "--industry-section-wash": "linear-gradient(180deg, rgba(37,99,235,0.04), transparent 26%, transparent 74%, rgba(15,23,42,0.04))",
+      "--industry-surface-sheen": "linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.05) 28%, transparent 72%)",
+      "--industry-surface-lowlight": "radial-gradient(circle at bottom right, rgba(37,99,235,0.06), transparent 50%)",
+      "--industry-header-glow": "rgba(37, 99, 235, 0.14)"
     }
   }
 };
