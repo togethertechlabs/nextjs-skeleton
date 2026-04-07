@@ -33,6 +33,7 @@ export type SpacingScale = "normal" | "spacious";
 export type DesignDominance = "hero" | "services" | "cta" | "trust" | "balanced";
 export type SectionScaleValue = "sm" | "md" | "lg" | "xl";
 export type ContrastProfile = "soft" | "balanced" | "high";
+export type ContentDensity = "tight" | "balanced" | "spacious";
 
 export type SectionScale = {
   hero: SectionScaleValue;
@@ -63,7 +64,7 @@ export type IndustryBranding = {
   accentBehavior: AccentBehavior;
   ctaStyle: CtaStyle;
   textureProfile: TextureProfile;
-  contentDensity: "tight" | "balanced" | "spacious";
+  contentDensity: ContentDensity;
   sectionEmphasis: Record<SectionName, SectionEmphasis>;
   sectionSpacingClassName: string;
   shellClassName: string;

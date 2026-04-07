@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Card, Container, SectionHeading } from "@/components/ui";
+import { resolveModuleSpacing, type ResolvedModuleSpacing } from "@/lib/module-spacing";
 import { siteBranding } from "@/lib/site-branding";
 import { getImagePath, siteConfig } from "@/lib/site-config";
 
@@ -12,22 +13,31 @@ function ServiceLink({ slug }: { slug: string }) {
   );
 }
 
-function ServicesA() {
+function getDefaultServicesSpacing() {
+  return resolveModuleSpacing({
+    current: "services",
+    designDominance: siteBranding.designDominance,
+    premiumMode: siteBranding.premiumMode,
+    contentDensity: siteBranding.contentDensity
+  });
+}
+
+function ServicesA({ spacing }: { spacing: ResolvedModuleSpacing }) {
   return (
-    <section className="bg-panel py-20">
+    <section className={`module-section ${spacing.wrapperClass} bg-panel`}>
       <Container>
         <SectionHeading
           eyebrow={siteConfig.servicesIntro.eyebrow}
           title={siteConfig.servicesIntro.heading}
           description={siteConfig.servicesIntro.body}
         />
-        <div className={`mt-12 grid gap-6 ${siteBranding.servicesGridClassName}`}>
+        <div className={`module-grid ${spacing.gridClass} ${spacing.leadClass} grid ${siteBranding.servicesGridClassName}`}>
           {siteConfig.services.map((service, index) => (
             <Card key={service.slug} className="industry-service-card overflow-hidden">
               <div className="relative h-56">
                 <Image src={getImagePath("services", index)} alt={service.title} fill className="object-cover" />
               </div>
-              <div className="p-[var(--section-card-padding,var(--industry-card-padding))]">
+              <div className={`${spacing.cardClass} module-card-pad`}>
                 <h3 className="industry-heading text-3xl font-black text-ink">{service.title}</h3>
                 <p className="mt-4 text-lg leading-8 text-muted">{service.description}</p>
                 <ServiceLink slug={service.slug} />
@@ -40,10 +50,10 @@ function ServicesA() {
   );
 }
 
-function ServicesB() {
+function ServicesB({ spacing }: { spacing: ResolvedModuleSpacing }) {
   return (
-    <section className="bg-white py-20">
-      <Container className="grid gap-10 lg:grid-cols-[0.35fr_0.65fr]">
+    <section className={`module-section ${spacing.wrapperClass} bg-white`}>
+      <Container className={`module-grid ${spacing.gridClass} grid lg:grid-cols-[0.35fr_0.65fr]`}>
         <div>
           <SectionHeading
             eyebrow={siteConfig.servicesIntro.eyebrow}
@@ -52,13 +62,13 @@ function ServicesB() {
           />
         </div>
 
-        <div className="grid gap-6">
+        <div className={`module-grid ${spacing.gridClass} grid`}>
           {siteConfig.services.map((service, index) => (
             <Card key={service.slug} className="industry-service-card grid overflow-hidden md:grid-cols-[0.36fr_0.64fr]">
               <div className="relative min-h-[240px]">
                 <Image src={getImagePath("services", index)} alt={service.title} fill className="object-cover" />
               </div>
-              <div className="p-[var(--section-card-padding,var(--industry-card-padding))]">
+              <div className={`${spacing.cardClass} module-card-pad`}>
                 <p className="industry-eyebrow text-xs uppercase tracking-[0.3em] text-primary">Featured service</p>
                 <h3 className="industry-heading mt-4 text-3xl font-black text-ink">{service.title}</h3>
                 <p className="mt-4 text-lg leading-8 text-muted">{service.short}</p>
@@ -77,9 +87,9 @@ function ServicesB() {
   );
 }
 
-function ServicesC() {
+function ServicesC({ spacing }: { spacing: ResolvedModuleSpacing }) {
   return (
-    <section className="bg-panel py-20">
+    <section className={`module-section ${spacing.wrapperClass} bg-panel`}>
       <Container>
         <SectionHeading
           eyebrow={siteConfig.servicesIntro.eyebrow}
@@ -87,9 +97,9 @@ function ServicesC() {
           description={siteConfig.servicesIntro.body}
         />
 
-        <div className={`mt-12 grid gap-5 ${siteBranding.servicesGridClassName}`}>
+        <div className={`module-grid ${spacing.gridClass} ${spacing.leadClass} grid ${siteBranding.servicesGridClassName}`}>
           {siteConfig.services.map((service, index) => (
-            <article key={service.slug} className="industry-service-card rounded-[2rem] border border-line bg-shell p-[calc(var(--section-card-padding,var(--industry-card-padding))-0.35rem)] text-white shadow-glow">
+            <article key={service.slug} className={`industry-service-card ${spacing.cardClass} module-card-pad rounded-[2rem] border border-line bg-shell text-white shadow-glow`}>
               <div className="overflow-hidden rounded-[1.5rem]">
                 <Image src={getImagePath("services", index)} alt={service.title} width={800} height={500} className="h-48 w-full object-cover" />
               </div>
@@ -107,13 +117,13 @@ function ServicesC() {
   );
 }
 
-export function ServicesSection() {
+export function ServicesSection({ spacing = getDefaultServicesSpacing() }: { spacing?: ResolvedModuleSpacing }) {
   switch (siteConfig.layout.servicesVariant) {
     case "services-b":
-      return <ServicesB />;
+      return <ServicesB spacing={spacing} />;
     case "services-c":
-      return <ServicesC />;
+      return <ServicesC spacing={spacing} />;
     default:
-      return <ServicesA />;
+      return <ServicesA spacing={spacing} />;
   }
 }

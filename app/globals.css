@@ -302,17 +302,8 @@ a {
   z-index: 1;
 }
 
-.industry-section > section {
-  padding-top: var(--section-space-y);
-  padding-bottom: var(--section-space-y);
-}
-
 .industry-section .industry-heading {
   transform: scale(calc(var(--industry-heading-scale) * var(--section-heading-multiplier)));
-}
-
-.industry-section .grid {
-  gap: var(--section-grid-gap);
 }
 
 .industry-section-emphasis-high {
@@ -751,6 +742,97 @@ a {
   pointer-events: none;
   z-index: 0;
   opacity: 0.4;
+}
+
+.module-section {
+  padding-top: var(--module-space-top, var(--section-space-y));
+  padding-bottom: var(--module-space-bottom, var(--section-space-y));
+}
+
+.module-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--module-inner-gap, 1.25rem);
+}
+
+.module-grid {
+  gap: var(--module-grid-gap, var(--section-grid-gap));
+}
+
+.module-card-pad {
+  padding: var(--module-card-padding, var(--section-card-padding, var(--industry-card-padding)));
+}
+
+.module-top-tight {
+  --module-space-top: clamp(3rem, 4vw, 3.75rem);
+}
+
+.module-top-normal {
+  --module-space-top: clamp(3.75rem, 5vw, 4.75rem);
+}
+
+.module-top-loose {
+  --module-space-top: clamp(4.5rem, 6vw, 5.9rem);
+}
+
+.module-bottom-tight {
+  --module-space-bottom: clamp(3rem, 4vw, 3.75rem);
+}
+
+.module-bottom-normal {
+  --module-space-bottom: clamp(3.75rem, 5vw, 4.75rem);
+}
+
+.module-bottom-loose {
+  --module-space-bottom: clamp(4.5rem, 6vw, 5.9rem);
+}
+
+.module-inner-tight {
+  --module-inner-gap: 0.95rem;
+}
+
+.module-inner-normal {
+  --module-inner-gap: 1.35rem;
+}
+
+.module-inner-loose {
+  --module-inner-gap: 1.8rem;
+}
+
+.module-gap-tight {
+  --module-grid-gap: 1rem;
+}
+
+.module-gap-normal {
+  --module-grid-gap: 1.5rem;
+}
+
+.module-gap-loose {
+  --module-grid-gap: 2rem;
+}
+
+.module-card-tight {
+  --module-card-padding: calc(var(--section-card-padding, var(--industry-card-padding)) - 0.3rem);
+}
+
+.module-card-normal {
+  --module-card-padding: var(--section-card-padding, var(--industry-card-padding));
+}
+
+.module-card-loose {
+  --module-card-padding: calc(var(--section-card-padding, var(--industry-card-padding)) + 0.35rem);
+}
+
+.module-lead-tight {
+  margin-top: clamp(1.75rem, 3vw, 2.1rem);
+}
+
+.module-lead-normal {
+  margin-top: clamp(2.25rem, 4vw, 2.85rem);
+}
+
+.module-lead-loose {
+  margin-top: clamp(2.85rem, 5vw, 3.5rem);
 }
 
 .industry-hero-media {

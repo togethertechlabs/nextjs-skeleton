@@ -23,6 +23,7 @@ import {
   type SectionMetadata
 } from "@/lib/layout-compat";
 import { getIndustrySectionWrapperClass } from "@/lib/industry-branding";
+import { resolveModuleSpacing } from "@/lib/module-spacing";
 import { siteBranding } from "@/lib/site-branding";
 import { type SectionName, siteConfig } from "@/lib/site-config";
 
@@ -33,79 +34,59 @@ type PlannedSection = {
   wrapperClassName?: string;
 };
 
-function getSectionSpacingTier(section: SectionName) {
-  if (section === "coverage" || section === "faq") {
-    return "supporting";
-  }
-
-  if (siteBranding.designDominance === "hero" && section === "hero") {
-    return "dominant";
-  }
-
-  if (siteBranding.designDominance === "services" && section === "services") {
-    return "dominant";
-  }
-
-  if (siteBranding.designDominance === "cta" && section === "cta") {
-    return "dominant";
-  }
-
-  if (
-    siteBranding.designDominance === "trust" &&
-    (section === "trustBar" || section === "testimonials")
-  ) {
-    return "dominant";
-  }
-
-  if (section === "testimonials" || section === "about") {
-    return "supporting";
-  }
-
-  return "standard";
-}
-
 function getSectionPlan(
   section: SectionName,
   previousMetadata: SectionMetadata | null,
-  heroTopPaddingClass: string
+  heroTopPaddingClass: string,
+  previousSection: SectionName | null,
+  nextSection: SectionName | null
 ): PlannedSection | null {
+  const spacing = resolveModuleSpacing({
+    current: section,
+    previous: previousSection,
+    next: nextSection,
+    designDominance: siteBranding.designDominance,
+    premiumMode: siteBranding.premiumMode,
+    contentDensity: siteBranding.contentDensity
+  });
   let metadata: SectionMetadata;
   let node: ReactNode;
 
   switch (section) {
     case "hero":
       metadata = getHeroSectionMetadata(siteConfig.layout.heroVariant);
-      node = <HeroSection topPaddingClass={heroTopPaddingClass} />;
+      node = <HeroSection spacing={spacing} topPaddingClass={heroTopPaddingClass} />;
       break;
     case "trustBar":
       metadata = getTrustBarSectionMetadata();
-      node = <TrustBarSection />;
+      node = <TrustBarSection spacing={spacing} />;
       break;
     case "services":
       metadata = getServicesSectionMetadata(siteConfig.layout.servicesVariant);
-      node = <ServicesSection />;
+      node = <ServicesSection spacing={spacing} />;
       break;
     case "about":
       metadata = getAboutSectionMetadata(siteConfig.layout.aboutVariant);
-      node = <AboutSection />;
+      node = <AboutSection spacing={spacing} />;
       break;
     case "coverage":
       metadata = getCoverageSectionMetadata(siteConfig.layout.coverageVariant);
-      node = <CoverageSection />;
+      node = <CoverageSection spacing={spacing} />;
       break;
     case "faq":
       metadata = getFaqSectionMetadata(siteConfig.layout.faqVariant);
-      node = <FaqSection />;
+      node = <FaqSection spacing={spacing} />;
       break;
     case "cta":
       metadata = getCtaSectionMetadata(siteConfig.layout.ctaVariant);
-      node = <CtaSection />;
+      node = <CtaSection spacing={spacing} />;
       break;
     case "testimonials": {
       const compatibility = getTestimonialsCompatibility(previousMetadata, siteConfig.layout.testimonialsVariant);
       metadata = getTestimonialsSectionMetadata(compatibility.variant);
       node = (
         <TestimonialsSection
+          spacing={spacing}
           variantOverride={compatibility.variant}
           spacingClassName={compatibility.spacingClassName}
         />
@@ -122,8 +103,7 @@ function getSectionPlan(
     metadata,
     wrapperClassName: [
       getSectionTransitionClass(previousMetadata, metadata),
-      getIndustrySectionWrapperClass(siteBranding, section),
-      `spacing-${getSectionSpacingTier(section)}`
+      getIndustrySectionWrapperClass(siteBranding, section)
     ].filter(Boolean).join(" ")
   };
 }
@@ -140,8 +120,14 @@ function planSections(): PlannedSection[] {
 
   const orderedSections = getResolvedSectionOrder();
 
-  for (const section of orderedSections) {
-    const plannedSection = getSectionPlan(section, previousMetadata, heroTopPaddingClass);
+  for (const [index, section] of orderedSections.entries()) {
+    const plannedSection = getSectionPlan(
+      section,
+      previousMetadata,
+      heroTopPaddingClass,
+      orderedSections[index - 1] ?? null,
+      orderedSections[index + 1] ?? null
+    );
 
     if (!plannedSection) continue;
 

@@ -1,4 +1,5 @@
 import { Container, DarkCard, SectionHeading } from "@/components/ui";
+import { resolveModuleSpacing, type ResolvedModuleSpacing } from "@/lib/module-spacing";
 import { siteBranding } from "@/lib/site-branding";
 import type { TestimonialsVariant } from "@/lib/site-config";
 import { siteConfig } from "@/lib/site-config";
@@ -6,11 +7,24 @@ import { siteConfig } from "@/lib/site-config";
 type TestimonialsSectionProps = {
   variantOverride?: TestimonialsVariant;
   spacingClassName?: string;
+  spacing?: ResolvedModuleSpacing;
 };
 
-function TestimonialsA({ spacingClassName = "" }: Pick<TestimonialsSectionProps, "spacingClassName">) {
+function getDefaultTestimonialsSpacing() {
+  return resolveModuleSpacing({
+    current: "testimonials",
+    designDominance: siteBranding.designDominance,
+    premiumMode: siteBranding.premiumMode,
+    contentDensity: siteBranding.contentDensity
+  });
+}
+
+function TestimonialsA({
+  spacingClassName = "",
+  spacing
+}: Required<Pick<TestimonialsSectionProps, "spacingClassName" | "spacing">>) {
   return (
-    <section className={`bg-shell py-20 text-white ${spacingClassName}`}>
+    <section className={`module-section ${spacing.wrapperClass} bg-shell text-white ${spacingClassName}`}>
       <Container>
         <SectionHeading
           eyebrow={siteConfig.testimonials.eyebrow}
@@ -19,9 +33,9 @@ function TestimonialsA({ spacingClassName = "" }: Pick<TestimonialsSectionProps,
           invert
         />
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
+        <div className={`module-grid ${spacing.gridClass} ${spacing.leadClass} grid md:grid-cols-2`}>
           {siteConfig.testimonials.items.map((item) => (
-            <DarkCard key={item.name} className="industry-testimonial-card p-[calc(var(--section-card-padding,var(--industry-card-padding))+0.1rem)]">
+            <DarkCard key={item.name} className={`industry-testimonial-card ${spacing.cardClass} module-card-pad`}>
               <div className="industry-eyebrow text-primary">5-star review</div>
               <p className="mt-6 text-3xl leading-tight text-white/90">"{item.quote}"</p>
               <p className="mt-8 text-lg uppercase tracking-[0.3em] text-white/55">{item.name}</p>
@@ -33,9 +47,12 @@ function TestimonialsA({ spacingClassName = "" }: Pick<TestimonialsSectionProps,
   );
 }
 
-function TestimonialsB({ spacingClassName = "" }: Pick<TestimonialsSectionProps, "spacingClassName">) {
+function TestimonialsB({
+  spacingClassName = "",
+  spacing
+}: Required<Pick<TestimonialsSectionProps, "spacingClassName" | "spacing">>) {
   return (
-    <section className={`bg-panel py-20 ${spacingClassName}`}>
+    <section className={`module-section ${spacing.wrapperClass} bg-panel ${spacingClassName}`}>
       <Container>
         <SectionHeading
           eyebrow={siteConfig.testimonials.eyebrow}
@@ -43,9 +60,9 @@ function TestimonialsB({ spacingClassName = "" }: Pick<TestimonialsSectionProps,
           description={siteConfig.testimonials.body}
         />
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
+        <div className={`module-grid ${spacing.gridClass} ${spacing.leadClass} grid md:grid-cols-2`}>
           {siteConfig.testimonials.items.map((item, index) => (
-            <article key={item.name} className="industry-testimonial-card rounded-[2rem] border border-line bg-white p-[var(--section-card-padding,var(--industry-card-padding))] shadow-soft">
+            <article key={item.name} className={`industry-testimonial-card ${spacing.cardClass} module-card-pad rounded-[2rem] border border-line bg-white shadow-soft`}>
               <div className="flex items-center justify-between">
                 <p className="text-sm uppercase tracking-[0.35em] text-muted">Review 0{index + 1}</p>
                 <p className="font-black text-primary">5.0</p>
@@ -62,11 +79,12 @@ function TestimonialsB({ spacingClassName = "" }: Pick<TestimonialsSectionProps,
 
 export function TestimonialsSection({
   variantOverride,
-  spacingClassName
+  spacingClassName = "",
+  spacing = getDefaultTestimonialsSpacing()
 }: TestimonialsSectionProps) {
   const variant = variantOverride || siteConfig.layout.testimonialsVariant;
 
   return variant === "testimonials-b"
-    ? <TestimonialsB spacingClassName={spacingClassName} />
-    : <TestimonialsA spacingClassName={spacingClassName} />;
+    ? <TestimonialsB spacing={spacing} spacingClassName={spacingClassName} />
+    : <TestimonialsA spacing={spacing} spacingClassName={spacingClassName} />;
 }
