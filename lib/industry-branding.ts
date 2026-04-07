@@ -1,4 +1,11 @@
-import type { SectionName, ThemeName } from "@/lib/site-config";
+import type {
+  IntentBusinessIntent,
+  IntentConversionStyle,
+  PricePosition,
+  SectionName,
+  ServiceUrgency,
+  ThemeName
+} from "@/lib/site-config";
 
 export type IndustryKey =
   | "construction"
@@ -69,10 +76,20 @@ export type IndustryBranding = {
 
 type BrandingInput = {
   industry: string;
+  subIndustry?: string;
   folder?: string;
   theme?: ThemeName;
   seedSource?: string;
   premiumMode?: boolean;
+  businessIntent?: IntentBusinessIntent;
+  conversionStyle?: IntentConversionStyle;
+  serviceUrgency?: ServiceUrgency;
+  pricePosition?: PricePosition;
+  targetCustomer?: string[];
+  tone?: string[];
+  visualStyle?: string[];
+  brandHeroEnergy?: ServiceUrgency;
+  brandCtaStyle?: "direct" | "consultative" | "urgent" | "premium";
 };
 
 function normalizeKey(value: string) {
@@ -94,6 +111,14 @@ function detectIndustryKey({ industry, folder }: BrandingInput): IndustryKey {
   if (combined.includes("plaster") || combined.includes("render")) return "plasterer";
 
   return "generic";
+}
+
+function includesAny(values: string[], patterns: string[]) {
+  return values.some((value) => patterns.some((pattern) => value.includes(pattern)));
+}
+
+function normalizeTagList(values?: string[]) {
+  return (values || []).map((value) => value.toLowerCase().trim()).filter(Boolean);
 }
 
 function createSectionEmphasis(overrides: Partial<Record<SectionName, SectionEmphasis>> = {}): Record<SectionName, SectionEmphasis> {
@@ -161,6 +186,30 @@ function getAllowedVisualModes(key: IndustryKey, premiumMode: boolean): readonly
   }
 }
 
+function applyIntentVisualModeBias(
+  modes: readonly VisualMode[],
+  input: BrandingInput
+): readonly VisualMode[] {
+  if (input.businessIntent === "high-end-brand" || input.businessIntent === "portfolio-showcase") {
+    return ["cinematic", "minimal", ...modes.filter((mode) => mode !== "cinematic" && mode !== "minimal")];
+  }
+  if (input.businessIntent === "emergency-service") {
+    return ["bold", "technical", ...modes.filter((mode) => mode !== "bold" && mode !== "technical")];
+  }
+  if (input.businessIntent === "authority-trust") {
+    return ["clean", "technical", ...modes.filter((mode) => mode !== "clean" && mode !== "technical")];
+  }
+
+  const tone = normalizeTagList(input.tone);
+  const visualStyle = normalizeTagList(input.visualStyle);
+
+  if (includesAny(tone, ["premium", "luxury", "bespoke"]) || includesAny(visualStyle, ["editorial", "cinematic", "minimal"])) {
+    return ["cinematic", ...modes.filter((mode) => mode !== "cinematic")];
+  }
+
+  return modes;
+}
+
 function getAllowedAccentStyles(visualMode: VisualMode): readonly AccentStyle[] {
   switch (visualMode) {
     case "cinematic":
@@ -174,6 +223,23 @@ function getAllowedAccentStyles(visualMode: VisualMode): readonly AccentStyle[] 
     default:
       return ["solid", "outline", "gradient"];
   }
+}
+
+function applyIntentAccentStyleBias(
+  styles: readonly AccentStyle[],
+  input: BrandingInput
+): readonly AccentStyle[] {
+  if (input.conversionStyle === "urgent" || input.businessIntent === "emergency-service") {
+    return ["solid", "glow", ...styles.filter((style) => style !== "solid" && style !== "glow")];
+  }
+  if (input.businessIntent === "high-end-brand" || input.pricePosition === "luxury") {
+    return ["gradient", "outline", ...styles.filter((style) => style !== "gradient" && style !== "outline")];
+  }
+  if (input.conversionStyle === "soft") {
+    return ["outline", "gradient", ...styles.filter((style) => style !== "outline" && style !== "gradient")];
+  }
+
+  return styles;
 }
 
 function getAllowedDesignDominance(
@@ -192,6 +258,29 @@ function getAllowedDesignDominance(
   if (visualMode === "cinematic" || heroEnergy === "high") return ["hero", "balanced", "services", "cta"];
 
   return ["balanced", "services", "cta", "trust", "hero"];
+}
+
+function applyIntentDominanceBias(
+  dominance: readonly DesignDominance[],
+  input: BrandingInput
+): readonly DesignDominance[] {
+  if (input.businessIntent === "emergency-service") {
+    return ["cta", "services", "hero", "trust", "balanced"];
+  }
+  if (input.businessIntent === "high-end-brand" || input.businessIntent === "portfolio-showcase") {
+    return ["hero", "balanced", "services", "trust", "cta"];
+  }
+  if (input.businessIntent === "authority-trust") {
+    return ["trust", "services", "balanced", "hero", "cta"];
+  }
+  if (input.conversionStyle === "urgent" || input.serviceUrgency === "high") {
+    return ["cta", ...dominance.filter((value) => value !== "cta")];
+  }
+  if (input.pricePosition === "luxury") {
+    return ["hero", ...dominance.filter((value) => value !== "hero")];
+  }
+
+  return dominance;
 }
 
 function getAllowedHeroCompositions(
@@ -216,6 +305,37 @@ function getAllowedHeroCompositions(
   return ["split", "centered", "stacked", "full-bleed"];
 }
 
+function applyIntentHeroCompositionBias(
+  compositions: readonly HeroComposition[],
+  input: BrandingInput
+): readonly HeroComposition[] {
+  if (input.businessIntent === "high-end-brand" || input.businessIntent === "portfolio-showcase") {
+    return ["full-bleed", "centered", ...compositions.filter((value) => value !== "full-bleed" && value !== "centered")];
+  }
+  if (input.businessIntent === "emergency-service") {
+    return ["split", "centered", ...compositions.filter((value) => value !== "split" && value !== "centered")];
+  }
+
+  return compositions;
+}
+
+function resolveIntentContentDensity(
+  current: IndustryBrandingBase["contentDensity"],
+  input: BrandingInput
+): IndustryBrandingBase["contentDensity"] {
+  if (input.businessIntent === "high-end-brand" || input.businessIntent === "portfolio-showcase" || input.pricePosition === "luxury") {
+    return "spacious";
+  }
+  if (input.businessIntent === "emergency-service" || input.serviceUrgency === "high") {
+    return "tight";
+  }
+  if (input.businessIntent === "authority-trust") {
+    return "balanced";
+  }
+
+  return current;
+}
+
 function getSectionSpacingClassName(
   contentDensity: IndustryBrandingBase["contentDensity"],
   visualMode: VisualMode,
@@ -231,8 +351,13 @@ function resolveContrastProfile(
   key: IndustryKey,
   premiumMode: boolean,
   visualMode: VisualMode,
-  intensity: IndustryIntensity
+  intensity: IndustryIntensity,
+  input?: BrandingInput
 ): ContrastProfile {
+  if (input?.businessIntent === "emergency-service" || input?.serviceUrgency === "high") return "high";
+  if (input?.businessIntent === "authority-trust") return "balanced";
+  if (input?.businessIntent === "high-end-brand" && input.conversionStyle === "soft") return "soft";
+  if (input?.conversionStyle === "soft") return "soft";
   if (key === "transport" || key === "electrician") return "high";
   if (visualMode === "bold" || (premiumMode && visualMode === "cinematic")) return "high";
   if (key === "decorators" || key === "plasterer" || visualMode === "minimal") return "soft";
@@ -256,7 +381,8 @@ function getDefaultSectionScale(): SectionScale {
 function resolveSectionScale(
   dominance: DesignDominance,
   premiumMode: boolean,
-  contentDensity: IndustryBrandingBase["contentDensity"]
+  contentDensity: IndustryBrandingBase["contentDensity"],
+  input?: BrandingInput
 ): SectionScale {
   const scale = getDefaultSectionScale();
 
@@ -277,6 +403,24 @@ function resolveSectionScale(
     scale.about = "lg";
     scale.testimonials = "lg";
     scale.faq = "md";
+  }
+
+  if (input?.businessIntent === "emergency-service" || input?.serviceUrgency === "high") {
+    scale.cta = premiumMode ? "xl" : "lg";
+    scale.trustBar = "md";
+    scale.about = "sm";
+  }
+
+  if (input?.businessIntent === "authority-trust") {
+    scale.trustBar = "lg";
+    scale.testimonials = "lg";
+    scale.cta = "md";
+  }
+
+  if (input?.businessIntent === "high-end-brand" || input?.pricePosition === "luxury") {
+    scale.hero = "xl";
+    scale.about = "lg";
+    scale.services = "lg";
   }
 
   switch (dominance) {
@@ -718,18 +862,57 @@ const brandingMap: Record<IndustryKey, IndustryBrandingBase> = {
 export function resolveIndustryBranding(input: BrandingInput): IndustryBranding {
   const key = detectIndustryKey(input);
   const base = brandingMap[key];
-  const seed = hashString(`${input.seedSource || ""}|${input.industry}|${input.folder || ""}|${input.theme || ""}|${key}`);
-  const premiumMode = input.premiumMode ?? true;
-  const visualMode = pickDeterministic(getAllowedVisualModes(key, premiumMode), seed, 0);
-  const accentStyle = pickDeterministic(getAllowedAccentStyles(visualMode), seed, 1);
-  const heroComposition = pickDeterministic(getAllowedHeroCompositions(key, visualMode, premiumMode), seed, 2);
+  const seed = hashString(
+    [
+      input.seedSource || "",
+      input.industry,
+      input.subIndustry || "",
+      input.folder || "",
+      input.theme || "",
+      key,
+      input.businessIntent || "",
+      input.conversionStyle || "",
+      input.serviceUrgency || "",
+      input.pricePosition || "",
+      ...(input.targetCustomer || []),
+      ...(input.tone || []),
+      ...(input.visualStyle || [])
+    ].join("|")
+  );
+  const premiumMode = input.premiumMode ?? (input.pricePosition === "premium" || input.pricePosition === "luxury");
+  const effectiveContentDensity = resolveIntentContentDensity(base.contentDensity, input);
+  const allowedVisualModes = applyIntentVisualModeBias(getAllowedVisualModes(key, premiumMode), input);
+  const visualMode = pickDeterministic(allowedVisualModes, seed, 0);
+  const allowedAccentStyles = applyIntentAccentStyleBias(getAllowedAccentStyles(visualMode), input);
+  const accentStyle = pickDeterministic(allowedAccentStyles, seed, 1);
+  const allowedHeroCompositions = applyIntentHeroCompositionBias(
+    getAllowedHeroCompositions(key, visualMode, premiumMode),
+    input
+  );
+  const heroComposition = pickDeterministic(allowedHeroCompositions, seed, 2);
   const designDominance = pickDeterministic(
-    getAllowedDesignDominance(key, premiumMode, visualMode, base.heroEnergy),
+    applyIntentDominanceBias(
+      getAllowedDesignDominance(key, premiumMode, visualMode, input.brandHeroEnergy || base.heroEnergy),
+      input
+    ),
     seed,
     3
   );
-  const contrastProfile = resolveContrastProfile(key, premiumMode, visualMode, base.intensity);
-  const sectionScale = resolveSectionScale(designDominance, premiumMode, base.contentDensity);
+  const contrastProfile = resolveContrastProfile(key, premiumMode, visualMode, base.intensity, input);
+  const sectionScale = resolveSectionScale(designDominance, premiumMode, effectiveContentDensity, input);
+  const resolvedHeroEnergy = input.serviceUrgency || input.brandHeroEnergy || base.heroEnergy;
+  const resolvedCtaStyle =
+    input.brandCtaStyle === "urgent"
+      ? "assertive"
+      : input.brandCtaStyle === "consultative"
+        ? "technical"
+        : input.brandCtaStyle === "premium"
+          ? "refined"
+          : input.businessIntent === "emergency-service"
+            ? "assertive"
+            : input.businessIntent === "high-end-brand"
+              ? "refined"
+              : base.ctaStyle;
 
   return {
     key,
@@ -739,11 +922,14 @@ export function resolveIndustryBranding(input: BrandingInput): IndustryBranding 
     designDominance,
     sectionScale,
     contrastProfile,
+    heroEnergy: resolvedHeroEnergy,
+    ctaStyle: resolvedCtaStyle,
+    contentDensity: effectiveContentDensity,
     visualMode,
     accentStyle,
     heroComposition,
     visualSeed: seed,
-    sectionSpacingClassName: getSectionSpacingClassName(base.contentDensity, visualMode, premiumMode),
+    sectionSpacingClassName: getSectionSpacingClassName(effectiveContentDensity, visualMode, premiumMode),
     shellClassName: [
       base.shellClassName,
       premiumMode ? "premium-shell" : "",
@@ -753,7 +939,18 @@ export function resolveIndustryBranding(input: BrandingInput): IndustryBranding 
     ].filter(Boolean).join(" "),
     cssVars: {
       ...base.cssVars,
-      ...getVariationCssVars(base, visualMode, accentStyle, seed, premiumMode)
+      ...getVariationCssVars(
+        {
+          ...base,
+          heroEnergy: resolvedHeroEnergy,
+          ctaStyle: resolvedCtaStyle,
+          contentDensity: effectiveContentDensity
+        },
+        visualMode,
+        accentStyle,
+        seed,
+        premiumMode
+      )
     }
   };
 }

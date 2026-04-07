@@ -31,6 +31,15 @@ export type TestimonialsVariant = "testimonials-a" | "testimonials-b";
 export type FaqVariant = "faq-a" | "faq-b";
 export type CtaVariant = "cta-a" | "cta-b" | "cta-c";
 export type FooterVariant = "footer-a" | "footer-b";
+export type PricePosition = "budget" | "mid-market" | "premium" | "luxury";
+export type IntentBusinessIntent =
+  | "lead-gen"
+  | "high-end-brand"
+  | "emergency-service"
+  | "portfolio-showcase"
+  | "authority-trust";
+export type IntentConversionStyle = "urgent" | "consultative" | "soft";
+export type ServiceUrgency = "low" | "medium" | "high";
 
 export type ServiceItem = {
   slug: string;
@@ -53,12 +62,26 @@ export type SiteConfig = {
     name: string;
     legalName?: string;
     industry: string;
+    subIndustry: string;
     location: string;
+    serviceArea: string[];
+    targetCustomer: string[];
+    pricePosition: PricePosition;
+    tone: string[];
+    visualStyle: string[];
+    heroEnergy: ServiceUrgency;
+    ctaStyle: "direct" | "consultative" | "urgent" | "premium";
     phone: string;
     email: string;
     tagline: string;
     eyebrow: string;
     badge: string;
+  };
+  intent: {
+    businessIntent: IntentBusinessIntent;
+    conversionStyle: IntentConversionStyle;
+    serviceUrgency: ServiceUrgency;
+    premiumMode: boolean;
   };
   seo: {
     title: string;
@@ -184,6 +207,10 @@ function asOptionalString(value: unknown) {
   return typeof value === "string" && value.trim() ? value.trim() : undefined;
 }
 
+function asBoolean(value: unknown, fallback = false) {
+  return typeof value === "boolean" ? value : fallback;
+}
+
 function asStringArray(value: unknown) {
   return Array.isArray(value)
     ? value.map((item) => asString(item)).filter(Boolean)
@@ -212,17 +239,72 @@ function normalizeBrand(raw: unknown): SiteConfig["brand"] {
   const industry = asString(source.industry, "Trade Services");
   const location = asString(source.location, "your local area");
   const name = asString(source.name, "Local Trade Business");
+  const serviceArea = asStringArray(source.serviceArea);
+  const tone = asStringArray(source.tone);
+  const visualStyle = asStringArray(source.visualStyle);
+  const targetCustomer = asStringArray(source.targetCustomer);
+  const pricePosition = ["budget", "mid-market", "premium", "luxury"].includes(asString(source.pricePosition))
+    ? (asString(source.pricePosition) as PricePosition)
+    : "mid-market";
+  const heroEnergy = ["low", "medium", "high"].includes(asString(source.heroEnergy))
+    ? (asString(source.heroEnergy) as ServiceUrgency)
+    : "medium";
+  const ctaStyle = ["direct", "consultative", "urgent", "premium"].includes(asString(source.ctaStyle))
+    ? (asString(source.ctaStyle) as SiteConfig["brand"]["ctaStyle"])
+    : "direct";
 
   return {
     name,
     legalName: asOptionalString(source.legalName),
     industry,
+    subIndustry: asString(source.subIndustry, industry),
     location,
+    serviceArea: serviceArea.length ? serviceArea : [location],
+    targetCustomer: targetCustomer.length ? targetCustomer : ["local customers"],
+    pricePosition,
+    tone,
+    visualStyle,
+    heroEnergy,
+    ctaStyle,
     phone: asString(source.phone, "01234 567890"),
     email: asString(source.email, "hello@example.com"),
     tagline: asString(source.tagline, `Trusted ${industry.toLowerCase()} services in ${location}`),
     eyebrow: asString(source.eyebrow, industry),
     badge: asString(source.badge, "Free Quotes")
+  };
+}
+
+function normalizeIntent(raw: unknown, brand: SiteConfig["brand"]): SiteConfig["intent"] {
+  const source = isObject(raw) ? raw : {};
+  const businessIntent = [
+    "lead-gen",
+    "high-end-brand",
+    "emergency-service",
+    "portfolio-showcase",
+    "authority-trust"
+  ].includes(asString(source.businessIntent))
+    ? (asString(source.businessIntent) as IntentBusinessIntent)
+    : brand.pricePosition === "luxury"
+      ? "high-end-brand"
+      : brand.heroEnergy === "high"
+        ? "lead-gen"
+        : "authority-trust";
+  const conversionStyle = ["urgent", "consultative", "soft"].includes(asString(source.conversionStyle))
+    ? (asString(source.conversionStyle) as IntentConversionStyle)
+    : brand.ctaStyle === "urgent"
+      ? "urgent"
+      : brand.ctaStyle === "consultative"
+        ? "consultative"
+        : "soft";
+  const serviceUrgency = ["low", "medium", "high"].includes(asString(source.serviceUrgency))
+    ? (asString(source.serviceUrgency) as ServiceUrgency)
+    : brand.heroEnergy;
+
+  return {
+    businessIntent,
+    conversionStyle,
+    serviceUrgency,
+    premiumMode: asBoolean(source.premiumMode, brand.pricePosition === "premium" || brand.pricePosition === "luxury")
   };
 }
 
@@ -652,6 +734,7 @@ function normalizeSiteConfig(raw: unknown): SiteConfig {
 
   return {
     brand,
+    intent: normalizeIntent(source.intent, brand),
     seo: normalizeSeo(source.seo, brand),
     layout: normalizeLayout(source.layout),
     images,
