@@ -1,33 +1,49 @@
-import "server-only";
-import { resolveIndustryBranding } from "@/lib/industry-branding";
-import { siteConfig } from "@/lib/site-config";
+import { resolveIndustryBranding } from "./industry-branding";
 
-export const siteBranding = resolveIndustryBranding({
-  industry: siteConfig.brand.industry,
-  subIndustry: siteConfig.brand.subIndustry,
-  folder: siteConfig.images.folder,
-  theme: siteConfig.layout.theme,
-  premiumMode: siteConfig.intent.premiumMode,
-  businessIntent: siteConfig.intent.businessIntent,
-  conversionStyle: siteConfig.intent.conversionStyle,
-  serviceUrgency: siteConfig.intent.serviceUrgency,
-  pricePosition: siteConfig.brand.pricePosition,
-  targetCustomer: siteConfig.brand.targetCustomer,
-  tone: siteConfig.brand.tone,
-  visualStyle: siteConfig.brand.visualStyle,
-  brandHeroEnergy: siteConfig.brand.heroEnergy,
-  brandCtaStyle: siteConfig.brand.ctaStyle,
-  seedSource: [
-    siteConfig.brand.name,
-    siteConfig.brand.subIndustry,
-    siteConfig.brand.location,
-    siteConfig.brand.phone,
-    siteConfig.brand.pricePosition,
-    siteConfig.intent.businessIntent,
-    siteConfig.intent.conversionStyle,
-    siteConfig.intent.serviceUrgency,
-    siteConfig.layout.theme,
-    siteConfig.layout.heroVariant,
-    siteConfig.layout.servicesVariant
-  ].join("|")
-});
+type SiteData = {
+  brand?: Record<string, any>;
+  intent?: Record<string, any>;
+  layout?: Record<string, any>;
+  images?: Record<string, any>;
+};
+
+export function resolveSiteBranding(siteData: SiteData) {
+  const brand = siteData.brand || {};
+  const intent = siteData.intent || {};
+  const layout = siteData.layout || {};
+  const images = siteData.images || {};
+
+  const resolved = resolveIndustryBranding({
+    industry: brand.industry || "",
+    subIndustry: brand.subIndustry || "",
+    location: brand.location || "",
+    pricePosition: brand.pricePosition || "mid-market",
+    targetCustomer: brand.targetCustomer || [],
+    tone: brand.tone || [],
+    visualStyle: brand.visualStyle || [],
+    heroEnergy: brand.heroEnergy || "medium",
+    ctaStyle: brand.ctaStyle || "consultative",
+    businessIntent: intent.businessIntent || "lead-gen",
+    conversionStyle: intent.conversionStyle || "consultative",
+    serviceUrgency: intent.serviceUrgency || "medium",
+    premiumMode: intent.premiumMode ?? true,
+    layout,
+    images
+  });
+
+  return {
+    ...resolved,
+    businessIntent: intent.businessIntent || "lead-gen",
+    conversionStyle: intent.conversionStyle || "consultative",
+    serviceUrgency: intent.serviceUrgency || "medium",
+    premiumMode: intent.premiumMode ?? true,
+
+    pricePosition: brand.pricePosition || "mid-market",
+    targetCustomer: brand.targetCustomer || [],
+    subIndustry: brand.subIndustry || "",
+    brandTone: brand.tone || [],
+    visualStyle: brand.visualStyle || [],
+    heroEnergy: brand.heroEnergy || resolved.heroEnergy,
+    ctaStyle: brand.ctaStyle || resolved.ctaStyle
+  };
+}
