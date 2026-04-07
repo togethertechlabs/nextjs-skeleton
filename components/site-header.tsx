@@ -9,12 +9,14 @@ import {
   getTopBarClass,
   type ResolvedHeaderCompatibility
 } from "@/lib/layout-compat";
+import type { IndustryBranding } from "@/lib/industry-branding";
 import type { HeaderVariant, SiteConfig } from "@/lib/site-config";
 
 type SiteHeaderProps = {
   brand: SiteConfig["brand"];
   variant: HeaderVariant;
   compatibility: ResolvedHeaderCompatibility;
+  branding: IndustryBranding;
 };
 
 function telHref(phone: string) {
@@ -25,13 +27,13 @@ function getHeaderTextTone(compatibility: ResolvedHeaderCompatibility, scrolled:
   return scrolled ? compatibility.scrolledTone : compatibility.tone;
 }
 
-function HeaderA({ brand, compatibility, scrolled }: SiteHeaderProps & { scrolled: boolean }) {
+function HeaderA({ brand, compatibility, branding, scrolled }: SiteHeaderProps & { scrolled: boolean }) {
   const tone = getHeaderTextTone(compatibility, scrolled);
   const contrastClass = getHeaderContrastClass(compatibility, scrolled);
 
   return (
     <>
-      <div className={`transition-colors duration-300 ${getTopBarClass(compatibility, scrolled)}`}>
+      <div className={`industry-topbar transition-colors duration-300 ${getTopBarClass(compatibility, scrolled)}`}>
         <Container className="flex flex-wrap items-center justify-between gap-3 py-3 text-sm font-semibold">
           <p>
             Call us now: <a href={telHref(brand.phone)}>{brand.phone}</a>
@@ -42,11 +44,11 @@ function HeaderA({ brand, compatibility, scrolled }: SiteHeaderProps & { scrolle
         </Container>
       </div>
 
-      <header className={`sticky top-0 z-50 border-b transition-all duration-300 ${getHeaderSurfaceClass(compatibility, scrolled)}`}>
+      <header className={`sticky top-0 z-50 border-b transition-all duration-300 ${getHeaderSurfaceClass(compatibility, scrolled)} industry-header industry-header-${branding.key}`}>
         <div className={`relative ${contrastClass}`}>
           <Container className="relative z-10 flex items-center justify-between gap-6 py-5">
             <Link href="/" className="leading-none">
-              <div className="text-3xl font-black tracking-tight md:text-4xl">{brand.name}</div>
+              <div className="industry-heading text-3xl font-black tracking-tight md:text-4xl">{brand.name}</div>
               <div className={`${tone === "light" ? "text-white/68" : "text-muted"} mt-1 text-sm uppercase tracking-[0.3em]`}>
                 {brand.industry}
               </div>
@@ -70,16 +72,17 @@ function HeaderA({ brand, compatibility, scrolled }: SiteHeaderProps & { scrolle
   );
 }
 
-function HeaderB({ brand, compatibility, scrolled }: SiteHeaderProps & { scrolled: boolean }) {
+function HeaderB({ brand, compatibility, branding, scrolled }: SiteHeaderProps & { scrolled: boolean }) {
+  const tone = getHeaderTextTone(compatibility, scrolled);
   const contrastClass = getHeaderContrastClass(compatibility, scrolled);
 
   return (
-    <header className={`sticky top-0 z-50 border-b transition-all duration-300 ${getHeaderSurfaceClass(compatibility, scrolled)}`}>
+    <header className={`sticky top-0 z-50 border-b transition-all duration-300 ${getHeaderSurfaceClass(compatibility, scrolled)} industry-header industry-header-${branding.key}`}>
       <div className={`relative ${contrastClass}`}>
         <Container className="relative z-10 flex flex-wrap items-center justify-between gap-6 py-5">
           <Link href="/" className="leading-none">
-            <div className="text-3xl font-black tracking-tight">{brand.name}</div>
-            <div className="mt-1 text-sm uppercase tracking-[0.3em] text-muted">{brand.location}</div>
+            <div className="industry-heading text-3xl font-black tracking-tight">{brand.name}</div>
+            <div className={`mt-1 text-sm uppercase tracking-[0.3em] ${tone === "light" ? "text-white/68" : "text-muted"}`}>{brand.location}</div>
           </Link>
 
           <nav className="hidden items-center gap-8 text-sm font-semibold uppercase tracking-[0.2em] md:flex">
@@ -90,7 +93,7 @@ function HeaderB({ brand, compatibility, scrolled }: SiteHeaderProps & { scrolle
           </nav>
 
           <div className="flex items-center gap-3">
-            <a href={telHref(brand.phone)} className="hidden rounded-2xl border border-line px-5 py-3 text-sm font-semibold text-ink md:inline-flex">
+            <a href={telHref(brand.phone)} className={`industry-chip hidden rounded-2xl border border-line px-5 py-3 text-sm font-semibold md:inline-flex ${tone === "light" ? "text-white" : "text-ink"}`}>
               {brand.phone}
             </a>
             <PrimaryButton href="/contact">Free Quote</PrimaryButton>

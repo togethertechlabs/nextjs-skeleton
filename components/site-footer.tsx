@@ -8,10 +8,10 @@ function telHref(phone: string) {
 
 function FooterA() {
   return (
-    <footer className="border-t border-white/10 bg-shell py-14 text-white">
+    <footer className="industry-footer border-t border-white/10 bg-shell py-14 text-white">
       <Container className="grid gap-10 md:grid-cols-[1.2fr_0.8fr_1fr]">
         <div>
-          <div className="text-4xl font-black">{siteConfig.brand.name}</div>
+          <div className="industry-heading text-4xl font-black">{siteConfig.brand.name}</div>
           <div className="mt-2 text-sm uppercase tracking-[0.3em] text-white/55">{siteConfig.brand.location}</div>
         </div>
 
@@ -39,10 +39,10 @@ function FooterA() {
 
 function FooterB() {
   return (
-    <footer className="border-t border-line bg-white py-14 text-ink">
+    <footer className="industry-footer border-t border-line bg-white py-14 text-ink">
       <Container className="grid gap-8 md:grid-cols-[1.1fr_0.9fr_1fr]">
         <div>
-          <div className="text-3xl font-black">{siteConfig.brand.name}</div>
+          <div className="industry-heading text-3xl font-black">{siteConfig.brand.name}</div>
           <p className="mt-3 max-w-md text-muted">{siteConfig.brand.tagline}</p>
         </div>
 

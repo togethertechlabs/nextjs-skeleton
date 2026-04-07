@@ -13,7 +13,7 @@ export const metadata = buildPageMetadata({
 export default function CoveragePage() {
   return (
     <PageShell>
-      <section className="bg-panel py-24">
+      <section className="industry-section bg-panel py-24">
         <Container>
           <SectionHeading
             eyebrow={siteConfig.coverage.eyebrow}
@@ -25,7 +25,7 @@ export default function CoveragePage() {
             {siteConfig.coverage.areas.map((area) => (
               <Card key={area.slug} className="p-8">
                 <p className="text-sm uppercase tracking-[0.25em] text-muted">Service area</p>
-                <h2 className="mt-5 text-4xl font-black text-ink">{area.name}</h2>
+                <h2 className="industry-heading mt-5 text-4xl font-black text-ink">{area.name}</h2>
                 <p className="mt-4 text-muted">{area.summary}</p>
                 <Link href={`/areas/${getAreaSlug(area)}`} className="mt-6 inline-flex font-semibold text-primary">
                   Open area page

@@ -1,7 +1,8 @@
-import type { PropsWithChildren } from "react";
+import type { CSSProperties, PropsWithChildren } from "react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getInteriorContentOffsetClass, resolvePageCompatibility, type PageKind } from "@/lib/layout-compat";
+import { siteBranding } from "@/lib/site-branding";
 import { siteConfig } from "@/lib/site-config";
 
 export function PageShell({
@@ -19,14 +20,19 @@ export function PageShell({
     : "";
 
   return (
-    <>
+    <div
+      className={`min-h-screen ${siteBranding.shellClassName}`}
+      style={siteBranding.cssVars as CSSProperties}
+      data-industry={siteBranding.key}
+    >
       <SiteHeader
         brand={siteConfig.brand}
         variant={siteConfig.layout.headerVariant}
         compatibility={compatibilityPlan.header}
+        branding={siteBranding}
       />
       <div className={contentOffsetClass}>{children}</div>
       <SiteFooter />
-    </>
+    </div>
   );
 }

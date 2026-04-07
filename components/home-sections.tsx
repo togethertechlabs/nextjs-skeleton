@@ -22,6 +22,8 @@ import {
   getTrustBarSectionMetadata,
   type SectionMetadata
 } from "@/lib/layout-compat";
+import { getIndustrySectionWrapperClass } from "@/lib/industry-branding";
+import { siteBranding } from "@/lib/site-branding";
 import { type SectionName, siteConfig } from "@/lib/site-config";
 
 type PlannedSection = {
@@ -87,7 +89,10 @@ function getSectionPlan(
     key: section,
     node,
     metadata,
-    wrapperClassName: getSectionTransitionClass(previousMetadata, metadata)
+    wrapperClassName: [
+      getSectionTransitionClass(previousMetadata, metadata),
+      getIndustrySectionWrapperClass(siteBranding, section)
+    ].filter(Boolean).join(" ")
   };
 }
 

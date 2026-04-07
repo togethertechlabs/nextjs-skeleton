@@ -14,7 +14,7 @@ export const metadata = buildPageMetadata({
 export default function ServicesPage() {
   return (
     <PageShell>
-      <section className="bg-panel py-24">
+      <section className="industry-section bg-panel py-24">
         <Container>
           <SectionHeading
             eyebrow={siteConfig.servicesIntro.eyebrow}
@@ -24,12 +24,12 @@ export default function ServicesPage() {
 
           <div className="mt-14 grid gap-8 lg:grid-cols-3">
             {siteConfig.services.map((service, index) => (
-              <Card key={service.slug} className="overflow-hidden">
+              <Card key={service.slug} className="industry-service-card overflow-hidden">
                 <div className="relative h-56">
                   <Image src={getImagePath("services", index)} alt={service.title} fill className="object-cover" />
                 </div>
                 <div className="p-8">
-                  <h2 className="text-3xl font-black text-ink">{service.title}</h2>
+                  <h2 className="industry-heading text-3xl font-black text-ink">{service.title}</h2>
                   <p className="mt-4 text-lg leading-8 text-muted">{service.description}</p>
                   <ul className="mt-6 space-y-2 text-sm uppercase tracking-[0.18em] text-muted">
                     {service.bullets.map((bullet) => (

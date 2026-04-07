@@ -17,7 +17,7 @@ function phoneHref(phone: string) {
 export default function ContactPage() {
   return (
     <PageShell>
-      <section className="bg-white py-24">
+      <section className="industry-section bg-white py-24">
         <Container className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr]">
           <div>
             <SectionHeading
@@ -45,7 +45,7 @@ export default function ContactPage() {
             </Card>
           </div>
 
-          <Card className="p-8 md:p-10">
+          <Card className="industry-cta-panel p-8 md:p-10">
             <div className="grid gap-5 md:grid-cols-2">
               <input className="rounded-2xl border border-line px-5 py-4 outline-none" placeholder="Name" />
               <input className="rounded-2xl border border-line px-5 py-4 outline-none" placeholder="Phone" />

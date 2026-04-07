@@ -10,6 +10,18 @@
   --line: #dbe3ed;
   --primary: #2f6bff;
   --accent: #f6b000;
+  --industry-accent-strong: #2563eb;
+  --industry-accent-soft: rgba(37, 99, 235, 0.1);
+  --industry-frame-color: rgba(37, 99, 235, 0.2);
+  --industry-card-shadow: 0 16px 32px rgba(15, 23, 42, 0.1);
+  --industry-button-shadow: 0 14px 28px rgba(37, 99, 235, 0.16);
+  --industry-chip-bg: rgba(37, 99, 235, 0.1);
+  --industry-chip-border: rgba(37, 99, 235, 0.2);
+  --industry-divider: rgba(37, 99, 235, 0.14);
+  --industry-heading-weight: 880;
+  --industry-heading-spacing: -0.035em;
+  --industry-card-radius: 1.75rem;
+  --industry-panel-overlay: linear-gradient(135deg, rgba(15,23,42,0.94), rgba(59,130,246,0.38));
 }
 
 * {
@@ -110,4 +122,222 @@ a {
   --line: #cbd5e1;
   --primary: #2563eb;
   --accent: #0ea5e9;
+}
+
+.industry-shell {
+  background-image:
+    radial-gradient(circle at top left, var(--industry-accent-soft), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 18%);
+}
+
+.industry-shell-industrial,
+.industry-shell-rugged {
+  background-image:
+    linear-gradient(90deg, transparent 0, transparent calc(100% - 1px), var(--industry-divider) calc(100% - 1px), transparent 100%),
+    radial-gradient(circle at top left, var(--industry-accent-soft), transparent 34%);
+}
+
+.industry-shell-performance {
+  background-image:
+    radial-gradient(circle at 12% 8%, var(--industry-accent-soft), transparent 26%),
+    linear-gradient(135deg, rgba(15, 23, 42, 0.06), transparent 35%);
+}
+
+.industry-shell-refined,
+.industry-shell-crafted,
+.industry-shell-clean {
+  background-image:
+    radial-gradient(circle at top left, var(--industry-accent-soft), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 18%);
+}
+
+.industry-heading {
+  font-weight: var(--industry-heading-weight);
+  letter-spacing: var(--industry-heading-spacing);
+}
+
+.industry-eyebrow {
+  color: var(--industry-accent-strong);
+}
+
+.industry-card,
+.industry-dark-card,
+.industry-testimonial-card,
+.industry-service-card,
+.industry-cta-panel {
+  border-radius: var(--industry-card-radius);
+}
+
+.industry-card,
+.industry-service-card,
+.industry-testimonial-card,
+.industry-cta-panel {
+  box-shadow: var(--industry-card-shadow);
+}
+
+.industry-dark-card {
+  box-shadow: 0 20px 42px rgba(2, 6, 23, 0.24);
+}
+
+.industry-button-primary {
+  border: 1px solid color-mix(in srgb, var(--industry-accent-strong) 22%, transparent);
+  box-shadow: var(--industry-button-shadow);
+}
+
+.industry-button-primary:hover {
+  transform: translateY(-1px);
+}
+
+.industry-button-secondary {
+  border-color: color-mix(in srgb, var(--industry-accent-strong) 24%, currentColor 16%);
+}
+
+.industry-chip {
+  background: var(--industry-chip-bg);
+  border-color: var(--industry-chip-border);
+}
+
+.industry-section {
+  position: relative;
+}
+
+.industry-section-emphasis-high {
+  border-top: 1px solid var(--industry-divider);
+}
+
+.industry-section-emphasis-standard {
+  border-top: 1px solid transparent;
+}
+
+.industry-topbar {
+  border-bottom: 1px solid color-mix(in srgb, var(--industry-accent-strong) 12%, transparent);
+}
+
+.industry-header {
+  backdrop-filter: saturate(150%) blur(18px);
+  border-bottom-color: color-mix(in srgb, var(--industry-accent-strong) 12%, transparent);
+}
+
+.industry-footer {
+  border-top-color: color-mix(in srgb, var(--industry-accent-strong) 12%, currentColor 20%);
+}
+
+.industry-panel-strong,
+.industry-panel-durable,
+.industry-panel-charged,
+.industry-panel-performance,
+.industry-panel-clean,
+.industry-panel-refined,
+.industry-panel-crafted {
+  position: relative;
+  overflow: hidden;
+}
+
+.industry-panel-strong::before,
+.industry-panel-durable::before,
+.industry-panel-charged::before,
+.industry-panel-performance::before,
+.industry-panel-clean::before,
+.industry-panel-refined::before,
+.industry-panel-crafted::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--industry-panel-overlay);
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.industry-panel-refined::before,
+.industry-panel-crafted::before {
+  opacity: 0.14;
+}
+
+.industry-panel-clean::before {
+  opacity: 0.16;
+}
+
+.industry-frame-hard,
+.industry-frame-rugged,
+.industry-frame-clean,
+.industry-frame-electric,
+.industry-frame-performance,
+.industry-frame-refined,
+.industry-frame-crafted {
+  box-shadow:
+    inset 0 0 0 1px var(--industry-frame-color),
+    0 24px 48px rgba(15, 23, 42, 0.14);
+}
+
+.industry-frame-electric,
+.industry-frame-performance {
+  box-shadow:
+    inset 0 0 0 1px var(--industry-frame-color),
+    0 24px 48px rgba(2, 6, 23, 0.26);
+}
+
+.industry-service-card,
+.industry-testimonial-card,
+.industry-cta-panel {
+  position: relative;
+}
+
+.industry-service-card::after,
+.industry-testimonial-card::after,
+.industry-cta-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid color-mix(in srgb, var(--industry-accent-strong) 12%, transparent);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.industry-shell-industrial .industry-service-card::after,
+.industry-shell-rugged .industry-service-card::after {
+  border-width: 1px;
+}
+
+.industry-shell-performance .industry-button-primary {
+  background-image: linear-gradient(135deg, color-mix(in srgb, var(--primary) 78%, black 22%), color-mix(in srgb, var(--industry-accent-strong) 52%, var(--primary) 48%));
+}
+
+.industry-shell-electric .industry-button-primary,
+.industry-shell-technical .industry-button-primary {
+  background-image: linear-gradient(135deg, color-mix(in srgb, var(--primary) 78%, black 22%), var(--industry-accent-strong));
+}
+
+.industry-shell-industrial .industry-button-primary,
+.industry-shell-rugged .industry-button-primary {
+  background-image: linear-gradient(135deg, color-mix(in srgb, var(--primary) 86%, black 14%), color-mix(in srgb, var(--industry-accent-strong) 42%, var(--primary) 58%));
+}
+
+.industry-shell-refined .industry-button-primary,
+.industry-shell-crafted .industry-button-primary {
+  background-image: linear-gradient(135deg, var(--primary), color-mix(in srgb, white 22%, var(--primary) 78%));
+}
+
+.industry-shell-performance .industry-chip,
+.industry-shell-electric .industry-chip {
+  backdrop-filter: blur(14px);
+}
+
+.industry-shell-performance .industry-trust-grid {
+  border-color: color-mix(in srgb, var(--industry-accent-strong) 24%, rgba(255, 255, 255, 0.18) 76%);
+}
+
+.industry-shell-refined .industry-card,
+.industry-shell-refined .industry-service-card,
+.industry-shell-crafted .industry-card {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 1));
+}
+
+@media (max-width: 767px) {
+  .industry-shell {
+    background-size: auto, auto;
+  }
+
+  .industry-heading {
+    letter-spacing: max(calc(var(--industry-heading-spacing) * 0.72), -0.03em);
+  }
 }

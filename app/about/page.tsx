@@ -13,7 +13,7 @@ export const metadata = buildPageMetadata({
 export default function AboutPage() {
   return (
     <PageShell>
-      <section className="bg-white py-24">
+      <section className="industry-section bg-white py-24">
         <Container className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr]">
           <Card className="overflow-hidden">
             <div className="relative min-h-[440px]">
@@ -30,15 +30,15 @@ export default function AboutPage() {
 
             <div className="mt-10 grid gap-4 md:grid-cols-3">
               {siteConfig.about.highlights.map((item) => (
-                <Card key={item} className="p-6 text-lg font-semibold text-ink">
+                <Card key={item} className="industry-chip p-6 text-lg font-semibold text-ink">
                   {item}
                 </Card>
               ))}
             </div>
 
             <Card className="mt-8 p-8">
-              <p className="text-sm uppercase tracking-[0.28em] text-primary">{siteConfig.about.cardEyebrow}</p>
-              <h2 className="mt-4 text-3xl font-black text-ink md:text-4xl">{siteConfig.about.cardTitle}</h2>
+              <p className="industry-eyebrow text-sm uppercase tracking-[0.28em] text-primary">{siteConfig.about.cardEyebrow}</p>
+              <h2 className="industry-heading mt-4 text-3xl font-black text-ink md:text-4xl">{siteConfig.about.cardTitle}</h2>
               <p className="mt-5 text-lg leading-8 text-muted">{siteConfig.about.cardBody}</p>
             </Card>
           </div>

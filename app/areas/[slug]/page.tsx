@@ -45,7 +45,7 @@ export default async function AreaPage({
 
   return (
     <PageShell>
-      <section className="bg-white py-24">
+      <section className="industry-section bg-white py-24">
         <Container className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
           <div>
             <SectionHeading eyebrow="Coverage area" title={`${siteConfig.brand.name} in ${area.name}`} description={area.intro} />
@@ -53,7 +53,7 @@ export default async function AreaPage({
 
           <Card className="p-8 md:p-10">
             <p className="text-sm uppercase tracking-[0.25em] text-muted">Local summary</p>
-            <h2 className="mt-4 text-3xl font-black text-ink">{area.name}</h2>
+            <h2 className="industry-heading mt-4 text-3xl font-black text-ink">{area.name}</h2>
             <p className="mt-4 text-lg leading-8 text-muted">{area.summary}</p>
           </Card>
         </Container>

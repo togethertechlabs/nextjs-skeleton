@@ -46,7 +46,7 @@ export default async function ServiceDetailPage({
 
   return (
     <PageShell>
-      <section className="bg-white py-24">
+      <section className="industry-section bg-white py-24">
         <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <Card className="overflow-hidden">
             <div className="relative min-h-[420px]">
@@ -60,7 +60,7 @@ export default async function ServiceDetailPage({
 
             <div className="mt-8 space-y-3">
               {service.bullets.map((bullet) => (
-                <div key={bullet} className="rounded-2xl border border-line bg-panel px-5 py-4 text-muted">
+                <div key={bullet} className="industry-chip rounded-2xl border border-line bg-panel px-5 py-4 text-muted">
                   {bullet}
                 </div>
               ))}
