@@ -1,9 +1,7 @@
 import type {
-  ContentDensity,
   ContrastProfile,
   DesignDominance,
-  IndustryBranding,
-  VisualMode
+  IndustryBranding
 } from "@/lib/industry-branding";
 import type { SectionName } from "@/lib/site-config";
 

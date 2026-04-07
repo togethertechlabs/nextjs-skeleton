@@ -1,49 +1,39 @@
-import { resolveIndustryBranding } from "./industry-branding";
+import "server-only";
+import { resolveIndustryBranding } from "@/lib/industry-branding";
+import { siteConfig, type SiteConfig } from "@/lib/site-config";
 
-type SiteData = {
-  brand?: Record<string, any>;
-  intent?: Record<string, any>;
-  layout?: Record<string, any>;
-  images?: Record<string, any>;
-};
+type SiteBrandingInput = Pick<SiteConfig, "brand" | "intent" | "layout" | "images">;
 
-export function resolveSiteBranding(siteData: SiteData) {
-  const brand = siteData.brand || {};
-  const intent = siteData.intent || {};
-  const layout = siteData.layout || {};
-  const images = siteData.images || {};
-
-  const resolved = resolveIndustryBranding({
-    industry: brand.industry || "",
-    subIndustry: brand.subIndustry || "",
-    location: brand.location || "",
-    pricePosition: brand.pricePosition || "mid-market",
-    targetCustomer: brand.targetCustomer || [],
-    tone: brand.tone || [],
-    visualStyle: brand.visualStyle || [],
-    heroEnergy: brand.heroEnergy || "medium",
-    ctaStyle: brand.ctaStyle || "consultative",
-    businessIntent: intent.businessIntent || "lead-gen",
-    conversionStyle: intent.conversionStyle || "consultative",
-    serviceUrgency: intent.serviceUrgency || "medium",
-    premiumMode: intent.premiumMode ?? true,
-    layout,
-    images
+export function resolveSiteBranding(siteData: SiteBrandingInput) {
+  return resolveIndustryBranding({
+    industry: siteData.brand.industry,
+    subIndustry: siteData.brand.subIndustry,
+    folder: siteData.images.folder,
+    theme: siteData.layout.theme,
+    premiumMode: siteData.intent.premiumMode,
+    businessIntent: siteData.intent.businessIntent,
+    conversionStyle: siteData.intent.conversionStyle,
+    serviceUrgency: siteData.intent.serviceUrgency,
+    pricePosition: siteData.brand.pricePosition,
+    targetCustomer: siteData.brand.targetCustomer,
+    tone: siteData.brand.tone,
+    visualStyle: siteData.brand.visualStyle,
+    brandHeroEnergy: siteData.brand.heroEnergy,
+    brandCtaStyle: siteData.brand.ctaStyle,
+    seedSource: [
+      siteData.brand.name,
+      siteData.brand.subIndustry,
+      siteData.brand.location,
+      siteData.brand.phone,
+      siteData.brand.pricePosition,
+      siteData.intent.businessIntent,
+      siteData.intent.conversionStyle,
+      siteData.intent.serviceUrgency,
+      siteData.layout.theme,
+      siteData.layout.heroVariant,
+      siteData.layout.servicesVariant
+    ].join("|")
   });
-
-  return {
-    ...resolved,
-    businessIntent: intent.businessIntent || "lead-gen",
-    conversionStyle: intent.conversionStyle || "consultative",
-    serviceUrgency: intent.serviceUrgency || "medium",
-    premiumMode: intent.premiumMode ?? true,
-
-    pricePosition: brand.pricePosition || "mid-market",
-    targetCustomer: brand.targetCustomer || [],
-    subIndustry: brand.subIndustry || "",
-    brandTone: brand.tone || [],
-    visualStyle: brand.visualStyle || [],
-    heroEnergy: brand.heroEnergy || resolved.heroEnergy,
-    ctaStyle: brand.ctaStyle || resolved.ctaStyle
-  };
 }
+
+export const siteBranding = resolveSiteBranding(siteConfig);
