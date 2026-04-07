@@ -13,20 +13,26 @@ export function SectionHeading({
   title,
   description,
   invert = false,
-  className = ""
+  className = "",
+  eyebrowClassName = "",
+  titleClassName = "",
+  descriptionClassName = ""
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   invert?: boolean;
   className?: string;
+  eyebrowClassName?: string;
+  titleClassName?: string;
+  descriptionClassName?: string;
 }) {
   return (
     <div className={`max-w-3xl ${className}`}>
-      {eyebrow ? <p className="industry-eyebrow mb-3 text-sm uppercase tracking-[0.28em] text-accent">{eyebrow}</p> : null}
-      <h2 className={`industry-heading text-4xl font-black tracking-tight md:text-6xl ${invert ? "text-white" : "text-ink"}`}>{title}</h2>
+      {eyebrow ? <p className={`industry-eyebrow mb-3 text-sm uppercase tracking-[0.28em] text-accent ${eyebrowClassName}`}>{eyebrow}</p> : null}
+      <h2 className={`industry-heading text-4xl font-black tracking-tight md:text-6xl ${invert ? "text-white" : "text-ink"} ${titleClassName}`}>{title}</h2>
       {description ? (
-        <p className={`mt-5 text-lg leading-8 ${invert ? "text-white/75" : "text-muted"}`}>{description}</p>
+        <p className={`mt-5 text-lg leading-8 ${invert ? "text-white/75" : "text-muted"} ${descriptionClassName}`}>{description}</p>
       ) : null}
     </div>
   );
@@ -36,14 +42,14 @@ export function Card({
   children,
   className = ""
 }: PropsWithChildren<{ className?: string }>) {
-  return <div className={`industry-card industry-surface premium-card rounded-[2rem] border border-line bg-white shadow-soft ${className}`}>{children}</div>;
+  return <div className={`industry-card module-card industry-surface premium-card rounded-[2rem] border border-line bg-white shadow-soft ${className}`}>{children}</div>;
 }
 
 export function DarkCard({
   children,
   className = ""
 }: PropsWithChildren<{ className?: string }>) {
-  return <div className={`industry-dark-card industry-surface premium-card rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur ${className}`}>{children}</div>;
+  return <div className={`industry-dark-card module-card industry-surface premium-card rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur ${className}`}>{children}</div>;
 }
 
 export function PrimaryButton({

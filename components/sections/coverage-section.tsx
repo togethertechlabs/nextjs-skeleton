@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Card, Container, SectionHeading } from "@/components/ui";
 import { resolveModuleSpacing, type ResolvedModuleSpacing } from "@/lib/module-spacing";
+import { resolveModuleStyling, type ResolvedModuleStyling } from "@/lib/module-styling";
 import { siteBranding } from "@/lib/site-branding";
 import { getAreaName, getAreaSlug, getAreaSummary, siteConfig } from "@/lib/site-config";
 
@@ -13,23 +14,39 @@ function getDefaultCoverageSpacing() {
   });
 }
 
-function CoverageA({ spacing }: { spacing: ResolvedModuleSpacing }) {
+function getDefaultCoverageStyling() {
+  return resolveModuleStyling({
+    current: "coverage",
+    branding: siteBranding
+  });
+}
+
+function CoverageA({
+  spacing,
+  styling
+}: {
+  spacing: ResolvedModuleSpacing;
+  styling: ResolvedModuleStyling;
+}) {
   return (
-    <section className={`module-section ${spacing.wrapperClass} bg-panel`}>
+    <section className={`module-section ${spacing.wrapperClass} ${styling.sectionClass}`}>
       <Container>
         <SectionHeading
           eyebrow={siteConfig.coverage.eyebrow}
           title={siteConfig.coverage.heading}
           description={siteConfig.coverage.body}
+          eyebrowClassName={styling.eyebrowClass}
+          titleClassName={styling.titleClass}
+          descriptionClassName={styling.bodyClass}
         />
 
         <div className={`module-grid ${spacing.gridClass} ${spacing.leadClass} grid md:grid-cols-3`}>
           {siteConfig.coverage.areas.map((area) => (
-            <Card key={area.slug} className={`${spacing.cardClass} module-card-pad`}>
-              <p className="text-sm uppercase tracking-[0.25em] text-muted">Service area</p>
-              <h3 className="mt-4 text-4xl font-black text-ink">{getAreaName(area)}</h3>
-              <p className="mt-4 text-muted">{getAreaSummary(area)}</p>
-              <Link href={`/areas/${getAreaSlug(area)}`} className="mt-6 inline-flex font-semibold text-primary">
+            <Card key={area.slug} className={`${styling.cardClass} ${spacing.cardClass} module-card-pad`}>
+              <p className={`${styling.mutedClass} text-sm uppercase tracking-[0.25em]`}>Service area</p>
+              <h3 className={`${styling.titleClass} mt-4 text-4xl font-black`}>{getAreaName(area)}</h3>
+              <p className={`${styling.bodyClass} mt-4`}>{getAreaSummary(area)}</p>
+              <Link href={`/areas/${getAreaSlug(area)}`} className={`module-link mt-6 inline-flex font-semibold ${styling.linkClass}`}>
                 View area page
               </Link>
             </Card>
@@ -40,23 +57,32 @@ function CoverageA({ spacing }: { spacing: ResolvedModuleSpacing }) {
   );
 }
 
-function CoverageB({ spacing }: { spacing: ResolvedModuleSpacing }) {
+function CoverageB({
+  spacing,
+  styling
+}: {
+  spacing: ResolvedModuleSpacing;
+  styling: ResolvedModuleStyling;
+}) {
   return (
-    <section className={`module-section ${spacing.wrapperClass} bg-white`}>
+    <section className={`module-section ${spacing.wrapperClass} ${styling.sectionClass}`}>
       <Container className={`module-grid ${spacing.gridClass} grid lg:grid-cols-[0.4fr_0.6fr]`}>
         <SectionHeading
           eyebrow={siteConfig.coverage.eyebrow}
           title={siteConfig.coverage.heading}
           description={siteConfig.coverage.body}
+          eyebrowClassName={styling.eyebrowClass}
+          titleClassName={styling.titleClass}
+          descriptionClassName={styling.bodyClass}
         />
         <div className={`module-grid ${spacing.gridClass} grid`}>
           {siteConfig.coverage.areas.map((area) => (
-            <Link key={area.slug} href={`/areas/${getAreaSlug(area)}`} className={`module-card-pad ${spacing.cardClass} flex items-center justify-between rounded-[1.5rem] border border-line bg-panel shadow-soft`}>
+            <Link key={area.slug} href={`/areas/${getAreaSlug(area)}`} className={`module-card ${styling.cardClass} module-card-pad ${spacing.cardClass} flex items-center justify-between rounded-[1.5rem] border shadow-soft`}>
               <div>
-                <span className="block text-2xl font-black text-ink">{getAreaName(area)}</span>
-                <span className="mt-1.5 block text-sm text-muted">{getAreaSummary(area)}</span>
+                <span className={`${styling.titleClass} block text-2xl font-black`}>{getAreaName(area)}</span>
+                <span className={`${styling.bodyClass} mt-1.5 block text-sm`}>{getAreaSummary(area)}</span>
               </div>
-              <span className="text-sm uppercase tracking-[0.3em] text-primary">Explore</span>
+              <span className={`${styling.accentClass} text-sm uppercase tracking-[0.3em]`}>Explore</span>
             </Link>
           ))}
         </div>
@@ -65,6 +91,14 @@ function CoverageB({ spacing }: { spacing: ResolvedModuleSpacing }) {
   );
 }
 
-export function CoverageSection({ spacing = getDefaultCoverageSpacing() }: { spacing?: ResolvedModuleSpacing }) {
-  return siteConfig.layout.coverageVariant === "coverage-b" ? <CoverageB spacing={spacing} /> : <CoverageA spacing={spacing} />;
+export function CoverageSection({
+  spacing = getDefaultCoverageSpacing(),
+  styling = getDefaultCoverageStyling()
+}: {
+  spacing?: ResolvedModuleSpacing;
+  styling?: ResolvedModuleStyling;
+}) {
+  return siteConfig.layout.coverageVariant === "coverage-b"
+    ? <CoverageB spacing={spacing} styling={styling} />
+    : <CoverageA spacing={spacing} styling={styling} />;
 }

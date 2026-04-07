@@ -835,6 +835,279 @@ a {
   margin-top: clamp(2.85rem, 5vw, 3.5rem);
 }
 
+.module-styling {
+  --module-section-bg: var(--panel);
+  --module-section-text: var(--ink);
+  --module-title: var(--ink);
+  --module-body: var(--muted);
+  --module-muted: color-mix(in srgb, var(--muted) 86%, transparent);
+  --module-accent-text: var(--primary);
+  --module-link-color: var(--primary);
+  --module-badge-bg: color-mix(in srgb, var(--industry-accent-soft) 88%, transparent);
+  --module-badge-border: color-mix(in srgb, var(--industry-accent-strong) 18%, transparent);
+  --module-badge-text: var(--primary);
+  --module-card-bg: rgba(255, 255, 255, 0.96);
+  --module-card-border: color-mix(in srgb, var(--line) 84%, transparent);
+  --module-card-text: var(--ink);
+  --module-panel-bg: rgba(255, 255, 255, 0.94);
+  --module-panel-border: color-mix(in srgb, var(--industry-accent-strong) 14%, transparent);
+  --module-panel-text: var(--ink);
+  --module-shell-bg: var(--shell);
+  --module-shell-text: white;
+  --module-overlay-bg: linear-gradient(135deg, rgba(2,6,23,0.72), rgba(2,6,23,0.18) 58%, transparent);
+  --module-section-image: none;
+}
+
+.module-theme-section {
+  background: var(--module-section-bg);
+  background-image: var(--module-section-image);
+  color: var(--module-section-text);
+}
+
+.module-panel {
+  background: var(--module-panel-bg);
+  color: var(--module-panel-text);
+  border-color: var(--module-panel-border);
+}
+
+.module-card {
+  background: var(--module-card-bg);
+  color: var(--module-card-text);
+  border-color: var(--module-card-border);
+}
+
+.module-shell {
+  background: var(--module-shell-bg);
+  color: var(--module-shell-text);
+}
+
+.module-badge {
+  background: var(--module-badge-bg);
+  border-color: var(--module-badge-border);
+  color: var(--module-badge-text);
+}
+
+.module-text-eyebrow {
+  color: var(--module-accent-text);
+}
+
+.module-text-title {
+  color: var(--module-title);
+}
+
+.module-text-body {
+  color: var(--module-body);
+}
+
+.module-text-muted {
+  color: var(--module-muted);
+}
+
+.module-text-accent {
+  color: var(--module-accent-text);
+}
+
+.module-link {
+  color: var(--module-link-color);
+}
+
+.module-overlay {
+  background: var(--module-overlay-bg);
+}
+
+.module-surface-light {
+  --module-section-bg: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,255,255,0.94));
+  --module-section-text: var(--ink);
+  --module-title: var(--ink);
+  --module-body: var(--muted);
+  --module-muted: color-mix(in srgb, var(--muted) 86%, transparent);
+  --module-card-bg: rgba(255,255,255,0.94);
+  --module-card-border: color-mix(in srgb, var(--line) 82%, transparent);
+  --module-panel-bg: rgba(255,255,255,0.96);
+  --module-panel-text: var(--ink);
+  --module-panel-border: color-mix(in srgb, var(--industry-accent-strong) 12%, var(--line) 88%);
+  --module-section-image: linear-gradient(180deg, rgba(255,255,255,0.28), transparent 24%);
+}
+
+.module-surface-dark {
+  --module-section-bg: color-mix(in srgb, var(--shell) 96%, black 4%);
+  --module-section-text: white;
+  --module-title: white;
+  --module-body: rgba(255,255,255,0.76);
+  --module-muted: rgba(255,255,255,0.62);
+  --module-card-bg: rgba(255,255,255,0.06);
+  --module-card-border: rgba(255,255,255,0.12);
+  --module-card-text: white;
+  --module-panel-bg: rgba(2,6,23,0.4);
+  --module-panel-text: white;
+  --module-panel-border: rgba(255,255,255,0.14);
+  --module-badge-bg: rgba(255,255,255,0.08);
+  --module-badge-border: rgba(255,255,255,0.14);
+  --module-badge-text: white;
+  --module-link-color: color-mix(in srgb, var(--primary) 82%, white 18%);
+  --module-overlay-bg: linear-gradient(135deg, rgba(2,6,23,0.78), rgba(2,6,23,0.22) 58%, transparent);
+  --module-section-image: linear-gradient(180deg, rgba(255,255,255,0.05), transparent 24%);
+}
+
+.module-surface-gradient {
+  --module-section-bg: linear-gradient(135deg, color-mix(in srgb, var(--shell) 94%, black 6%), color-mix(in srgb, var(--primary) 18%, var(--shell) 82%) 52%, color-mix(in srgb, var(--shell) 96%, black 4%));
+  --module-section-text: white;
+  --module-title: white;
+  --module-body: rgba(255,255,255,0.8);
+  --module-muted: rgba(255,255,255,0.68);
+  --module-card-bg: rgba(255,255,255,0.08);
+  --module-card-border: rgba(255,255,255,0.14);
+  --module-card-text: white;
+  --module-panel-bg: rgba(2,6,23,0.34);
+  --module-panel-text: white;
+  --module-panel-border: rgba(255,255,255,0.14);
+  --module-badge-bg: color-mix(in srgb, var(--industry-accent-soft) 56%, rgba(255,255,255,0.08) 44%);
+  --module-badge-border: color-mix(in srgb, var(--industry-accent-strong) 24%, rgba(255,255,255,0.14) 76%);
+  --module-badge-text: color-mix(in srgb, var(--primary) 84%, white 16%);
+  --module-link-color: color-mix(in srgb, var(--primary) 86%, white 14%);
+  --module-overlay-bg: linear-gradient(135deg, rgba(2,6,23,0.76), rgba(2,6,23,0.18) 58%, transparent);
+  --module-section-image: radial-gradient(circle at 18% 16%, color-mix(in srgb, var(--industry-accent-soft) 64%, transparent), transparent 36%);
+}
+
+.module-surface-glass {
+  --module-section-bg: linear-gradient(180deg, color-mix(in srgb, var(--shell) 84%, transparent), color-mix(in srgb, var(--shell) 92%, transparent));
+  --module-section-text: white;
+  --module-title: white;
+  --module-body: rgba(255,255,255,0.78);
+  --module-muted: rgba(255,255,255,0.64);
+  --module-card-bg: rgba(255,255,255,0.08);
+  --module-card-border: rgba(255,255,255,0.16);
+  --module-card-text: white;
+  --module-panel-bg: rgba(255,255,255,0.08);
+  --module-panel-text: white;
+  --module-panel-border: rgba(255,255,255,0.16);
+  --module-badge-bg: rgba(255,255,255,0.08);
+  --module-badge-border: rgba(255,255,255,0.16);
+  --module-badge-text: white;
+  --module-overlay-bg: linear-gradient(135deg, rgba(2,6,23,0.68), rgba(2,6,23,0.16) 58%, transparent);
+  --module-section-image: linear-gradient(180deg, rgba(255,255,255,0.05), transparent 22%);
+}
+
+.module-surface-mixed {
+  --module-section-bg: linear-gradient(180deg, color-mix(in srgb, var(--panel) 88%, white 12%), color-mix(in srgb, white 90%, var(--panel) 10%));
+  --module-section-text: var(--ink);
+  --module-title: var(--ink);
+  --module-body: var(--muted);
+  --module-muted: color-mix(in srgb, var(--muted) 86%, transparent);
+  --module-card-bg: rgba(255,255,255,0.96);
+  --module-card-border: color-mix(in srgb, var(--line) 82%, transparent);
+  --module-card-text: var(--ink);
+  --module-panel-bg: linear-gradient(135deg, color-mix(in srgb, var(--shell) 90%, black 10%), color-mix(in srgb, var(--primary) 18%, var(--shell) 82%));
+  --module-panel-text: white;
+  --module-panel-border: color-mix(in srgb, var(--industry-accent-strong) 18%, rgba(255,255,255,0.14) 82%);
+  --module-overlay-bg: linear-gradient(135deg, rgba(2,6,23,0.74), rgba(2,6,23,0.18) 58%, transparent);
+  --module-section-image: linear-gradient(180deg, rgba(255,255,255,0.18), transparent 22%);
+}
+
+.module-bg-flat {
+  --module-section-image: none;
+}
+
+.module-bg-subtle-gradient {
+  --module-section-image:
+    linear-gradient(180deg, rgba(255,255,255,0.08), transparent 22%),
+    radial-gradient(circle at top left, color-mix(in srgb, var(--industry-accent-soft) 42%, transparent), transparent 28%);
+}
+
+.module-bg-premium-glow {
+  --module-section-image:
+    linear-gradient(180deg, rgba(255,255,255,0.08), transparent 18%),
+    radial-gradient(circle at 16% 16%, color-mix(in srgb, var(--industry-accent-soft) 66%, transparent), transparent 34%),
+    radial-gradient(circle at 82% 84%, color-mix(in srgb, var(--industry-accent-glow) 28%, transparent), transparent 30%);
+}
+
+.module-accent-minimal {
+  --module-accent-text: color-mix(in srgb, var(--primary) 72%, var(--module-title) 28%);
+  --module-badge-bg: color-mix(in srgb, var(--industry-accent-soft) 56%, transparent);
+  --module-badge-border: color-mix(in srgb, var(--industry-accent-strong) 14%, transparent);
+}
+
+.module-accent-balanced {
+  --module-accent-text: var(--primary);
+  --module-badge-bg: color-mix(in srgb, var(--industry-accent-soft) 80%, transparent);
+  --module-badge-border: color-mix(in srgb, var(--industry-accent-strong) 20%, transparent);
+}
+
+.module-accent-strong {
+  --module-accent-text: color-mix(in srgb, var(--primary) 88%, white 12%);
+  --module-badge-bg: color-mix(in srgb, var(--industry-accent-soft) 94%, transparent);
+  --module-badge-border: color-mix(in srgb, var(--industry-accent-strong) 30%, transparent);
+}
+
+.module-contrast-soft {
+  --module-card-border: color-mix(in srgb, var(--module-card-border) 74%, white 26%);
+  --module-panel-border: color-mix(in srgb, var(--module-panel-border) 74%, white 26%);
+}
+
+.module-contrast-high {
+  --module-card-border: color-mix(in srgb, var(--module-card-border) 122%, black 8%);
+  --module-panel-border: color-mix(in srgb, var(--module-panel-border) 122%, black 8%);
+}
+
+.module-cardstyle-flat .module-card,
+.module-cardstyle-flat .module-panel {
+  box-shadow:
+    0 10px 22px rgba(15,23,42,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.78);
+}
+
+.module-cardstyle-bordered .module-card,
+.module-cardstyle-bordered .module-panel {
+  box-shadow:
+    0 12px 26px rgba(15,23,42,0.08),
+    inset 0 0 0 1px color-mix(in srgb, var(--module-card-border) 88%, transparent),
+    inset 0 1px 0 rgba(255,255,255,0.82);
+}
+
+.module-cardstyle-elevated .module-card,
+.module-cardstyle-elevated .module-panel {
+  box-shadow:
+    0 20px 42px rgba(15,23,42,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.86);
+}
+
+.module-cardstyle-glass .module-card,
+.module-cardstyle-glass .module-panel {
+  backdrop-filter: blur(16px) saturate(135%);
+  box-shadow:
+    0 22px 46px rgba(2,6,23,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+.module-emphasis-text .industry-chip {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    0 8px 18px color-mix(in srgb, var(--industry-accent-glow) 10%, transparent);
+}
+
+.module-emphasis-accent .industry-chip,
+.module-emphasis-accent .module-badge {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.14),
+    0 12px 26px color-mix(in srgb, var(--industry-accent-glow) 22%, transparent);
+}
+
+.module-accent-minimal .industry-button-primary {
+  box-shadow:
+    0 12px 24px color-mix(in srgb, var(--industry-accent-glow) 12%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--industry-accent-strong) 12%, transparent);
+}
+
+.module-accent-strong .industry-button-primary {
+  box-shadow:
+    var(--industry-button-shadow),
+    0 0 32px color-mix(in srgb, var(--industry-accent-glow) 28%, transparent);
+}
+
+.module-accent-minimal .industry-button-secondary {
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--industry-accent-glow) 10%, transparent);
+}
+
 .industry-hero-media {
   position: relative;
 }

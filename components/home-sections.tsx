@@ -24,6 +24,7 @@ import {
 } from "@/lib/layout-compat";
 import { getIndustrySectionWrapperClass } from "@/lib/industry-branding";
 import { resolveModuleSpacing } from "@/lib/module-spacing";
+import { resolveModuleStyling } from "@/lib/module-styling";
 import { siteBranding } from "@/lib/site-branding";
 import { type SectionName, siteConfig } from "@/lib/site-config";
 
@@ -49,37 +50,43 @@ function getSectionPlan(
     premiumMode: siteBranding.premiumMode,
     contentDensity: siteBranding.contentDensity
   });
+  const styling = resolveModuleStyling({
+    current: section,
+    previous: previousSection,
+    next: nextSection,
+    branding: siteBranding
+  });
   let metadata: SectionMetadata;
   let node: ReactNode;
 
   switch (section) {
     case "hero":
       metadata = getHeroSectionMetadata(siteConfig.layout.heroVariant);
-      node = <HeroSection spacing={spacing} topPaddingClass={heroTopPaddingClass} />;
+      node = <HeroSection spacing={spacing} styling={styling} topPaddingClass={heroTopPaddingClass} />;
       break;
     case "trustBar":
       metadata = getTrustBarSectionMetadata();
-      node = <TrustBarSection spacing={spacing} />;
+      node = <TrustBarSection spacing={spacing} styling={styling} />;
       break;
     case "services":
       metadata = getServicesSectionMetadata(siteConfig.layout.servicesVariant);
-      node = <ServicesSection spacing={spacing} />;
+      node = <ServicesSection spacing={spacing} styling={styling} />;
       break;
     case "about":
       metadata = getAboutSectionMetadata(siteConfig.layout.aboutVariant);
-      node = <AboutSection spacing={spacing} />;
+      node = <AboutSection spacing={spacing} styling={styling} />;
       break;
     case "coverage":
       metadata = getCoverageSectionMetadata(siteConfig.layout.coverageVariant);
-      node = <CoverageSection spacing={spacing} />;
+      node = <CoverageSection spacing={spacing} styling={styling} />;
       break;
     case "faq":
       metadata = getFaqSectionMetadata(siteConfig.layout.faqVariant);
-      node = <FaqSection spacing={spacing} />;
+      node = <FaqSection spacing={spacing} styling={styling} />;
       break;
     case "cta":
       metadata = getCtaSectionMetadata(siteConfig.layout.ctaVariant);
-      node = <CtaSection spacing={spacing} />;
+      node = <CtaSection spacing={spacing} styling={styling} />;
       break;
     case "testimonials": {
       const compatibility = getTestimonialsCompatibility(previousMetadata, siteConfig.layout.testimonialsVariant);
@@ -87,6 +94,7 @@ function getSectionPlan(
       node = (
         <TestimonialsSection
           spacing={spacing}
+          styling={styling}
           variantOverride={compatibility.variant}
           spacingClassName={compatibility.spacingClassName}
         />
