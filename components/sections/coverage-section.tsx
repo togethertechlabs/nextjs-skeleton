@@ -4,7 +4,7 @@ import { getAreaName, getAreaSlug, getAreaSummary, siteConfig } from "@/lib/site
 
 function CoverageA() {
   return (
-    <section className="bg-panel py-24">
+    <section className="bg-panel py-20">
       <Container>
         <SectionHeading
           eyebrow={siteConfig.coverage.eyebrow}
@@ -12,11 +12,11 @@ function CoverageA() {
           description={siteConfig.coverage.body}
         />
 
-        <div className="mt-14 grid gap-8 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
           {siteConfig.coverage.areas.map((area) => (
-            <Card key={area.slug} className="p-8">
+            <Card key={area.slug} className="p-7">
               <p className="text-sm uppercase tracking-[0.25em] text-muted">Service area</p>
-              <h3 className="mt-5 text-4xl font-black text-ink">{getAreaName(area)}</h3>
+              <h3 className="mt-4 text-4xl font-black text-ink">{getAreaName(area)}</h3>
               <p className="mt-4 text-muted">{getAreaSummary(area)}</p>
               <Link href={`/areas/${getAreaSlug(area)}`} className="mt-6 inline-flex font-semibold text-primary">
                 View area page
@@ -31,8 +31,8 @@ function CoverageA() {
 
 function CoverageB() {
   return (
-    <section className="bg-white py-24">
-      <Container className="grid gap-10 lg:grid-cols-[0.4fr_0.6fr]">
+    <section className="bg-white py-20">
+      <Container className="grid gap-8 lg:grid-cols-[0.4fr_0.6fr]">
         <SectionHeading
           eyebrow={siteConfig.coverage.eyebrow}
           title={siteConfig.coverage.heading}
@@ -40,10 +40,10 @@ function CoverageB() {
         />
         <div className="grid gap-4">
           {siteConfig.coverage.areas.map((area) => (
-            <Link key={area.slug} href={`/areas/${getAreaSlug(area)}`} className="flex items-center justify-between rounded-[1.5rem] border border-line bg-panel px-6 py-5 shadow-soft">
+            <Link key={area.slug} href={`/areas/${getAreaSlug(area)}`} className="flex items-center justify-between rounded-[1.5rem] border border-line bg-panel px-6 py-[1.125rem] shadow-soft">
               <div>
                 <span className="block text-2xl font-black text-ink">{getAreaName(area)}</span>
-                <span className="mt-2 block text-sm text-muted">{getAreaSummary(area)}</span>
+                <span className="mt-1.5 block text-sm text-muted">{getAreaSummary(area)}</span>
               </div>
               <span className="text-sm uppercase tracking-[0.3em] text-primary">Explore</span>
             </Link>

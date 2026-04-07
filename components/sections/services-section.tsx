@@ -14,14 +14,14 @@ function ServiceLink({ slug }: { slug: string }) {
 
 function ServicesA() {
   return (
-    <section className="bg-panel py-24">
+    <section className="bg-panel py-20">
       <Container>
         <SectionHeading
           eyebrow={siteConfig.servicesIntro.eyebrow}
           title={siteConfig.servicesIntro.heading}
           description={siteConfig.servicesIntro.body}
         />
-        <div className={`mt-16 grid gap-8 ${siteBranding.servicesGridClassName}`}>
+        <div className={`mt-12 grid gap-6 ${siteBranding.servicesGridClassName}`}>
           {siteConfig.services.map((service, index) => (
             <Card key={service.slug} className="industry-service-card overflow-hidden">
               <div className="relative h-56">
@@ -42,8 +42,8 @@ function ServicesA() {
 
 function ServicesB() {
   return (
-    <section className="bg-white py-24">
-      <Container className="grid gap-12 lg:grid-cols-[0.35fr_0.65fr]">
+    <section className="bg-white py-20">
+      <Container className="grid gap-10 lg:grid-cols-[0.35fr_0.65fr]">
         <div>
           <SectionHeading
             eyebrow={siteConfig.servicesIntro.eyebrow}
@@ -79,7 +79,7 @@ function ServicesB() {
 
 function ServicesC() {
   return (
-    <section className="bg-panel py-24">
+    <section className="bg-panel py-20">
       <Container>
         <SectionHeading
           eyebrow={siteConfig.servicesIntro.eyebrow}
@@ -87,13 +87,13 @@ function ServicesC() {
           description={siteConfig.servicesIntro.body}
         />
 
-        <div className={`mt-14 grid gap-6 ${siteBranding.servicesGridClassName}`}>
+        <div className={`mt-12 grid gap-5 ${siteBranding.servicesGridClassName}`}>
           {siteConfig.services.map((service, index) => (
             <article key={service.slug} className="industry-service-card rounded-[2rem] border border-line bg-shell p-[calc(var(--section-card-padding,var(--industry-card-padding))-0.35rem)] text-white shadow-glow">
               <div className="overflow-hidden rounded-[1.5rem]">
                 <Image src={getImagePath("services", index)} alt={service.title} width={800} height={500} className="h-48 w-full object-cover" />
               </div>
-              <div className="px-2 pb-2 pt-6">
+              <div className="px-2 pb-2 pt-5">
                 <p className="industry-eyebrow text-xs uppercase tracking-[0.3em] text-accent">Core service</p>
                 <h3 className="industry-heading mt-3 text-2xl font-black">{service.title}</h3>
                 <p className="mt-3 text-base leading-8 text-white/75">{service.description}</p>

@@ -5,16 +5,16 @@ import { getImagePath, siteConfig } from "@/lib/site-config";
 
 function AboutA() {
   return (
-    <section className="bg-white py-24">
-      <Container className="grid gap-12 lg:grid-cols-[1fr_0.9fr]">
-        <div>
+    <section className="bg-white py-20">
+      <Container className="grid items-start gap-10 lg:grid-cols-[1fr_0.9fr]">
+        <div className="self-start">
           <SectionHeading
             eyebrow={siteConfig.about.eyebrow}
             title={siteConfig.about.heading}
             description={siteConfig.about.body}
           />
 
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
+          <div className="mt-8 grid gap-3 md:grid-cols-3">
             {siteConfig.about.highlights.map((item) => (
               <Card key={item} className="industry-chip p-[calc(var(--section-card-padding,var(--industry-card-padding))-0.35rem)] text-lg font-semibold text-ink">
                 {item}
@@ -23,9 +23,9 @@ function AboutA() {
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="self-start space-y-5">
           <Card className="overflow-hidden">
-            <div className="relative h-72">
+            <div className="relative h-72 md:h-[19rem]">
               <Image src={getImagePath("about")} alt={siteConfig.about.heading} fill className="object-cover" />
             </div>
           </Card>
@@ -43,22 +43,22 @@ function AboutA() {
 
 function AboutB() {
   return (
-    <section className="bg-panel py-24">
-      <Container className="grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+    <section className="bg-panel py-20">
+      <Container className="grid items-start gap-10 lg:grid-cols-[0.95fr_1.05fr]">
         <Card className="overflow-hidden">
-          <div className="relative min-h-[480px]">
+          <div className="relative min-h-[440px]">
             <Image src={getImagePath("about")} alt={siteConfig.about.heading} fill className="object-cover" />
           </div>
         </Card>
 
-        <div>
+        <div className="self-start">
           <SectionHeading
             eyebrow={siteConfig.about.eyebrow}
             title={siteConfig.about.heading}
             description={siteConfig.about.body}
           />
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <div className="mt-7 grid gap-3 sm:grid-cols-2">
             {siteConfig.about.highlights.map((item) => (
               <div key={item} className="industry-chip rounded-[1.5rem] border border-line bg-white px-[calc(var(--section-card-padding,var(--industry-card-padding))-0.35rem)] py-[calc(var(--section-card-padding,var(--industry-card-padding))-0.55rem)] text-lg font-semibold text-ink shadow-soft">
                 {item}
@@ -66,10 +66,10 @@ function AboutB() {
             ))}
           </div>
 
-          <Card className="mt-8 p-[var(--section-card-padding,var(--industry-card-padding))]">
+          <Card className="mt-7 p-[var(--section-card-padding,var(--industry-card-padding))]">
             <p className="industry-eyebrow text-sm uppercase tracking-[0.28em] text-primary">{siteConfig.about.cardEyebrow}</p>
             <h3 className="industry-heading mt-4 text-3xl font-black text-ink">{siteConfig.about.cardTitle}</h3>
-            <p className="mt-5 text-lg leading-8 text-muted">{siteConfig.about.cardBody}</p>
+            <p className="mt-4 text-lg leading-8 text-muted">{siteConfig.about.cardBody}</p>
           </Card>
         </div>
       </Container>

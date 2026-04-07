@@ -33,6 +33,37 @@ type PlannedSection = {
   wrapperClassName?: string;
 };
 
+function getSectionSpacingTier(section: SectionName) {
+  if (section === "coverage" || section === "faq") {
+    return "supporting";
+  }
+
+  if (siteBranding.designDominance === "hero" && section === "hero") {
+    return "dominant";
+  }
+
+  if (siteBranding.designDominance === "services" && section === "services") {
+    return "dominant";
+  }
+
+  if (siteBranding.designDominance === "cta" && section === "cta") {
+    return "dominant";
+  }
+
+  if (
+    siteBranding.designDominance === "trust" &&
+    (section === "trustBar" || section === "testimonials")
+  ) {
+    return "dominant";
+  }
+
+  if (section === "testimonials" || section === "about") {
+    return "supporting";
+  }
+
+  return "standard";
+}
+
 function getSectionPlan(
   section: SectionName,
   previousMetadata: SectionMetadata | null,
@@ -91,7 +122,8 @@ function getSectionPlan(
     metadata,
     wrapperClassName: [
       getSectionTransitionClass(previousMetadata, metadata),
-      getIndustrySectionWrapperClass(siteBranding, section)
+      getIndustrySectionWrapperClass(siteBranding, section),
+      `spacing-${getSectionSpacingTier(section)}`
     ].filter(Boolean).join(" ")
   };
 }
